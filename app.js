@@ -106,8 +106,8 @@ document.addEventListener('alpine:init', () => {
 
     // --------------------------
     async testRequest() {
-      fetch('https://jsonplaceholder.typicode.com/users')
-        //fetch('https://ftlcafe.pythonanywhere.com/Products/')
+      //fetch('https://jsonplaceholder.typicode.com/users')
+      fetch('https://ftlcafe.pythonanywhere.com/Users/login')
         .then(res => {
           // The .json() method reads the response stream and returns a promise
           return res.json();
