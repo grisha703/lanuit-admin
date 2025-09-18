@@ -57,6 +57,7 @@ document.addEventListener('alpine:init', () => {
       try {
         const response = await fetch('https://ftlcafe.pythonanywhere.com/Users/login', {
           method: 'POST',
+          credentials: 'include',
           headers: {
             'accept': 'application/json',
             'Content-Type': 'application/json'
@@ -86,7 +87,7 @@ document.addEventListener('alpine:init', () => {
         const data = JSON.parse(text); // Now parse the text as JSON
         console.log('API response:', data);
 
-        if (data.token) { // Check for a token or specific success indicator
+        if (typeof data.token === 'string') { // Check for a token or specific success indicator
           this.user = this.loginUsername;
           this.page = 'main';
           this.activeTab = 'tab1';
@@ -105,21 +106,21 @@ document.addEventListener('alpine:init', () => {
 
     // --------------------------
     async testRequest() {
-  fetch('https://jsonplaceholder.typicode.com/users')
-  //fetch('https://ftlcafe.pythonanywhere.com/Products/')
-  .then(res => {
-    // The .json() method reads the response stream and returns a promise
-    return res.json();
-  })
-  .then(data => {
-    // This second .then() receives the parsed JSON data
-    console.log(data);
-  })
-  .catch(error => {
-    // A good practice is to add a .catch() for error handling
-    console.error('There was an error fetching the data:', error);
-  });
-}
+      fetch('https://jsonplaceholder.typicode.com/users')
+        //fetch('https://ftlcafe.pythonanywhere.com/Products/')
+        .then(res => {
+          // The .json() method reads the response stream and returns a promise
+          return res.json();
+        })
+        .then(data => {
+          // This second .then() receives the parsed JSON data
+          console.log(data);
+        })
+        .catch(error => {
+          // A good practice is to add a .catch() for error handling
+          console.error('There was an error fetching the data:', error);
+        });
+    }
 
 
 
