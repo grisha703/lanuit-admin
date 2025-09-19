@@ -94,7 +94,15 @@ document.addEventListener('alpine:init', () => {
           console.log('Login successful');
         } else {
           //alert('Invalid username or password:');
-          alert('Invalid username or password: ' + data.token);
+          //alert('Invalid username or password: ' + data.token);
+
+          if (typeof data.token === "undefined") {
+            alert("Token is truly undefined");
+          } else if (data.token === "undefined") {
+            alert('Token is the string "undefined"');
+          } else {
+            alert("Token:", data.token);
+          }
         }
       } catch (err) {
         // Use this.page and this.activeTab only if needed for navigation to a specific page
