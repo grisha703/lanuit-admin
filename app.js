@@ -95,7 +95,7 @@ document.addEventListener('alpine:init', () => {
           console.log('Login successful');
         } else {
           //alert('Invalid username or password:');
-          alert('Invalid username or password: ' + data.token);
+          alert('Invalid username or password: ' + token);
         }
       } catch (err) {
         // Use this.page and this.activeTab only if needed for navigation to a specific page
