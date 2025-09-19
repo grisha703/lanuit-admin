@@ -87,22 +87,15 @@ document.addEventListener('alpine:init', () => {
         const data = JSON.parse(text); // Now parse the text as JSON
         console.log('API response:', data);
 
-        if (data.token) { // Check for a token or specific success indicator
+        const token = data["access token"];
+        if (token) { // Check for a token or specific success indicator
           this.user = this.loginUsername;
           this.page = 'main';
           this.activeTab = 'tab1';
           console.log('Login successful');
         } else {
           //alert('Invalid username or password:');
-          //alert('Invalid username or password: ' + data.token);
-
-          if (typeof data.token === "undefined") {
-            alert("Token is truly undefined");
-          } else if (data.token === "undefined") {
-            alert('Token is the string "undefined"');
-          } else {
-            alert("Token:", data.token);
-          }
+          alert('Invalid username or password: ' + data.token);
         }
       } catch (err) {
         // Use this.page and this.activeTab only if needed for navigation to a specific page
