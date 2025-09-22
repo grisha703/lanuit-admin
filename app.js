@@ -9,6 +9,7 @@ document.addEventListener('alpine:init', () => {
     // Currently logged-in user; null means no user is logged in
     // --------------------------
     user: null,
+    id: null,
 
     // --------------------------
     // Active tab in a tabbed interface; default is 'tab1'
@@ -89,39 +90,82 @@ document.addEventListener('alpine:init', () => {
 
         const token = data["access token"];
         if (token) { // Check for a token or specific success indicator
+          // Use this.page and this.activeTab only if needed for navigation to a specific page
           this.user = this.loginUsername;
           this.page = 'main';
           this.activeTab = 'tab1';
           console.log('Login successful');
         } else {
-          //alert('Invalid username or password:');
-          alert('Invalid username or password: ' + token);
+          alert('Invalid username or password:');
+          //alert('Invalid username or password: ' + token);
         }
       } catch (err) {
-        // Use this.page and this.activeTab only if needed for navigation to a specific page
-        //this.page = 'main';
-        //this.activeTab = 'tab1';
         console.error(err);
         alert('Login failed. Please check your credentials.');
       }
     },
 
     // --------------------------
-    async testRequest() {
-      fetch('https://jsonplaceholder.typicode.com/users')
-        //fetch('https://ftlcafe.pythonanywhere.com/Products/')
-        .then(res => {
-          // The .json() method reads the response stream and returns a promise
-          return res.json();
-        })
-        .then(data => {
-          // This second .then() receives the parsed JSON data
-          console.log(data);
-        })
-        .catch(error => {
-          // A good practice is to add a .catch() for error handling
-          console.error('There was an error fetching the data:', error);
+    // Register management
+    // --------------------------
+    async register() {
+      console.log('Register clicked', this.registerUsername, this.registerPassword, this.confirmPassword);
+
+      if (!this.registerUsername.trim() || !this.registerPassword.trim()) {
+        alert('Please enter username and password!');
+        return;
+      }
+
+      if (this.registerPassword !== this.confirmPassword) {
+        alert('Passwords do not match!');
+        return;
+      }
+
+      try {
+        const response = await fetch('https://ftlcafe.pythonanywhere.com/Users/register', {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: this.registerUsername,
+            password: this.registerPassword
+          })
         });
+
+        console.log('Status:', response.status);
+
+        const text = await response.text();
+        console.log('Raw response body:', text);
+
+        if (!response.ok) {
+          // Try to parse JSON error if possible
+          try {
+            const errorData = JSON.parse(text);
+            throw new Error(errorData.detail || 'Registration failed');
+          } catch {
+            throw new Error('Registration failed: ' + text);
+          }
+        }
+
+        const data = JSON.parse(text);
+        console.log('API response:', data);
+
+        // ✅ Validate the returned data based on response
+        if (data.id && data.email) {
+          this.id = data.id;
+          this.user = data.email;
+          this.page = 'registerResponse';
+          console.log('Registration successful for user ID:', data.id);
+        } else {
+          alert('Unexpected response format.');
+        }
+      } catch (err) {
+        console.error(err);
+        alert(err.message || 'Registration failed. Please try again.');
+      }
     }
 
 
@@ -135,7 +179,9 @@ document.addEventListener('alpine:init', () => {
 // Animated image
 // --------------------------
 const img = document.getElementById('animatedImage');
-img.addEventListener('animationend', () => {
-  document.body.classList.add('show-new-screen');
-  img.style.display = 'none';
-});
+if (img) {
+  img.addEventListener('animationend', () => {
+    document.body.classList.add('show-new-screen');
+    img.style.display = 'none';
+  });
+}
