@@ -91,14 +91,13 @@ document.addEventListener('alpine:init', () => {
         const token = data["access token"];
         if (token) { // Check for a token or specific success indicator
           // Use this.page and this.activeTab only if needed for navigation to a specific page
+          //alert('User token: ' + token);
           this.user = this.loginUsername;
-          alert('User token: ' + token);
           this.page = 'main';
           this.activeTab = 'tab1';
           console.log('Login successful');
         } else {
           alert('Invalid username or password:');
-          alert('Invalid username or password: ' + token);
         }
       } catch (err) {
         console.error(err);
@@ -158,8 +157,8 @@ document.addEventListener('alpine:init', () => {
         if (data.id && data.email) {
           this.id = data.id;
           this.user = data.email;
-          alert('User id: ' + this.id);
-          alert('User email: ' + this.email);
+          alert('User id: ' + data.id);
+          alert('User email: ' + data.email);
           this.page = 'registerResponse';
           console.log('Registration successful for user ID:', data.id);
         } else {
