@@ -88,8 +88,7 @@ document.addEventListener('alpine:init', () => {
         const data = JSON.parse(text); // Now parse the text as JSON
         console.log('API response:', data);
 
-        //const token = data["access token"];
-        const token = data.token;
+        const token = data["access token"];
         if (token) { // Check for a token or specific success indicator
           // Use this.page and this.activeTab only if needed for navigation to a specific page
           this.user = this.loginUsername;
