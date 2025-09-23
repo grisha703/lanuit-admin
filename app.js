@@ -88,16 +88,18 @@ document.addEventListener('alpine:init', () => {
         const data = JSON.parse(text); // Now parse the text as JSON
         console.log('API response:', data);
 
-        const token = data["access token"];
+        //const token = data["access token"];
+        const token = data.token;
         if (token) { // Check for a token or specific success indicator
           // Use this.page and this.activeTab only if needed for navigation to a specific page
           this.user = this.loginUsername;
+          alert('User token: ' + token);
           this.page = 'main';
           this.activeTab = 'tab1';
           console.log('Login successful');
         } else {
           alert('Invalid username or password:');
-          //alert('Invalid username or password: ' + token);
+          alert('Invalid username or password: ' + token);
         }
       } catch (err) {
         console.error(err);
@@ -157,7 +159,8 @@ document.addEventListener('alpine:init', () => {
         if (data.id && data.email) {
           this.id = data.id;
           this.user = data.email;
-          alert('User id: ' + this.id, 'User email: ' + this.email);
+          alert('User id: ' + this.id);
+          alert('User email: ' + this.email);
           this.page = 'registerResponse';
           console.log('Registration successful for user ID:', data.id);
         } else {
