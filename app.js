@@ -157,8 +157,6 @@ document.addEventListener('alpine:init', () => {
         if (data.id && data.email) {
           this.id = data.id;
           this.user = data.email;
-          alert('User id: ' + data.id);
-          alert('User email: ' + data.email);
           this.page = 'registerResponse';
           console.log('Registration successful for user ID:', data.id);
         } else {
