@@ -91,7 +91,7 @@ document.addEventListener('alpine:init', () => {
         console.log('API response:', data);
 
         this.token = data["access token"];
-        if (token) { // Check for a token or specific success indicator
+        if (this.token) { // Check for a token or specific success indicator
           // Use this.page and this.activeTab only if needed for navigation to a specific page
           //alert('User token: ' + token);
           this.user = this.loginUsername;
