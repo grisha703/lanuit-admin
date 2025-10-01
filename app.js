@@ -98,7 +98,7 @@ document.addEventListener('alpine:init', () => {
           this.page = 'main';
           this.activeTab = 'tab1';
           console.log('Login successful');
-          userInfo()
+          //userInfo()
         } else {
           alert('Invalid username or password:');
         }
