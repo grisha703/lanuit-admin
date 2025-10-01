@@ -98,7 +98,7 @@ document.addEventListener('alpine:init', () => {
           this.page = 'main';
           this.activeTab = 'tab1';
           console.log('Login successful');
-          //userInfo()
+          userInfo()
         } else {
           alert('Invalid username or password:');
         }
@@ -211,7 +211,7 @@ document.addEventListener('alpine:init', () => {
           this.userRole = userRole;
           //this.page = 'registerResponse';
           //console.log('Successfully fetched user info for token:', token);
-          alert('Successfully fetched user info for token: ' + token);
+          alert('Successfully fetched user info for token: ' + token + this.userRole);
         } else {
           alert('Unexpected response format.');
         }
