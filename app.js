@@ -21,6 +21,8 @@ document.addEventListener('alpine:init', () => {
     // --------------------------
     loginUsername: '',  // Username input for login form
     loginPassword: '',  // Password input for login form
+    token: '',          // Token received after login
+    userRole: '',      // User role (e.g., admin, user)
 
     // --------------------------
     // Register form fields
@@ -88,7 +90,7 @@ document.addEventListener('alpine:init', () => {
         const data = JSON.parse(text); // Now parse the text as JSON
         console.log('API response:', data);
 
-        const token = data["access token"];
+        this.token = data["access token"];
         if (token) { // Check for a token or specific success indicator
           // Use this.page and this.activeTab only if needed for navigation to a specific page
           //alert('User token: ' + token);
@@ -96,6 +98,7 @@ document.addEventListener('alpine:init', () => {
           this.page = 'main';
           this.activeTab = 'tab1';
           console.log('Login successful');
+          userInfo()
         } else {
           alert('Invalid username or password:');
         }
@@ -113,11 +116,6 @@ document.addEventListener('alpine:init', () => {
 
       if (!this.registerUsername.trim() || !this.registerPassword.trim()) {
         alert('Please enter username and password!');
-        return;
-      }
-
-      if (this.registerPassword !== this.confirmPassword) {
-        alert('Passwords do not match!');
         return;
       }
 
@@ -172,30 +170,21 @@ document.addEventListener('alpine:init', () => {
     // User Info management
     // --------------------------
     async userInfo() {
-      console.log('Register clicked', this.registerUsername, this.registerPassword, this.confirmPassword);
+      //console.log('Register clicked', this.registerUsername, this.registerPassword, this.confirmPassword);
 
-      if (!this.registerUsername.trim() || !this.registerPassword.trim()) {
-        alert('Please enter username and password!');
-        return;
-      }
-
-      if (this.registerPassword !== this.confirmPassword) {
-        alert('Passwords do not match!');
+      if (token) { // Check for a token or specific success indicator
+        alert('Please log in before checking your user information.');
         return;
       }
 
       try {
-        const response = await fetch('https://ftlcafe.pythonanywhere.com/Users/register', {
+        const response = await fetch('https://ftlcafe.pythonanywhere.com/Users/user/info', {
           method: 'POST',
           credentials: 'include',
           headers: {
             'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email: this.registerUsername,
-            password: this.registerPassword
-          })
+            'Authorization': 'Bearer ' + this.token,
+          }
         });
 
         console.log('Status:', response.status);
@@ -207,27 +196,28 @@ document.addEventListener('alpine:init', () => {
           // Try to parse JSON error if possible
           try {
             const errorData = JSON.parse(text);
-            throw new Error(errorData.detail || 'Registration failed');
+            throw new Error(errorData.detail || 'Failed to fetch user info');
           } catch {
-            throw new Error('Registration failed: ' + text);
+            throw new Error('Failed to fetch user info: ' + text);
           }
         }
 
         const data = JSON.parse(text);
         console.log('API response:', data);
+        let userRole = data["user_role"];
 
         // ✅ Validate the returned data based on response
-        if (data.id && data.email) {
-          this.id = data.id;
-          this.user = data.email;
-          this.page = 'registerResponse';
-          console.log('Registration successful for user ID:', data.id);
+        if (userRole) {
+          this.userRole = userRole;
+          //this.page = 'registerResponse';
+          //console.log('Successfully fetched user info for token:', token);
+          alert('Successfully fetched user info for token: ' + token);
         } else {
           alert('Unexpected response format.');
         }
       } catch (err) {
         console.error(err);
-        alert(err.message || 'Registration failed. Please try again.');
+        alert(err.message || 'Failed to fetch user info. Please try again.');
       }
     },
 
