@@ -166,7 +166,70 @@ document.addEventListener('alpine:init', () => {
         console.error(err);
         alert(err.message || 'Registration failed. Please try again.');
       }
-    }
+    },
+
+    // --------------------------
+    // User Info management
+    // --------------------------
+    async userInfo() {
+      console.log('Register clicked', this.registerUsername, this.registerPassword, this.confirmPassword);
+
+      if (!this.registerUsername.trim() || !this.registerPassword.trim()) {
+        alert('Please enter username and password!');
+        return;
+      }
+
+      if (this.registerPassword !== this.confirmPassword) {
+        alert('Passwords do not match!');
+        return;
+      }
+
+      try {
+        const response = await fetch('https://ftlcafe.pythonanywhere.com/Users/register', {
+          method: 'POST',
+          credentials: 'include',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email: this.registerUsername,
+            password: this.registerPassword
+          })
+        });
+
+        console.log('Status:', response.status);
+
+        const text = await response.text();
+        console.log('Raw response body:', text);
+
+        if (!response.ok) {
+          // Try to parse JSON error if possible
+          try {
+            const errorData = JSON.parse(text);
+            throw new Error(errorData.detail || 'Registration failed');
+          } catch {
+            throw new Error('Registration failed: ' + text);
+          }
+        }
+
+        const data = JSON.parse(text);
+        console.log('API response:', data);
+
+        // ✅ Validate the returned data based on response
+        if (data.id && data.email) {
+          this.id = data.id;
+          this.user = data.email;
+          this.page = 'registerResponse';
+          console.log('Registration successful for user ID:', data.id);
+        } else {
+          alert('Unexpected response format.');
+        }
+      } catch (err) {
+        console.error(err);
+        alert(err.message || 'Registration failed. Please try again.');
+      }
+    },
 
 
 
