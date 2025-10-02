@@ -174,7 +174,7 @@ document.addEventListener('alpine:init', () => {
     async userInfo() {
       //console.log('Register clicked', this.registerUsername, this.registerPassword, this.confirmPassword);
 
-      if (token) { // Check for a token or specific success indicator
+      if (!this.token) {
         alert('Please log in before checking your user information.');
         return;
       }
@@ -213,7 +213,7 @@ document.addEventListener('alpine:init', () => {
           this.userRole = userRole;
           //this.page = 'registerResponse';
           //console.log('Successfully fetched user info for token:', token);
-          alert('Successfully fetched user info for token: ' + token + this.userRole);
+          alert('Welcome! Your role: ' + userRole);
         } else {
           alert('Unexpected response format.');
         }
