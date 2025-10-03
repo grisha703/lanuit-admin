@@ -181,7 +181,7 @@ document.addEventListener('alpine:init', () => {
 
       try {
         const response = await fetch('https://ftlcafe.pythonanywhere.com/Users/user/info', {
-          method: 'POST',
+          method: 'GET',
           credentials: 'include',
           headers: {
             'Accept': 'application/json',
