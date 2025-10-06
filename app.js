@@ -223,6 +223,90 @@ document.addEventListener('alpine:init', () => {
       }
     },
 
+    // --------------------------
+    // Sale Statistics Graph management  
+    // --------------------------
+    YEAR: 0,
+    MONTH: 0,
+    SELLER: 0,
+    CATEGORY: 0,
+
+    // --------------------------
+    // Sale Statistics Graph
+    // --------------------------
+    async saleStatisticsGraph() {
+      if (!this.token) {
+        alert('Please log in before fetching sele statistics.');
+        return;
+      }
+
+      const baseURL = "https://ftlcafe.pythonanywhere.com/Sale/statistics/graph";
+
+      const params = {
+        YEAR: 2025,
+        MONTH: 1,
+        SELLER: 2,
+        CATEGORY: 3
+      };
+
+      const query = new URLSearchParams();
+
+      // YEAR is required
+      query.append("year", params.YEAR);
+
+      // Add optional params only if > 0
+      if (params.MONTH > 0) query.append("month", params.MONTH);
+      if (params.SELLER > 0) query.append("seller_id", params.SELLER);
+      if (params.CATEGORY > 0) query.append("category_id", params.CATEGORY);
+
+      const finalURL = `${baseURL}?${query.toString()}`;
+
+      console.log(finalURL);
+
+
+      try {
+        const response = await fetch(finalURL, {
+          method: 'GET',
+          credentials: 'include',
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + this.token,
+          }
+        });
+
+        console.log('Status:', response.status);
+
+        const text = await response.text();
+        console.log('Raw response body:', text);
+
+        if (!response.ok) {
+          // Try to parse JSON error if possible
+          try {
+            const errorData = JSON.parse(text);
+            throw new Error(errorData.detail || 'Failed to fetch user info');
+          } catch {
+            throw new Error('Failed to fetch user info: ' + text);
+          }
+        }
+
+        const data = JSON.parse(text);
+        console.log('API response:', data);
+        let userRole = data["user_role"];
+
+        // ✅ Validate the returned data based on response
+        if (userRole) {
+          this.userRole = userRole;
+          //this.page = 'registerResponse';
+          //console.log('Successfully fetched user info for token:', token);
+          alert('Welcome! Your role: ' + userRole);
+        } else {
+          alert('Unexpected response format.');
+        }
+      } catch (err) {
+        console.error(err);
+        alert(err.message || 'Failed to fetch user info. Please try again.');
+      }
+    },
 
 
 
