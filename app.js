@@ -230,6 +230,7 @@ document.addEventListener('alpine:init', () => {
     MONTH: 0,
     SELLER: 0,
     CATEGORY: 0,
+    statistics: null, // store the entire API response here
 
     // --------------------------
     // Sale Statistics Graph
@@ -244,9 +245,9 @@ document.addEventListener('alpine:init', () => {
 
       const params = {
         YEAR: 2025,
-        MONTH: 1,
-        SELLER: 2,
-        CATEGORY: 3
+        MONTH: 0,
+        SELLER: 0,
+        CATEGORY: 0
       };
 
       const query = new URLSearchParams();
@@ -261,7 +262,7 @@ document.addEventListener('alpine:init', () => {
 
       const finalURL = `${baseURL}?${query.toString()}`;
 
-      alert(finalURL);
+      //alert(finalURL);
 
 
       try {
@@ -291,20 +292,27 @@ document.addEventListener('alpine:init', () => {
 
         const data = JSON.parse(text);
         console.log('API response:', data);
-        let userRole = data["user_role"];
+
+        // 🔑 Store the entire object
+        this.statistics = data;
 
         // ✅ Validate the returned data based on response
-        if (userRole) {
-          this.userRole = userRole;
-          //this.page = 'registerResponse';
-          //console.log('Successfully fetched user info for token:', token);
-          alert('Welcome! Your role: ' + userRole);
+        if (this.statistics) {
+          console.log(this.statistics.filters.year); // 2025
+          console.log(this.statistics.statistics);   // array of all stats
+
+          // Example: total sales
+          const totalSales = this.statistics.statistics.reduce(
+            (sum, s) => sum + s.total_sales,
+            0
+          );
+          alert("Total sales:", totalSales);
         } else {
           alert('Unexpected response format.');
         }
       } catch (err) {
         console.error(err);
-        alert(err.message || 'Failed to fetch user info. Please try again.');
+        alert(err.message || 'Failed to fetch sale statistics. Please try again.');
       }
     },
 
