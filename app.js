@@ -261,7 +261,7 @@ document.addEventListener('alpine:init', () => {
 
       const finalURL = `${baseURL}?${query.toString()}`;
 
-      console.log(finalURL);
+      alert(finalURL);
 
 
       try {
