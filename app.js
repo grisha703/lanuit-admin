@@ -306,7 +306,7 @@ document.addEventListener('alpine:init', () => {
             (sum, s) => sum + s.total_sales,
             0
           );
-          alert("Total sales: " + this.statistics);
+          alert("Total statistics: " + this.statistics);
         } else {
           alert('Unexpected response format.');
         }
