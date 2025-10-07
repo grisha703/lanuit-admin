@@ -226,10 +226,7 @@ document.addEventListener('alpine:init', () => {
     // --------------------------
     // Sale Statistics Graph management  
     // --------------------------
-    YEAR: 0,
-    MONTH: 0,
-    SELLER: 0,
-    CATEGORY: 0,
+    filters: null, // store the entire API response here
     statistics: null, // store the entire API response here
 
     // --------------------------
@@ -293,8 +290,22 @@ document.addEventListener('alpine:init', () => {
         const data = JSON.parse(text);
         console.log('API response:', data);
 
-        // 🔑 Store the entire object
-        this.statistics = data;
+        const filtersData = data.filters;
+        // Create Filters model
+        this.filters = new Filters(
+          filtersData.year,
+          filtersData.month,
+          filtersData.seller_id,
+          filtersData.category_id
+        );
+
+        const statsData = data.statistics;
+        // Map array of statistics to model objects
+        this.statistics = statsData.map(item =>
+          new SaleStatistic(item.time_group, item.total_sales, item.total_quantity)
+        );
+        alert("Total filtersData: " + this.filtersData);
+        alert("Total statistics: " + this.statistics);
 
         // ✅ Validate the returned data based on response
         if (this.statistics) {
@@ -306,7 +317,7 @@ document.addEventListener('alpine:init', () => {
             (sum, s) => sum + s.total_sales,
             0
           );
-          alert("Total statistics: " + this.statistics.statistics);
+          //alert("Total statistics: " + this.statistics.statistics);
         } else {
           alert('Unexpected response format.');
         }
@@ -331,4 +342,23 @@ if (img) {
     document.body.classList.add('show-new-screen');
     img.style.display = 'none';
   });
+}
+
+// Represents a single stat entry
+class SaleStatistic {
+  constructor(timeGroup, totalSales, totalQuantity) {
+    this.timeGroup = timeGroup;
+    this.totalSales = totalSales;
+    this.totalQuantity = totalQuantity;
+  }
+}
+
+// Represents filters used in the request
+class Filters {
+  constructor(year, month = null, sellerId = null, categoryId = null) {
+    this.year = year;
+    this.month = month;
+    this.sellerId = sellerId;
+    this.categoryId = categoryId;
+  }
 }
