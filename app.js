@@ -299,7 +299,7 @@ document.addEventListener('alpine:init', () => {
           filtersData.category_id
         );
 
-        const statsData = data.statistics;
+        const statsData = data.statistics[0];
         // Map array of statistics to model objects
         this.statistics = statsData.map(item =>
           new SaleStatistic(item.time_group, item.total_sales, item.total_quantity)
