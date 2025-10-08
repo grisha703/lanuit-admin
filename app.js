@@ -234,98 +234,56 @@ document.addEventListener('alpine:init', () => {
     // --------------------------
     async saleStatisticsGraph() {
       if (!this.token) {
-        alert('Please log in before fetching sele statistics.');
+        alert('Please log in before fetching sale statistics.');
         return;
       }
 
       const baseURL = "https://ftlcafe.pythonanywhere.com/Sale/statistics/graph";
 
-      const params = {
-        YEAR: 2025,
-        MONTH: 0,
-        SELLER: 0,
-        CATEGORY: 0
-      };
-
+      const params = { YEAR: 2025, MONTH: 0, SELLER: 0, CATEGORY: 0 };
       const query = new URLSearchParams();
-
-      // YEAR is required
       query.append("year", params.YEAR);
-
-      // Add optional params only if > 0
       if (params.MONTH > 0) query.append("month", params.MONTH);
       if (params.SELLER > 0) query.append("seller_id", params.SELLER);
       if (params.CATEGORY > 0) query.append("category_id", params.CATEGORY);
 
       const finalURL = `${baseURL}?${query.toString()}`;
-
-      alert(finalURL);
-
+      console.log("Fetching:", finalURL);
 
       try {
         const response = await fetch(finalURL, {
-          method: 'GET',
-          credentials: 'include',
           headers: {
             'Accept': 'application/json',
             'Authorization': 'Bearer ' + this.token,
           }
         });
 
-        console.log('Status:', response.status);
-
-        const text = await response.text();
-        console.log('Raw response body:', text);
-
-        if (!response.ok) {
-          // Try to parse JSON error if possible
-          try {
-            const errorData = JSON.parse(text);
-            throw new Error(errorData.detail || 'Failed to fetch user info');
-          } catch {
-            throw new Error('Failed to fetch user info: ' + text);
-          }
-        }
-
-        const data = JSON.parse(text);
+        const data = await response.json();
         console.log('API response:', data);
 
-        const filtersData = data.filters;
-        // Create Filters model
-        this.filters = new Filters(
-          filtersData.year,
-          filtersData.month,
-          filtersData.seller_id,
-          filtersData.category_id
+        // Save filters
+        const f = data.filters;
+        this.filters = new Filters(f.year, f.month, f.seller_id, f.category_id);
+
+        // Save statistics
+        this.statistics = data.statistics.map(
+          s => new SaleStatistic(s.time_group, s.total_sales, s.total_quantity)
         );
 
-        const statsData = data.statistics[0];
-        // Map array of statistics to model objects
-        this.statistics = statsData.map(item =>
-          new SaleStatistic(item.time_group, item.total_sales, item.total_quantity)
-        );
-        alert("Total filtersData: " + this.filtersData);
-        alert("Total statistics: " + this.statistics);
+        // Test logs
+        alert("Filters →", this.filters);
+        alert("Statistics array →", this.statistics);
 
-        // ✅ Validate the returned data based on response
-        if (this.statistics) {
-          console.log(this.statistics.filters.year); // 2025
-          console.log(this.statistics.statistics);   // array of all stats
+        // Example: total sales for chart
+        const totalSales = this.statistics.reduce((sum, s) => sum + s.totalSales, 0);
+        console.log("Total sales:", totalSales);
 
-          // Example: total sales
-          const totalSales = this.statistics.statistics.reduce(
-            (sum, s) => sum + s.total_sales,
-            0
-          );
-          //alert("Total statistics: " + this.statistics.statistics);
-        } else {
-          alert('Unexpected response format.');
-        }
       } catch (err) {
         console.error(err);
-        alert(err.message || 'Failed to fetch sale statistics. Please try again.');
+        alert(err.message || 'Failed to fetch sale statistics.');
       }
-    },
+    }
+
 
 
 
