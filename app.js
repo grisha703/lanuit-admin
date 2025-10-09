@@ -272,7 +272,7 @@ document.addEventListener('alpine:init', () => {
 
         // Test logs
         alert("Filters → " + this.filters.year);
-        alert("Statistics array →", this.statistics[0].totalSales);
+        alert("Statistics array → " + this.statistics[0].totalSales);
 
         // Example: total sales for chart
         const totalSales = this.statistics.reduce((sum, s) => sum + s.totalSales, 0);
