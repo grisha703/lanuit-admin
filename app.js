@@ -227,56 +227,7 @@ document.addEventListener('alpine:init', () => {
         }
       });
     },
-
-    async saleStatisticsGraph() {
-  if (!this.token) {
-    alert('Please log in before fetching sale statistics.');
-    return;
-  }
-
-  const baseURL = "https://ftlcafe.pythonanywhere.com/Sale/statistics/graph";
-
-  const params = { YEAR: 2025, MONTH: 0, SELLER: 0, CATEGORY: 0 };
-  const query = new URLSearchParams();
-  query.append("year", params.YEAR);
-  if (params.MONTH > 0) query.append("month", params.MONTH);
-  if (params.SELLER > 0) query.append("seller_id", params.SELLER);
-  if (params.CATEGORY > 0) query.append("category_id", params.CATEGORY);
-
-  const finalURL = `${baseURL}?${query.toString()}`;
-  console.log("Fetching:", finalURL);
-
-  try {
-    const response = await fetch(finalURL, {
-      headers: {
-        'Accept': 'application/json',
-        'Authorization': 'Bearer ' + this.token,
-      }
-    });
-
-    const data = await response.json();
-    console.log('API response:', data);
-
-    // Save filters
-    const f = data.filters;
-    this.filters = new Filters(f.year, f.month, f.seller_id, f.category_id);
-
-    // Save statistics
-    this.statistics = data.statistics.map(
-      s => new SaleStatistic(s.time_group, s.total_sales, s.total_quantity)
-    );
-
-    console.log("Loaded statistics:", this.statistics);
-
-    // ✅ Render chart AFTER data loaded
-    this.renderChart(this.statistics);
-
-  } catch (err) {
-    console.error(err);
-    alert(err.message || 'Failed to fetch sale statistics.');
-  }
-},
-
+    
 
   }));
 });
