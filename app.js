@@ -271,7 +271,7 @@ document.addEventListener('alpine:init', () => {
         );
 
         // Test logs
-        alert("Filters →", this.filters.year);
+        alert("Filters → " + this.filters.year);
         alert("Statistics array →", this.statistics[0].totalSales);
 
         // Example: total sales for chart
