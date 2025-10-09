@@ -151,7 +151,7 @@
                             labels: [1, 2, 3, 4, 5, 6], // days
                             datasets: [{
                                 label: 'Sales',
-                                data: [1, 1.5, 0.5, 9, 5, 3.3], // sales
+                                data: statistics.map(s => s.totalSales), // sales
                                 borderColor: 'black',
                                 backgroundColor: 'rgba(0, 0, 0, 0)',
                                 fill: true,
