@@ -148,10 +148,10 @@
                     new Chart($refs.salesChart, {
                         type: 'line',
                         data: {
-                            labels: [1, 2, 3, 4, 5, 6], // days
+                            labels: newStats.map(s => s.timeGroup), // days
                             datasets: [{
                                 label: 'Sales',
-                                data: [1, 1.5, 0.5, 9, 5, 3.3], // sales
+                                data: newStats.map(s => s.totalSales), // sales
                                 borderColor: 'black',
                                 backgroundColor: 'rgba(0, 0, 0, 0)',
                                 fill: true,
