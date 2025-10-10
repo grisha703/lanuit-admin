@@ -340,10 +340,10 @@ initSalesChart(labels, data) {
             datasets: [{
                 label: 'Sales',
                 data: data,
-                borderColor: '#9A8568',
+                borderColor: 'black',
                 backgroundColor: 'rgba(154, 133, 104, 0.2)',
                 fill: true,
-                tension: 0.3,
+                tension: 0.0,
                 borderWidth: 2, // Added to ensure line is visible
                 showLine: true
             }]
