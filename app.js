@@ -226,80 +226,23 @@ document.addEventListener('alpine:init', () => {
     // --------------------------
     // Sale Statistics Graph management  
     // --------------------------
-    filters: null, // store the entire API response here
+    filters: { year: null, months: [] }, // store the entire API response here
     statistics: null, // store the entire API response here
-
-    // --------------------------
-    // Sale Statistics Graph
-    // --------------------------
-    async saleStatisticsGraph() {
-      if (!this.token) {
-        alert('Please log in before fetching sale statistics.');
-        return;
-      }
-
-      const baseURL = "https://ftlcafe.pythonanywhere.com/Sale/statistics/graph";
-
-      const params = { YEAR: 2025, MONTH: 0, SELLER: 0, CATEGORY: 0 };
-      const query = new URLSearchParams();
-      query.append("year", params.YEAR);
-      if (params.MONTH > 0) query.append("month", params.MONTH);
-      if (params.SELLER > 0) query.append("seller_id", params.SELLER);
-      if (params.CATEGORY > 0) query.append("category_id", params.CATEGORY);
-
-      const finalURL = `${baseURL}?${query.toString()}`;
-      console.log("Fetching:", finalURL);
-
-      try {
-        const response = await fetch(finalURL, {
-          headers: {
-            'Accept': 'application/json',
-            'Authorization': 'Bearer ' + this.token,
-          }
-        });
-
-        const data = await response.json();
-        console.log('API response:', data);
-
-        // Save filters
-        const f = data.filters;
-        this.filters = new Filters(f.year, f.month, f.seller_id, f.category_id);
-
-        // Save statistics
-        this.statistics = data.statistics.map(
-          s => new SaleStatistic(s.time_group, s.total_sales, s.total_quantity)
-        );
-
-        // Test logs
-        alert("Filters → " + this.filters.year);
-        alert("Statistics array → " + this.statistics[0].totalSales);
-
-        // Example: total sales for chart
-        const totalSales = this.statistics.reduce((sum, s) => sum + s.totalSales, 0);
-        console.log("Total sales:", totalSales);
-
-      } catch (err) {
-        console.error(err);
-        alert(err.message || 'Failed to fetch sale statistics.');
-      }
-    },
-
-
     // ... inside Alpine.data('app', () => ({ ...
     // Sale Statistics Graph
     // --------------------------
     async saleStatisticsGraph() {
-      if (!this.token) {
+    if (!this.token) {
         // alert('Please log in before fetching sale statistics.'); // Removed for cleaner execution
         return;
-      }
+    }
 
-      const baseURL = "https://ftlcafe.pythonanywhere.com/Sale/statistics/graph";
-      // ... (rest of your query construction) ...
+    const baseURL = "https://ftlcafe.pythonanywhere.com/Sale/statistics/graph";
+    // ... (rest of your query construction) ...
 
-      try {
+    try {
         const response = await fetch(finalURL, {
-          // ... (headers) ...
+            // ... (headers) ...
         });
 
         const data = await response.json();
@@ -309,87 +252,87 @@ document.addEventListener('alpine:init', () => {
         const f = data.filters;
         // NOTE: Assuming the API response for filters includes a 'months' array, 
         // which is standard for year-level data aggregation.
-        this.filters = { year: f.year, months: f.months, sellerId: f.seller_id, categoryId: f.category_id };
+        this.filters = { year: f.year, months: f.months, sellerId: f.seller_id, categoryId: f.category_id }; 
 
         // Save statistics
         this.statistics = data.statistics.map(
-          s => new SaleStatistic(s.time_group, s.total_sales, s.total_quantity)
+            s => new SaleStatistic(s.time_group, s.total_sales, s.total_quantity)
         );
 
         // -----------------------------------------------------------
         // 🚀 NEW LOGIC: Prepare Data for Chart
         // -----------------------------------------------------------
-
+        
         // 1. Get the month names for labels
-        const labels = this.filters.months;
+        const labels = this.filters.months; 
 
         // 2. Get the total sales for the data points
         const salesData = this.statistics.map(s => s.totalSales);
-
+        
         console.log("Chart Labels (Months):", labels);
         console.log("Chart Data (Sales):", salesData);
 
         // 3. Initialize/Update the Chart
         this.initSalesChart(labels, salesData);
 
-      } catch (err) {
+    } catch (err) {
         console.error(err);
         alert(err.message || 'Failed to fetch sale statistics.');
-      }
-    },
+    }
+},
 
-    // -----------------------------------------------------------
-    // 🚀 NEW FUNCTION: initSalesChart
-    // -----------------------------------------------------------
-    // This function handles the Chart.js creation/update.
-    initSalesChart(labels, data) {
-      // Ensure the chart canvas reference exists
-      if (!this.$refs.salesChart) {
+// -----------------------------------------------------------
+// 🚀 NEW FUNCTION: initSalesChart
+// -----------------------------------------------------------
+// This function handles the Chart.js creation/update.
+initSalesChart(labels, data) {
+    // Ensure the chart canvas reference exists
+    if (!this.$refs.salesChart) {
         console.error("Chart canvas reference not found.");
         return;
-      }
+    }
 
-      // Check if a chart instance already exists on the canvas
-      if (this.$refs.salesChart.chart) {
+    // Check if a chart instance already exists on the canvas
+    if (this.$refs.salesChart.chart) {
         // If it exists, update the data
         this.$refs.salesChart.chart.data.labels = labels;
         this.$refs.salesChart.chart.data.datasets[0].data = data;
         this.$refs.salesChart.chart.update();
         return;
-      }
+    }
 
-      // Create a new chart instance and store it on the canvas element
-      this.$refs.salesChart.chart = new Chart(this.$refs.salesChart, {
+    // Create a new chart instance and store it on the canvas element
+    this.$refs.salesChart.chart = new Chart(this.$refs.salesChart, {
         type: 'line',
         data: {
-          labels: labels, // Use the fetched months
-          datasets: [{
-            label: 'Sales',
-            data: data, // Use the fetched sales data
-            borderColor: '#9A8568', // Use your brand color
-            backgroundColor: 'rgba(154, 133, 104, 0.2)', // Light background fill
-            fill: true,
-            tension: 0.3 // slightly curved lines
-          }]
+            labels: labels, // Use the fetched months
+            datasets: [{
+                label: 'Sales',
+                data: data, // Use the fetched sales data
+                borderColor: '#9A8568', // Use your brand color
+                backgroundColor: 'rgba(154, 133, 104, 0.2)', // Light background fill
+                fill: true,
+                tension: 0.3 // slightly curved lines
+            }]
         },
         options: {
-          responsive: true,
-          plugins: {
-            legend: { display: true }
-          },
-          scales: {
-            x: {
-              title: { display: true, text: 'Month' }
+            responsive: true,
+            plugins: {
+                legend: { display: true }
             },
-            y: {
-              title: { display: true, text: 'Sales ($)' },
-              beginAtZero: true
+            scales: {
+                x: {
+                    title: { display: true, text: 'Month' }
+                },
+                y: {
+                    title: { display: true, text: 'Sales ($)' },
+                    beginAtZero: true
+                }
             }
-          }
         }
-      });
-    }
-    // ... rest of your Alpine data ...
+    });
+}
+// ... rest of your Alpine data ...
 
 
 
