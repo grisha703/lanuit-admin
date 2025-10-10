@@ -144,39 +144,12 @@
             </aside>
 
             <main class="split-content">
-                <div x-show="activeTab === 'tab1'" x-init="
-                    new Chart($refs.salesChart, {
-                        type: 'line',
-                        data: {
-                            labels: [1, 2, 3, 4, 5, 6], // days
-                            datasets: [{
-                                label: 'Sales',
-                                data: [1, 1.5, 0.5, 9, 5, 3.3], // sales
-                                borderColor: 'black',
-                                backgroundColor: 'rgba(0, 0, 0, 0)',
-                                fill: true,
-                                tension: 0.0 // straight lines
-                            }]
-                        },
-                        options: {
-                            responsive: true,
-                            plugins: {
-                                legend: { display: true }
-                            },
-                            scales: {
-                                x: {
-                                    title: { display: true, text: 'Day' }
-                                },
-                                y: {
-                                    title: { display: true, text: 'Sales' },
-                                    beginAtZero: true
-                                }
-                            }
-                        }
-                    });
-                " x-effect="if (activeTab === 'tab1') saleStatisticsGraph()" class="tab-content">
-                    <h1 class="page-title">Dashboard</h1>
-                    <canvas x-ref="salesChart"></canvas>
+                <div x-show="activeTab === 'tab1'" 
+         x-init="saleStatisticsGraph()" 
+         x-effect="if (activeTab === 'tab1') saleStatisticsGraph()" 
+         class="tab-content">
+        <h1 class="page-title">Dashboard</h1>
+        <canvas x-ref="salesChart"></canvas>
                 </div>
 
                 <div x-show="activeTab === 'tab2'" class="tab-content">
