@@ -330,13 +330,16 @@ initSalesChart(labels, data) {
         data: {
             labels: labels, // Use the fetched months
             datasets: [{
-                label: 'Sales',
-                data: data, // Use the fetched sales data
-                borderColor: '#9A8568', // Use your brand color
-                backgroundColor: 'rgba(154, 133, 104, 0.2)', // Light background fill
-                fill: true,
-                tension: 0.3 // slightly curved lines
-            }]
+    label: 'Sales',
+    data: data,
+    borderColor: '#9A8568',
+    backgroundColor: 'rgba(154, 133, 104, 0.2)',
+    fill: true,
+    tension: 0.3,
+    // --- ADD THESE TWO LINES ---
+    borderWidth: 2,     // Explicitly set the line thickness
+    showLine: true      // Explicitly show the line
+}]
         },
         options: {
             responsive: true,
