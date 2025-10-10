@@ -308,16 +308,17 @@ async saleStatisticsGraph() {
 // 🚀 NEW FUNCTION: initSalesChart
 // -----------------------------------------------------------
 // This function handles the Chart.js creation/update.
+// -----------------------------------------------------------
+// 🚀 NEW FUNCTION: initSalesChart (Corrected Axes Configuration)
+// -----------------------------------------------------------
 initSalesChart(labels, data) {
-    // Ensure the chart canvas reference exists
     if (!this.$refs.salesChart) {
         console.error("Chart canvas reference not found.");
         return;
     }
 
-    // Check if a chart instance already exists on the canvas
+    // ... (Existing chart update logic for when chart exists) ...
     if (this.$refs.salesChart.chart) {
-        // If it exists, update the data
         this.$refs.salesChart.chart.data.labels = labels;
         this.$refs.salesChart.chart.data.datasets[0].data = data;
         this.$refs.salesChart.chart.update();
@@ -328,18 +329,17 @@ initSalesChart(labels, data) {
     this.$refs.salesChart.chart = new Chart(this.$refs.salesChart, {
         type: 'line',
         data: {
-            labels: labels, // Use the fetched months
+            labels: labels, // This holds your month names
             datasets: [{
-    label: 'Sales',
-    data: data,
-    borderColor: '#9A8568',
-    backgroundColor: 'rgba(154, 133, 104, 0.2)',
-    fill: true,
-    tension: 0.3,
-    // --- ADD THESE TWO LINES ---
-    borderWidth: 2,     // Explicitly set the line thickness
-    showLine: true      // Explicitly show the line
-}]
+                label: 'Sales',
+                data: data,
+                borderColor: '#9A8568',
+                backgroundColor: 'rgba(154, 133, 104, 0.2)',
+                fill: true,
+                tension: 0.3,
+                borderWidth: 2, // Added to ensure line is visible
+                showLine: true
+            }]
         },
         options: {
             responsive: true,
@@ -348,7 +348,16 @@ initSalesChart(labels, data) {
             },
             scales: {
                 x: {
-                    title: { display: true, text: 'Month' }
+                    // 🚨 THE FIX IS HERE: Explicitly set type to 'category'
+                    type: 'category', 
+                    title: { 
+                        display: true, 
+                        text: 'Month' 
+                    },
+                    // Ensure ticks are visible and use the labels data
+                    ticks: {
+                        display: true // Make sure the month labels are shown
+                    }
                 },
                 y: {
                     title: { display: true, text: 'Sales ($)' },
@@ -358,7 +367,6 @@ initSalesChart(labels, data) {
         }
     });
 }
-// ... rest of your Alpine data ...
 
 
 
