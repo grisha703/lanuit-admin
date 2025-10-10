@@ -1,29 +1,57 @@
 document.addEventListener('alpine:init', () => {
   Alpine.data('app', () => ({
+    // --------------------------
+    // Current page/view the user is on
+    // --------------------------
     page: 'login',
-    user: null,
-    id: null,
-    activeTab: 'tab1',
-    loginUsername: '',
-    loginPassword: '',
-    token: '',
-    userRole: '',
-    registerUsername: '',
-    registerPassword: '',
-    confirmPassword: '',
-    showLoginPassword: false,
-    showRegisterPassword: false,
-    showConfirmPassword: false,
-    showAddCategory: false,
-    newCategory: '',
-    products: [],
-    filters: null,
-    statistics: [],
 
     // --------------------------
-    // Login
+    // Currently logged-in user; null means no user is logged in
+    // --------------------------
+    user: null,
+    id: null,
+
+    // --------------------------
+    // Active tab in a tabbed interface; default is 'tab1'
+    // --------------------------
+    activeTab: 'tab1',
+
+    // --------------------------
+    // Login form fields
+    // --------------------------
+    loginUsername: '',  // Username input for login form
+    loginPassword: '',  // Password input for login form
+    token: '',          // Token received after login
+    userRole: '',      // User role (e.g., admin, user)
+
+    // --------------------------
+    // Register form fields
+    // --------------------------
+    registerUsername: '',   // Username input for registration form
+    registerPassword: '',   // Password input for registration form
+    confirmPassword: '',    // Confirmation input for registration form
+
+    // --------------------------
+    // UI state flags for password visibility
+    // --------------------------
+    showLoginPassword: false,       // Controls if login password is visible
+    showRegisterPassword: false,    // Controls if register password is visible
+    showConfirmPassword: false,      // Controls if confirm password is visible
+
+    showAddCategory: false,
+    newCategory: '',
+
+    // --------------------------
+    // Product management
+    // --------------------------
+    products: [], // product list
+
+    // --------------------------
+    // Log In management
     // --------------------------
     async login() {
+      console.log('Login clicked', this.loginUsername, this.loginPassword);
+
       if (!this.loginUsername || !this.loginPassword) {
         alert('Please enter username and password!');
         return;
@@ -32,8 +60,9 @@ document.addEventListener('alpine:init', () => {
       try {
         const response = await fetch('https://ftlcafe.pythonanywhere.com/Users/login', {
           method: 'POST',
+          credentials: 'include',
           headers: {
-            'Accept': 'application/json',
+            'accept': 'application/json',
             'Content-Type': 'application/json'
           },
           body: JSON.stringify({
@@ -42,36 +71,51 @@ document.addEventListener('alpine:init', () => {
           })
         });
 
-        const text = await response.text();
+        console.log('Status:', response.status);
+        console.log('Headers:', [...response.headers]);
+        const text = await response.text(); // Get raw text first
+        console.log('Raw response body:', text);
+
+        // Check if the response was successful before trying to parse JSON
         if (!response.ok) {
+          // You can parse the text to get a more specific error message if it's JSON
           try {
-            const errData = JSON.parse(text);
-            throw new Error(errData.detail || 'Login failed');
+            const errorData = JSON.parse(text);
+            throw new Error(errorData.detail || 'Login failed');
           } catch {
             throw new Error('Login failed: ' + text);
           }
         }
 
-        const data = JSON.parse(text);
+        const data = JSON.parse(text); // Now parse the text as JSON
+        console.log('API response:', data);
+
         this.token = data["access token"];
-        if (this.token) {
+        if (this.token) { // Check for a token or specific success indicator
+          // Use this.page and this.activeTab only if needed for navigation to a specific page
+          //alert('User token: ' + token);
           this.user = this.loginUsername;
           this.page = 'main';
           this.activeTab = 'tab1';
+          console.log('Login successful');
+
+          // ✅ Fetch user info right after login
           await this.userInfo();
         } else {
-          alert('Invalid username or password.');
+          alert('Invalid username or password:');
         }
       } catch (err) {
         console.error(err);
-        alert(err.message || 'Login failed.');
+        alert('Login failed. Please check your credentials.');
       }
     },
 
     // --------------------------
-    // Register
+    // Register management
     // --------------------------
     async register() {
+      console.log('Register clicked', this.registerUsername, this.registerPassword, this.confirmPassword);
+
       if (!this.registerUsername.trim() || !this.registerPassword.trim()) {
         alert('Please enter username and password!');
         return;
@@ -80,6 +124,7 @@ document.addEventListener('alpine:init', () => {
       try {
         const response = await fetch('https://ftlcafe.pythonanywhere.com/Users/register', {
           method: 'POST',
+          credentials: 'include',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
@@ -90,47 +135,99 @@ document.addEventListener('alpine:init', () => {
           })
         });
 
+        console.log('Status:', response.status);
+
         const text = await response.text();
-        if (!response.ok) throw new Error(text);
+        console.log('Raw response body:', text);
+
+        if (!response.ok) {
+          // Try to parse JSON error if possible
+          try {
+            const errorData = JSON.parse(text);
+            throw new Error(errorData.detail || 'Registration failed');
+          } catch {
+            throw new Error('Registration failed: ' + text);
+          }
+        }
 
         const data = JSON.parse(text);
+        console.log('API response:', data);
+
+        // ✅ Validate the returned data based on response
         if (data.id && data.email) {
           this.id = data.id;
           this.user = data.email;
           this.page = 'registerResponse';
+          console.log('Registration successful for user ID:', data.id);
+        } else {
+          alert('Unexpected response format.');
         }
       } catch (err) {
         console.error(err);
-        alert(err.message || 'Registration failed.');
+        alert(err.message || 'Registration failed. Please try again.');
       }
     },
 
     // --------------------------
-    // User Info
+    // User Info management
     // --------------------------
     async userInfo() {
+      //console.log('Register clicked', this.registerUsername, this.registerPassword, this.confirmPassword);
+
       if (!this.token) {
-        alert('Please log in first.');
+        alert('Please log in before checking your user information.');
         return;
       }
 
       try {
         const response = await fetch('https://ftlcafe.pythonanywhere.com/Users/user/info', {
+          method: 'GET',
+          credentials: 'include',
           headers: {
             'Accept': 'application/json',
             'Authorization': 'Bearer ' + this.token,
           }
         });
 
+        console.log('Status:', response.status);
+
         const text = await response.text();
+        console.log('Raw response body:', text);
+
+        if (!response.ok) {
+          // Try to parse JSON error if possible
+          try {
+            const errorData = JSON.parse(text);
+            throw new Error(errorData.detail || 'Failed to fetch user info');
+          } catch {
+            throw new Error('Failed to fetch user info: ' + text);
+          }
+        }
+
         const data = JSON.parse(text);
-        this.userRole = data.user_role || '';
-        alert('Welcome! Your role: ' + this.userRole);
+        console.log('API response:', data);
+        let userRole = data["user_role"];
+
+        // ✅ Validate the returned data based on response
+        if (userRole) {
+          this.userRole = userRole;
+          //this.page = 'registerResponse';
+          //console.log('Successfully fetched user info for token:', token);
+          alert('Welcome! Your role: ' + userRole);
+        } else {
+          alert('Unexpected response format.');
+        }
       } catch (err) {
         console.error(err);
-        alert('Failed to fetch user info.');
+        alert(err.message || 'Failed to fetch user info. Please try again.');
       }
     },
+
+    // --------------------------
+    // Sale Statistics Graph management  
+    // --------------------------
+    filters: null, // store the entire API response here
+    statistics: null, // store the entire API response here
 
     // --------------------------
     // Sale Statistics Graph
@@ -142,6 +239,7 @@ document.addEventListener('alpine:init', () => {
       }
 
       const baseURL = "https://ftlcafe.pythonanywhere.com/Sale/statistics/graph";
+
       const params = { YEAR: 2025, MONTH: 0, SELLER: 0, CATEGORY: 0 };
       const query = new URLSearchParams();
       query.append("year", params.YEAR);
@@ -163,78 +261,48 @@ document.addEventListener('alpine:init', () => {
         const data = await response.json();
         console.log('API response:', data);
 
-        // ✅ Convert all values to numbers
+        // Save filters
+        const f = data.filters;
+        this.filters = new Filters(f.year, f.month, f.seller_id, f.category_id);
+
+        // Save statistics
         this.statistics = data.statistics.map(
-          s => new SaleStatistic(s.time_group, Number(s.total_sales), Number(s.total_quantity))
+          s => new SaleStatistic(s.time_group, s.total_sales, s.total_quantity)
         );
 
-        console.log("Parsed statistics:", this.statistics);
+        // Test logs
+        alert("Filters → " + this.filters.year);
+        alert("Statistics array → " + this.statistics[0].totalSales);
 
-        // ✅ Render the chart
-        this.renderChart(this.statistics);
+        // Example: total sales for chart
+        const totalSales = this.statistics.reduce((sum, s) => sum + s.totalSales, 0);
+        console.log("Total sales:", totalSales);
+
       } catch (err) {
         console.error(err);
-        alert('Failed to fetch sale statistics.');
+        alert(err.message || 'Failed to fetch sale statistics.');
       }
-    },
+    }
 
-    // --------------------------
-    // Chart rendering
-    // --------------------------
-    renderChart(statistics) {
-      const canvas = document.getElementById("salesChart");
-      if (!canvas) {
-        console.warn("No salesChart canvas found");
-        return;
-      }
 
-      const ctx = canvas.getContext("2d");
 
-      if (window.salesChartInstance) {
-        window.salesChartInstance.destroy();
-      }
 
-      const labels = statistics.map(s => s.timeGroup);
-      const values = statistics.map(s => s.totalSales);
-
-      console.log("Chart Labels:", labels);
-      console.log("Chart Values:", values);
-
-      window.salesChartInstance = new Chart(ctx, {
-        type: "line",
-        data: {
-          labels,
-          datasets: [{
-            label: "Total Sales",
-            data: values,
-            borderColor: "black",
-            backgroundColor: "transparent",
-            borderWidth: 2,
-            fill: false,
-            tension: 0.0
-          }]
-        },
-        options: {
-          responsive: true,
-          plugins: { legend: { display: true } },
-          scales: {
-            x: { title: { display: true, text: "Time Group" } },
-            y: {
-              title: { display: true, text: "Sales" },
-              beginAtZero: true
-            }
-          }
-        }
-      });
-    },
-    
 
   }));
 });
 
 // --------------------------
-// Classes
+// Animated image
 // --------------------------
+const img = document.getElementById('animatedImage');
+if (img) {
+  img.addEventListener('animationend', () => {
+    document.body.classList.add('show-new-screen');
+    img.style.display = 'none';
+  });
+}
+
+// Represents a single stat entry
 class SaleStatistic {
   constructor(timeGroup, totalSales, totalQuantity) {
     this.timeGroup = timeGroup;
@@ -243,6 +311,7 @@ class SaleStatistic {
   }
 }
 
+// Represents filters used in the request
 class Filters {
   constructor(year, month = null, sellerId = null, categoryId = null) {
     this.year = year;
