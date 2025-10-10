@@ -228,151 +228,139 @@ document.addEventListener('alpine:init', () => {
     // --------------------------
     filters: { year: null, months: [] }, // store the entire API response here
     statistics: null, // store the entire API response here
-    // ... inside Alpine.data('app', () => ({ ...
-    // Sale Statistics Graph
-    // --------------------------
-    // --------------------------
-// Sale Statistics Graph (CORRECTED)
-// --------------------------
-// ... inside Alpine.data('app', () => ({ ...
 
-// --------------------------
-// Sale Statistics Graph (MODIFIED TO USE time_group AS LABEL)
-// --------------------------
-async saleStatisticsGraph() {
-    if (!this.token) {
+    // --------------------------
+    // Sale Statistics Graph (MODIFIED TO USE time_group AS LABEL)
+    // --------------------------
+    async saleStatisticsGraph() {
+      if (!this.token) {
         console.log('Token missing, skipping stat fetch.');
         return;
-    }
+      }
 
-    const baseURL = "https://ftlcafe.pythonanywhere.com/Sale/statistics/graph";
-    
-    // --- URL Construction ---
-    const params = { YEAR: 2025, MONTH: 0, SELLER: 0, CATEGORY: 0 };
-    const query = new URLSearchParams();
-    query.append("year", params.YEAR);
-    if (params.MONTH > 0) query.append("month", params.MONTH);
-    if (params.SELLER > 0) query.append("seller_id", params.SELLER);
-    if (params.CATEGORY > 0) query.append("category_id", params.CATEGORY);
+      const baseURL = "https://ftlcafe.pythonanywhere.com/Sale/statistics/graph";
 
-    const finalURL = `${baseURL}?${query.toString()}`;
-    console.log("Fetching:", finalURL);
-    // ------------------------
+      // --- URL Construction ---
+      const params = { YEAR: 2025, MONTH: 0, SELLER: 0, CATEGORY: 0 };
+      const query = new URLSearchParams();
+      query.append("year", params.YEAR);
+      if (params.MONTH > 0) query.append("month", params.MONTH);
+      if (params.SELLER > 0) query.append("seller_id", params.SELLER);
+      if (params.CATEGORY > 0) query.append("category_id", params.CATEGORY);
 
-    try {
+      const finalURL = `${baseURL}?${query.toString()}`;
+      console.log("Fetching:", finalURL);
+      // ------------------------
+
+      try {
         const response = await fetch(finalURL, {
-            headers: {
-                'Accept': 'application/json',
-                'Authorization': 'Bearer ' + this.token,
-            }
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + this.token,
+          }
         });
 
         if (!response.ok) {
-            const errorText = await response.text();
-            console.error('API Error Response:', errorText);
-            throw new Error(`HTTP error! Status: ${response.status}`);
+          const errorText = await response.text();
+          console.error('API Error Response:', errorText);
+          throw new Error(`HTTP error! Status: ${response.status}`);
         }
 
         const data = await response.json();
         console.log('API response:', data);
 
         // Save filters and statistics
-        this.filters = { 
-            year: data.filters.year, 
-            months: data.filters.months || [], // Keep for reference, but not used as labels
-            sellerId: data.filters.seller_id, 
-            categoryId: data.filters.category_id 
-        }; 
+        this.filters = {
+          year: data.filters.year,
+          months: data.filters.months || [], // Keep for reference, but not used as labels
+          sellerId: data.filters.seller_id,
+          categoryId: data.filters.category_id
+        };
 
         this.statistics = data.statistics.map(
-            s => new SaleStatistic(s.time_group, s.total_sales, s.total_quantity)
+          s => new SaleStatistic(s.time_group, s.total_sales, s.total_quantity)
         );
 
         // -----------------------------------------------------------
         // 🚀 THE FIX: Use time_group for Labels
         // -----------------------------------------------------------
-        
+
         // 1. Get the time_group strings for labels (e.g., "2025-01", "2025-02")
-        const labels = this.statistics.map(s => s.timeGroup); 
+        const labels = this.statistics.map(s => s.timeGroup);
 
         // 2. Get the total sales for the data points
         const salesData = this.statistics.map(s => s.totalSales);
-        
+
         console.log("Chart Labels (time_group):", labels);
         console.log("Chart Data (Sales):", salesData);
 
         // 3. Initialize/Update the Chart
         this.initSalesChart(labels, salesData);
 
-    } catch (err) {
+      } catch (err) {
         console.error('Sale statistics fetch failed:', err);
         alert(err.message || 'Failed to fetch sale statistics.');
-    }
-},
-// ... your initSalesChart function (keep the x-axis type as 'category' as shown below)
+      }
+    },
 
-// -----------------------------------------------------------
-// 🚀 NEW FUNCTION: initSalesChart
-// -----------------------------------------------------------
-// This function handles the Chart.js creation/update.
-// -----------------------------------------------------------
-// 🚀 NEW FUNCTION: initSalesChart (Corrected Axes Configuration)
-// -----------------------------------------------------------
-initSalesChart(labels, data) {
-    if (!this.$refs.salesChart) {
+    // -----------------------------------------------------------
+    // 🚀 NEW FUNCTION: initSalesChart (Corrected Axes Configuration)
+    // -----------------------------------------------------------
+    initSalesChart(labels, data) {
+      if (!this.$refs.salesChart) {
         console.error("Chart canvas reference not found.");
         return;
-    }
+      }
 
-    // ... (Existing chart update logic for when chart exists) ...
-    if (this.$refs.salesChart.chart) {
+      // ... (Existing chart update logic for when chart exists) ...
+      if (this.$refs.salesChart.chart) {
         this.$refs.salesChart.chart.data.labels = labels;
         this.$refs.salesChart.chart.data.datasets[0].data = data;
         this.$refs.salesChart.chart.update();
         return;
-    }
+      }
 
-    // Create a new chart instance and store it on the canvas element
-    this.$refs.salesChart.chart = new Chart(this.$refs.salesChart, {
+      // Create a new chart instance and store it on the canvas element
+      this.$refs.salesChart.chart = new Chart(this.$refs.salesChart, {
         type: 'line',
         data: {
-            labels: labels, // This holds your month names
-            datasets: [{
-                label: 'Sales',
-                data: data,
-                borderColor: 'black',
-                backgroundColor: 'rgba(154, 133, 104, 0.2)',
-                fill: true,
-                tension: 0.0,
-                borderWidth: 2, // Added to ensure line is visible
-                showLine: true
-            }]
+          labels: labels, // This holds your month names
+          datasets: [{
+            label: 'Sales',
+            data: data,
+            borderColor: 'black',
+            backgroundColor: 'rgba(154, 133, 104, 0.2)',
+            fill: true,
+            tension: 0.0,
+            borderWidth: 2, // Added to ensure line is visible
+            showLine: true
+          }]
         },
         options: {
-            responsive: true,
-            plugins: {
-                legend: { display: true }
+          responsive: true,
+          plugins: {
+            legend: { display: true }
+          },
+          scales: {
+            x: {
+              type: 'category', // <-- MUST be 'category' for string labels
+              title: {
+                display: true,
+                // You might want to change this title:
+                text: 'Period (time_group)'
+              },
+              ticks: {
+                display: true
+              }
             },
-            scales: {
-                x: {
-                    type: 'category', // <-- MUST be 'category' for string labels
-                    title: { 
-                        display: true, 
-                        // You might want to change this title:
-                        text: 'Period (time_group)' 
-                    },
-                    ticks: {
-                        display: true 
-                    }
-                },
-                y: {
-                    title: { display: true, text: 'Sales ($)' },
-                    beginAtZero: true
-                }
+            y: {
+              title: { display: true, text: 'Sales ($)' },
+              beginAtZero: true
             }
+          }
         }
-    });
-}
+      });
+    }
 
 
 

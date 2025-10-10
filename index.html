@@ -144,13 +144,11 @@
             </aside>
 
             <main class="split-content">
-                <div x-show="activeTab === 'tab1'" 
-         x-init="saleStatisticsGraph()" 
-         x-effect="if (activeTab === 'tab1') saleStatisticsGraph()" 
-         class="tab-content">
-        <h1 class="page-title">Dashboard</h1>
-        <canvas x-ref="salesChart"></canvas>
-    </div>
+                <div x-show="activeTab === 'tab1'" x-init="saleStatisticsGraph()"
+                    x-effect="if (activeTab === 'tab1') saleStatisticsGraph()" class="tab-content">
+                    <h1 class="page-title">Dashboard</h1>
+                    <canvas x-ref="salesChart"></canvas>
+                </div>
 
                 <div x-show="activeTab === 'tab2'" class="tab-content">
                     <div class="page-header">
