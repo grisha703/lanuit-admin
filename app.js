@@ -231,52 +231,75 @@ document.addEventListener('alpine:init', () => {
     // ... inside Alpine.data('app', () => ({ ...
     // Sale Statistics Graph
     // --------------------------
-    async saleStatisticsGraph() {
+    // --------------------------
+// Sale Statistics Graph (CORRECTED)
+// --------------------------
+async saleStatisticsGraph() {
     if (!this.token) {
-        // alert('Please log in before fetching sale statistics.'); // Removed for cleaner execution
+        console.log('Token missing, skipping stat fetch.');
         return;
     }
 
     const baseURL = "https://ftlcafe.pythonanywhere.com/Sale/statistics/graph";
-    // ... (rest of your query construction) ...
+
+    // 🚀 MISSING CODE ADDED HERE: URL and Query Parameters
+    const params = { YEAR: 2025, MONTH: 0, SELLER: 0, CATEGORY: 0 };
+    const query = new URLSearchParams();
+    query.append("year", params.YEAR);
+    if (params.MONTH > 0) query.append("month", params.MONTH);
+    if (params.SELLER > 0) query.append("seller_id", params.SELLER);
+    if (params.CATEGORY > 0) query.append("category_id", params.CATEGORY);
+
+    const finalURL = `${baseURL}?${query.toString()}`;
+    console.log("Fetching:", finalURL);
+    // 🚀 END OF MISSING CODE
 
     try {
         const response = await fetch(finalURL, {
-            // ... (headers) ...
+            headers: {
+                'Accept': 'application/json',
+                'Authorization': 'Bearer ' + this.token,
+            }
         });
+
+        // Handle non-OK responses gracefully
+        if (!response.ok) {
+            // Log the error response body for debugging
+            const errorText = await response.text();
+            console.error('API Error Response:', errorText);
+            throw new Error(`HTTP error! Status: ${response.status}`);
+        }
 
         const data = await response.json();
         console.log('API response:', data);
 
-        // Save filters
+        // Save filters and ensure 'months' is captured
         const f = data.filters;
-        // NOTE: Assuming the API response for filters includes a 'months' array, 
-        // which is standard for year-level data aggregation.
-        this.filters = { year: f.year, months: f.months, sellerId: f.seller_id, categoryId: f.category_id }; 
+        this.filters = { 
+            year: f.year, 
+            // The API response structure likely places 'months' here:
+            months: data.filters.months || [], 
+            sellerId: f.seller_id, 
+            categoryId: f.category_id 
+        }; 
 
         // Save statistics
         this.statistics = data.statistics.map(
             s => new SaleStatistic(s.time_group, s.total_sales, s.total_quantity)
         );
 
-        // -----------------------------------------------------------
-        // 🚀 NEW LOGIC: Prepare Data for Chart
-        // -----------------------------------------------------------
-        
-        // 1. Get the month names for labels
+        // Prepare Data for Chart
         const labels = this.filters.months; 
-
-        // 2. Get the total sales for the data points
         const salesData = this.statistics.map(s => s.totalSales);
         
         console.log("Chart Labels (Months):", labels);
         console.log("Chart Data (Sales):", salesData);
 
-        // 3. Initialize/Update the Chart
+        // Initialize/Update the Chart
         this.initSalesChart(labels, salesData);
 
     } catch (err) {
-        console.error(err);
+        console.error('Sale statistics fetch failed:', err);
         alert(err.message || 'Failed to fetch sale statistics.');
     }
 },
