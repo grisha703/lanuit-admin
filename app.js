@@ -234,6 +234,11 @@ document.addEventListener('alpine:init', () => {
     // --------------------------
 // Sale Statistics Graph (CORRECTED)
 // --------------------------
+// ... inside Alpine.data('app', () => ({ ...
+
+// --------------------------
+// Sale Statistics Graph (MODIFIED TO USE time_group AS LABEL)
+// --------------------------
 async saleStatisticsGraph() {
     if (!this.token) {
         console.log('Token missing, skipping stat fetch.');
@@ -241,8 +246,8 @@ async saleStatisticsGraph() {
     }
 
     const baseURL = "https://ftlcafe.pythonanywhere.com/Sale/statistics/graph";
-
-    // 🚀 MISSING CODE ADDED HERE: URL and Query Parameters
+    
+    // --- URL Construction ---
     const params = { YEAR: 2025, MONTH: 0, SELLER: 0, CATEGORY: 0 };
     const query = new URLSearchParams();
     query.append("year", params.YEAR);
@@ -252,7 +257,7 @@ async saleStatisticsGraph() {
 
     const finalURL = `${baseURL}?${query.toString()}`;
     console.log("Fetching:", finalURL);
-    // 🚀 END OF MISSING CODE
+    // ------------------------
 
     try {
         const response = await fetch(finalURL, {
@@ -262,9 +267,7 @@ async saleStatisticsGraph() {
             }
         });
 
-        // Handle non-OK responses gracefully
         if (!response.ok) {
-            // Log the error response body for debugging
             const errorText = await response.text();
             console.error('API Error Response:', errorText);
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -273,29 +276,32 @@ async saleStatisticsGraph() {
         const data = await response.json();
         console.log('API response:', data);
 
-        // Save filters and ensure 'months' is captured
-        const f = data.filters;
+        // Save filters and statistics
         this.filters = { 
-            year: f.year, 
-            // The API response structure likely places 'months' here:
-            months: data.filters.months || [], 
-            sellerId: f.seller_id, 
-            categoryId: f.category_id 
+            year: data.filters.year, 
+            months: data.filters.months || [], // Keep for reference, but not used as labels
+            sellerId: data.filters.seller_id, 
+            categoryId: data.filters.category_id 
         }; 
 
-        // Save statistics
         this.statistics = data.statistics.map(
             s => new SaleStatistic(s.time_group, s.total_sales, s.total_quantity)
         );
 
-        // Prepare Data for Chart
-        const labels = this.filters.months; 
+        // -----------------------------------------------------------
+        // 🚀 THE FIX: Use time_group for Labels
+        // -----------------------------------------------------------
+        
+        // 1. Get the time_group strings for labels (e.g., "2025-01", "2025-02")
+        const labels = this.statistics.map(s => s.timeGroup); 
+
+        // 2. Get the total sales for the data points
         const salesData = this.statistics.map(s => s.totalSales);
         
-        console.log("Chart Labels (Months):", labels);
+        console.log("Chart Labels (time_group):", labels);
         console.log("Chart Data (Sales):", salesData);
 
-        // Initialize/Update the Chart
+        // 3. Initialize/Update the Chart
         this.initSalesChart(labels, salesData);
 
     } catch (err) {
@@ -303,6 +309,7 @@ async saleStatisticsGraph() {
         alert(err.message || 'Failed to fetch sale statistics.');
     }
 },
+// ... your initSalesChart function (keep the x-axis type as 'category' as shown below)
 
 // -----------------------------------------------------------
 // 🚀 NEW FUNCTION: initSalesChart
@@ -348,15 +355,14 @@ initSalesChart(labels, data) {
             },
             scales: {
                 x: {
-                    // 🚨 THE FIX IS HERE: Explicitly set type to 'category'
-                    type: 'category', 
+                    type: 'category', // <-- MUST be 'category' for string labels
                     title: { 
                         display: true, 
-                        text: 'Month' 
+                        // You might want to change this title:
+                        text: 'Period (time_group)' 
                     },
-                    // Ensure ticks are visible and use the labels data
                     ticks: {
-                        display: true // Make sure the month labels are shown
+                        display: true 
                     }
                 },
                 y: {
