@@ -205,17 +205,7 @@
                     </div>
                 </div>
 
-                <div x-show="showAddCategory" class="alert-backdrop" x-transition>
-                    <div class="alert-box">
-                        <h2 class="alert-title">Name</h2>
-                        <input type="text" placeholder="Enter product name" class="alert-input" x-model="newCategory">
-                        <div class="alert-line"></div>
-                        <button class="alert-button cancel" @click="showAddCategory = false">Cancel</button>
-                        <button class="alert-button create" @click="createCategory()">
-                            Create
-                        </button>
-                    </div>
-                </div>
+
 
 
                 <div x-show="activeTab === 'tab3'" class="tab-content">
@@ -241,13 +231,8 @@
                 <input type="text" placeholder="Enter product name" class="alert-input" x-model="newCategory">
                 <div class="alert-line"></div>
                 <button class="alert-button cancel" @click="showAddCategory = false">Cancel</button>
-                <button class="alert-button create" @click="
-                        if(newCategory.trim() !== '') {
-                            products.push(newCategory.trim());
-                            newCategory = '';
-                            showAddCategory = false;
-                        }
-                    ">Create
+                <button class="alert-button create" @click="createCategory()">
+                    Create
                 </button>
             </div>
         </div>
