@@ -481,8 +481,7 @@ input {
 
 /* Product List Container */
 .product-list {
-  margin-top: 10px;
-  padding-top: 0; /* Ensure no top padding is adding space */
+  margin-top: 20px;
   /* spacing from header */
   display: flex;
   flex-direction: column;
