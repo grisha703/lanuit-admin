@@ -173,40 +173,20 @@
                                 </button>
 
                                 <!-- New Product Form //1️⃣ Form-Based Entry (Most Common) -->
-                                <div x-show="products.length > 0" class="product-list">
-                                    <template x-for="(product, index) in products" :key="index">
-                                        <div class="product-row"
-                                            x-data="{ showForm: false, name: '', price: null, order_number: null, category_id: null }">
-                                            <p class="product-name" x-text="product"></p>
-                                            <div class="product-line"></div>
+                                <div x-show="showNewProductForm" class="new-product-form" x-transition>
+                                    <h2>New Product</h2>
+                                    <input type="text" placeholder="Product Name" x-model="name">
+                                    <input type="number" placeholder="Price" x-model="price">
+                                    <input type="number" placeholder="Order Number" x-model="order_number">
+                                    <input type="number" placeholder="Category ID" x-model="category_id">
 
-                                            <button class="header-button" @click="showForm = true">
-                                                <img src="icons/plus.item.png" alt="Add Product"
-                                                    class="product-image-button">
-                                            </button>
+                                    <!-- Image upload using base64 -->
+                                    <input type="file" @change="handleImageUpload($event)">
 
-                                            <div x-show="showForm" class="new-product-form" x-transition>
-                                                <h2>New Product for <span x-text="product"></span></h2>
-
-                                                <input type="text" placeholder="Product Name" x-model="name">
-                                                <input type="number" placeholder="Price" x-model="price">
-                                                <input type="number" placeholder="Order Number" x-model="order_number">
-                                                <input type="number" placeholder="Category ID" x-model="category_id">
-
-                                                <input type="file" @change="$root.handleImageUpload($event)">
-
-                                                <div class="form-buttons">
-                                                    <button @click="$root.addNewProduct({
-                                name: name, 
-                                price: price, 
-                                order_number: order_number, 
-                                category_id: category_id 
-                            }); showForm = false">Save</button>
-                                                    <button @click="showForm = false">Cancel</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </template>
+                                    <div class="form-buttons">
+                                        <button @click="addNewProduct(); showNewProductForm = false">Save</button>
+                                        <button @click="showNewProductForm = false">Cancel</button>
+                                    </div>
                                 </div>
                             </div>
                         </template>
