@@ -372,7 +372,7 @@ document.addEventListener('alpine:init', () => {
     image: '', // Product image URL input for the new product form
     // "https://ftlcafe.pythonanywhere.com" + image
 
-    showNewProductForm: false,
+    showFormIndex: null,
 
     // --------------------------
     // Add new product

@@ -168,26 +168,27 @@
                                 <div class="product-line"></div>
                                 <!-- Add New Product Button -->
                                 <!-- Add New Product Button with image icon only -->
-                                <button class="header-button" @click="showNewProductForm = true">
+                                <button class="header-button"
+                                    @click="showFormIndex = showFormIndex === index ? null : index">
                                     <img src="icons/plus.item.png" alt="Add Product" class="product-image-button">
                                 </button>
 
-                                <!-- New Product Form //1️⃣ Form-Based Entry (Most Common) -->
-                                <div x-show="showNewProductForm" class="new-product-form" x-transition>
+                                <!-- New Product Form -->
+                                <div x-show="showFormIndex === index" class="new-product-form" x-transition>
                                     <h2>New Product</h2>
                                     <input type="text" placeholder="Product Name" x-model="name">
                                     <input type="number" placeholder="Price" x-model="price">
                                     <input type="number" placeholder="Order Number" x-model="order_number">
-                                    <input type="number" placeholder="Category ID" x-model="category_id">
+                                    <input type="number" placeholder="Category ID" :value="index + 1" readonly>
 
-                                    <!-- Image upload using base64 -->
-                                    <input type="file" @change="handleImageUpload($event)">
+                                    <input type="file" id="productImage" @change="handleImageUpload($event)">
 
                                     <div class="form-buttons">
-                                        <button @click="addNewProduct(); showNewProductForm = false">Save</button>
-                                        <button @click="showNewProductForm = false">Cancel</button>
+                                        <button @click="addNewProduct(); showFormIndex = null">Save</button>
+                                        <button @click="showFormIndex = null">Cancel</button>
                                     </div>
                                 </div>
+
                             </div>
                         </template>
                     </div>
