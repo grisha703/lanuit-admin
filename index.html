@@ -162,38 +162,61 @@
                     <p x-show="products.length === 0" class="empty-message">There is no product yet</p>
 
                     <div x-show="products.length > 0" class="product-list">
-                        <template x-for="(product, index) in products" :key="index">
-                            <div class="product-row">
-                                <p class="product-name" x-text="product"></p>
+                        <template x-for="category in products" :key="category.id">
+
+                            <div class="product-row" x-data="{ 
+                showForm: false, 
+                tempName: '', 
+                tempPrice: null, 
+                tempOrderNumber: null
+            }">
+
+                                <p class="product-name" x-text="category.name"></p>
                                 <div class="product-line"></div>
-                                <!-- Add New Product Button -->
-                                <!-- Add New Product Button with image icon only -->
-                                <button class="header-button"
-                                    @click="showFormIndex = showFormIndex === index ? null : index">
+
+                                <button class="header-button" @click="showForm = true">
                                     <img src="icons/plus.item.png" alt="Add Product" class="product-image-button">
                                 </button>
 
-                                <!-- New Product Form -->
-                                <div x-show="showFormIndex === index" class="new-product-form" x-transition>
-                                    <h2>New Product</h2>
-                                    <input type="text" placeholder="Product Name" x-model="name">
-                                    <input type="number" placeholder="Price" x-model="price">
-                                    <input type="number" placeholder="Order Number" x-model="order_number">
-                                    <input type="number" placeholder="Category ID" :value="index + 1" readonly>
+                                <div x-show="showForm" class="new-product-form" x-transition>
+                                    <h2>New Product for <span x-text="category.name"></span></h2>
 
-                                    <input type="file" id="productImage" @change="handleImageUpload($event)">
+                                    <input type="text" placeholder="Product Name" x-model="tempName">
+                                    <input type="number" placeholder="Price" x-model="tempPrice">
+                                    <input type="number" placeholder="Order Number" x-model="tempOrderNumber">
+
+                                    <input type="text" placeholder="Category ID" :value="category.id" readonly>
+
+                                    <input type="file" id="productImage-{{ category.id }}"
+                                        @change="$root.handleImageUpload($event, category.id)">
 
                                     <div class="form-buttons">
-                                        <button @click="addNewProduct(); showFormIndex = null">Save</button>
-                                        <button @click="showFormIndex = null">Cancel</button>
+                                        <button @click="$root.addNewProduct({
+                                    name: tempName, 
+                                    price: tempPrice, 
+                                    order_number: tempOrderNumber 
+                                }, category.id); 
+                                showForm = false">Save</button>
+                                        <button @click="showForm = false">Cancel</button>
                                     </div>
                                 </div>
-
                             </div>
                         </template>
                     </div>
-
                 </div>
+
+                <div x-show="showAddCategory" class="alert-backdrop" x-transition>
+                    <div class="alert-box">
+                        <h2 class="alert-title">Name</h2>
+                        <input type="text" placeholder="Enter product name" class="alert-input" x-model="newCategory">
+                        <div class="alert-line"></div>
+                        <button class="alert-button cancel" @click="showAddCategory = false">Cancel</button>
+                        <button class="alert-button create" @click="$root.createCategory()">
+                            Create
+                        </button>
+                    </div>
+                </div>
+
 
                 <div x-show="activeTab === 'tab3'" class="tab-content">
                     <h1 class="page-title">Orders</h1>

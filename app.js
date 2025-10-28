@@ -375,6 +375,29 @@ document.addEventListener('alpine:init', () => {
     showFormIndex: null,
 
     // --------------------------
+    // Add Category Logic (Modified to include ID)
+    // --------------------------
+    // Helper to generate a unique ID (NOTE: In a real app, this should come from the server)
+    getNextCategoryId() {
+      return this.products.length > 0
+        ? Math.max(...this.products.map(p => p.id)) + 1
+        : 1;
+    },
+
+    // Function to handle the creation of the new category
+    createCategory() {
+      if (this.newCategory.trim() !== '') {
+        // **Key Change: Push an object with ID and Name**
+        this.products.push({
+          id: this.getNextCategoryId(),
+          name: this.newCategory.trim()
+        });
+        this.newCategory = '';
+        this.showAddCategory = false;
+      }
+    },
+
+    // --------------------------
     // Add new product
     // --------------------------
     async addNewProduct() {
