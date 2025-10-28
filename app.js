@@ -387,7 +387,7 @@ document.addEventListener('alpine:init', () => {
     // Function to handle the creation of the new category
     createCategory() {
       if (this.newCategory.trim() !== '') {
-        // **Key Change: Push an object with ID and Name**
+        // **Creates object with ID and Name**
         this.products.push({
           id: this.getNextCategoryId(),
           name: this.newCategory.trim()
