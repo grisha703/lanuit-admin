@@ -360,9 +360,116 @@ document.addEventListener('alpine:init', () => {
           }
         }
       });
-    }
+    },
 
+    // --------------------------
+    // New product's fields
+    // --------------------------
+    name: '', // Product name input for the new product form
+    price: 0, // Product price input for the new product form
+    order_number: 0, // Order number input for the new product form
+    category_id: 0, // Category ID input for the new product form
+    image: '', // Product image URL input for the new product form
+    // "https://ftlcafe.pythonanywhere.com" + image
 
+    showNewProductForm: false,
+
+    // --------------------------
+    // Add new product
+    // --------------------------
+    async addNewProduct() {
+      console.log(
+        'Add new product clicked',
+        this.name,
+        this.price,
+        this.order_number,
+        this.category_id
+      );
+
+      // Validate fields
+      if (
+        !this.name.trim() ||
+        !this.price.toString().trim() ||
+        !this.order_number.toString().trim() ||
+        !this.category_id.toString().trim()
+      ) {
+        alert('Please fill in all fields: Name, Price, Order Number, Category ID, and Image.');
+        return;
+      }
+
+      const fileInput = document.getElementById('productImage');
+      const file = fileInput?.files[0];
+      if (!file) {
+        alert('Please select an image.');
+        return;
+      }
+
+      // Convert image to Base64
+      const base64 = await this.toBase64(file);
+
+      // Build the request payload
+      const payload = {
+        name: this.name,
+        price: Number(this.price),
+        order_number: Number(this.order_number),
+        category_id: Number(this.category_id),
+        image: base64 // ✅ API expects Base64 string
+      };
+
+      console.log("📦 Sending product payload:", payload);
+
+      try {
+        const response = await fetch('https://ftlcafe.pythonanywhere.com/Products/', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.token, // ✅ include token
+          },
+          body: JSON.stringify(payload)
+        });
+
+        const text = await response.text();
+        console.log('Server raw response:', text);
+
+        if (!response.ok) {
+          try {
+            const errorData = JSON.parse(text);
+            throw new Error(errorData.detail || 'Failed to add product');
+          } catch {
+            throw new Error('Failed to add product: ' + text);
+          }
+        }
+
+        const data = JSON.parse(text);
+        console.log('✅ Product added successfully:', data);
+        alert('✅ Product added successfully!');
+
+        // Optional: refresh product list
+        this.products.push(data);
+        this.name = '';
+        this.price = 0;
+        this.order_number = 0;
+        this.category_id = 0;
+        fileInput.value = '';
+
+      } catch (err) {
+        console.error(err);
+        alert(err.message || 'Product upload failed.');
+      }
+    },
+
+    toBase64(file) {
+      return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+          const result = reader.result.split(',')[1]; // remove "data:image/jpeg;base64,"
+          resolve(result);
+        };
+        reader.onerror = error => reject(error);
+      });
+    },
 
 
 

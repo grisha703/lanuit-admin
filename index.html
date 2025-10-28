@@ -166,7 +166,28 @@
                             <div class="product-row">
                                 <p class="product-name" x-text="product"></p>
                                 <div class="product-line"></div>
-                                <img src="icons/plus.item.png" alt="Product Image" class="product-image">
+                                <!-- Add New Product Button -->
+                                <button class="header-button" @click="showNewProductForm = true">
+                                    <img src="icons/plus.png" alt="plus" class="icon" />
+                                    Add Product
+                                </button>
+
+                                <!-- New Product Form -->
+                                <div x-show="showNewProductForm" class="new-product-form" x-transition>
+                                    <h2>New Product</h2>
+                                    <input type="text" placeholder="Product Name" x-model="name">
+                                    <input type="number" placeholder="Price" x-model="price">
+                                    <input type="number" placeholder="Order Number" x-model="order_number">
+                                    <input type="number" placeholder="Category ID" x-model="category_id">
+
+                                    <!-- Image upload using base64 -->
+                                    <input type="file" @change="handleImageUpload($event)">
+
+                                    <div class="form-buttons">
+                                        <button @click="addNewProduct(); showNewProductForm = false">Save</button>
+                                        <button @click="showNewProductForm = false">Cancel</button>
+                                    </div>
+                                </div>
                             </div>
                         </template>
                     </div>
