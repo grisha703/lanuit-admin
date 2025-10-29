@@ -318,7 +318,7 @@ input {
   font-weight: 600;
   color: #9A8568;
   text-align: center;
-  margin: 5px 0;
+  margin: 20px 0;
 }
 
 .header-button {
@@ -481,7 +481,7 @@ input {
 
 /* Product List Container */
 .product-list {
-  margin-top: 5px;
+  margin-top: 0px;
   /* spacing from header */
   display: flex;
   flex-direction: column;
