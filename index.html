@@ -150,17 +150,16 @@
                     <canvas x-ref="salesChart"></canvas>
                 </div>
 
-                <div x-show="activeTab === 'tab2'" 
-     x-init="fetchCategories()" 
-     class="tab-content">
-    <div class="page-header">
-        <div class="page-header-spacer"></div>
-        <h1 class="page-title">Products</h1>
-        <button class="header-button" @click="showAddCategory = true">
-            <img src="icons/plus.png" alt="plus" class="icon" />
-            Add Category
-        </button>
-    </div>
+                <div x-show="activeTab === 'tab2'" x-effect="if (activeTab === 'tab2') fetchCategories()"
+                    class="tab-content">
+                    <div class="page-header">
+                        <div class="page-header-spacer"></div>
+                        <h1 class="page-title">Products</h1>
+                        <button class="header-button" @click="showAddCategory = true">
+                            <img src="icons/plus.png" alt="plus" class="icon" />
+                            Add Category
+                        </button>
+                    </div>
                     <p x-show="products.length === 0" class="empty-message">There is no product yet</p>
 
                     <div x-show="products.length > 0" class="product-list">
