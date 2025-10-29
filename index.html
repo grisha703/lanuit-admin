@@ -152,8 +152,7 @@
 
                 <div x-show="activeTab === 'tab2'" x-effect="if (activeTab === 'tab2') fetchCategories()"
                     class="tab-content">
-                    x-transition:enter.duration.500ms
-                    x-transition:leave.duration.300ms>
+
                     <div class="page-header">
                         <div class="page-header-spacer"></div>
                         <h1 class="page-title">Products</h1>
@@ -164,7 +163,7 @@
                     </div>
                     <p x-show="products.length === 0" class="empty-message">There is no product yet</p>
 
-                    <div x-show="products.length > 0" class="product-list">
+                    <div x-show="products.length > 0" class="product-list" x-transition>
                         <template x-for="category in products" :key="category.id">
 
                             <div class="product-row" x-data="{ 
