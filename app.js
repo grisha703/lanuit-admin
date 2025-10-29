@@ -385,15 +385,53 @@ document.addEventListener('alpine:init', () => {
     },
 
     // Function to handle the creation of the new category
-    createCategory() {
-      if (this.newCategory.trim() !== '') {
-        // **Creates object with ID and Name**
-        this.products.push({
-          id: this.getNextCategoryId(),
-          name: this.newCategory.trim()
+    async createCategory() {
+      if (this.newCategory.trim() === '') {
+        alert('Please enter a category name.');
+        return;
+      }
+      if (!this.token) {
+        alert('You must be logged in to create a category.');
+        return;
+      }
+      
+      try {
+        const response = await fetch('https://ftlcafe.pythonanywhere.com/Categories/', {
+          method: 'POST',
+          headers: {
+            'accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.token, // Must include token for POST
+          },
+          body: JSON.stringify({
+            name: this.newCategory.trim()
+          })
         });
+
+        const text = await response.text();
+        
+        if (!response.ok) {
+          try {
+            const errorData = JSON.parse(text);
+            throw new Error(errorData.detail || 'Failed to create category');
+          } catch {
+            throw new Error('Failed to create category: ' + text);
+          }
+        }
+
+        const newCategoryData = JSON.parse(text);
+        console.log('✅ Category created:', newCategoryData);
+        alert(`Category "${this.newCategory}" created successfully!`);
+
         this.newCategory = '';
         this.showAddCategory = false;
+        
+        // ⭐️ NEW: Refresh the category list after a successful creation
+        await this.fetchCategories();
+
+      } catch (err) {
+        console.error(err);
+        alert(err.message || 'Category creation failed. Please try again.');
       }
     },
 
@@ -492,6 +530,52 @@ document.addEventListener('alpine:init', () => {
         };
         reader.onerror = error => reject(error);
       });
+    },
+
+    // --------------------------
+    // ⭐️ NEW: Category Fetching Management
+    // --------------------------
+    async fetchCategories() {
+      if (!this.token) {
+        console.log('Token missing, cannot fetch categories.');
+        return;
+      }
+
+      console.log('Fetching categories...');
+      try {
+        const response = await fetch('https://ftlcafe.pythonanywhere.com/Categories/', {
+          method: 'GET',
+          headers: {
+            'accept': 'application/json',
+            // The API for GET /Categories/ does not require Authorization based on your CURL,
+            // but it's good practice to include it if subsequent endpoints need it.
+            // 'Authorization': 'Bearer ' + this.token, 
+          }
+        });
+
+        const text = await response.text();
+        console.log('Categories raw response:', text);
+
+        if (!response.ok) {
+          try {
+            const errorData = JSON.parse(text);
+            throw new Error(errorData.detail || 'Failed to fetch categories');
+          } catch {
+            throw new Error('Failed to fetch categories: ' + text);
+          }
+        }
+
+        const data = JSON.parse(text);
+        console.log('✅ Categories fetched:', data);
+
+        // ⭐️ Update the products array with the list of categories
+        // Assuming the API returns an array of category objects like [{id: 1, name: "Beverages", ...}, ...]
+        this.products = data; 
+
+      } catch (err) {
+        console.error(err);
+        alert(err.message || 'Failed to fetch categories. Please try again.');
+      }
     },
 
 
