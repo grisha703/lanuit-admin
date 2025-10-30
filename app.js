@@ -478,12 +478,13 @@ document.addEventListener('alpine:init', () => {
     products: [],      // ⭐️ Now stores categories with NESTED products
     allProducts: [],   // ⭐️ NEW: Stores the raw list of ALL products
 
-    // New product's fields
-    //name: '', // Product name input for the new product form // 🛑
-    //price: 0, // Product price input for the new product form // 🛑
-    //order_number: 0, // Order number input for the new product form // 🛑
-    //category_id: 0, // Category ID input for the new product form // 🛑
-    //image: '', // Product image URL input for the new product form // 🛑
+    // ⭐️ NEW Add Product Modal State ⭐️
+    showAddProduct: false, // Flag to show the add product modal/form
+    addProductCategoryId: null, // Stores the ID of the category being added to
+    addProductTempName: '',
+    addProductTempPrice: null,
+    addProductTempOrderNumber: null,
+    addProductFile: null, // Stores the file object for the image upload
     // "https://ftlcafe.pythonanywhere.com" + image
 
     // ⭐️ NEW: Fetch All Products
@@ -541,7 +542,7 @@ document.addEventListener('alpine:init', () => {
         this.addProductTempOrderNumber = null;
         this.addProductFile = null; // Clear previous file
         
-        // Reset file input element manually (if needed for visual clarity)
+        // Reset file input element manually (matches the ID in the HTML modal)
         const fileInput = document.getElementById('newProductImage');
         if (fileInput) fileInput.value = '';
         
