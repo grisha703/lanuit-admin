@@ -582,7 +582,7 @@ input {
 
 
 
-/* Container for each category's list of products 
+/* Container for each category's list of products */
 .category-container {
     margin-bottom: 30px;
     padding: 15px;
@@ -590,7 +590,7 @@ input {
     border-radius: 8px;
     background-color: #f9f9f9;
 }
-*/
+
 .category-name-title {
     font-size: 1.5em;
     color: #333;
@@ -601,10 +601,18 @@ input {
 
 /* ⭐️ KEY: This sets up the grid layout for the collection view ⭐️ */
 .product-collection-view {
-    display: grid;
-    /* Create a responsive grid with minimum 150px column width */
+    /* 1. Sets the container to use CSS Grid */
+    display: grid; 
+    
+    /* 2. Defines the columns: automatically fill the row with columns 
+          that are at least 150px wide, distributing extra space evenly. */
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
+    
+    /* 3. Spacing between the tiles */
     gap: 20px;
+    
+    /* Ensures the tiles flow left-to-right */
+    justify-content: start; 
 }
 
 /* Style for the Add Product tile/button */
