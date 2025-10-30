@@ -538,12 +538,17 @@ input {
   /* CAPITALIZE first letter of each word */
 }
 
+.category-container {
+    padding: 0 16px;
+}
+
 /* Line Under Product Name */
 .product-line {
   height: 1px;
   background-color: #9A8568;
   width: 100%;
-  margin: 8px 16px; /* 8px top/bottom, 16px left/right */
+  margin-bottom: 8px;
+  /* spacing after line */
 }
 
 /* Image Under Line */
