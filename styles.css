@@ -216,6 +216,20 @@ input {
   /* icon color */
 }
 
+.eye-icon {
+  /*width: 20px;
+  height: 20px;*/
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle-password {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+}
+
 /* =======================================================================
    REGISTER SUCCESS MESSAGE
    ======================================================================= */
