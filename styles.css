@@ -508,6 +508,7 @@ input {
   /* scrollable */
 
   width: 100%;
+  box-sizing: border-box;
 }
 
 /* Individual Product Row */
@@ -536,10 +537,6 @@ input {
   /* left-align text */
   text-transform: capitalize;
   /* CAPITALIZE first letter of each word */
-}
-
-.category-container {
-    padding: 15px;
 }
 
 /* Line Under Product Name */
@@ -589,6 +586,8 @@ input {
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     background-color: #f9f9f9;
+    width: 100%; /* Force it to fill the parent .product-list */
+    box-sizing: border-box;
 }
 
 .category-name-title {
@@ -602,7 +601,8 @@ input {
 /* ⭐️ KEY: This sets up the grid layout for the collection view ⭐️ */
 .product-collection-view {
     display: grid; 
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
+    /* Use a smaller min width to fit more products, e.g., 100px */
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); 
     gap: 20px;
 }
 
