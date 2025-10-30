@@ -323,6 +323,11 @@ input {
   align-items: center;
   margin-bottom: 0px;
   position: relative;
+
+  /* 💥 FIX: Add a thin border line at the bottom of the header */
+  border-bottom: 0.5px solid #D6D6D6; /* Use a light color for a subtle divider */
+  padding-bottom: 10px; /* Add some space between the line and the button/title */
+  margin-bottom: 15px; /* Add space between the line and the category list below it */
 }
 
 .page-title {
@@ -544,7 +549,7 @@ input {
 
 /* Line Under Product Name */
 .product-line {
-  height: 0.1px;
+  height: 1px;
   background-color: #9A8568;
   width: 100%;
   margin-bottom: 8px;
