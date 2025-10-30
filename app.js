@@ -1,54 +1,25 @@
 document.addEventListener('alpine:init', () => {
   Alpine.data('app', () => ({
+    // 🟦
     // --------------------------
-    // Current page/view the user is on
-    // --------------------------
-    page: 'login',
-
-    // --------------------------
-    // Currently logged-in user; null means no user is logged in
-    // --------------------------
-    user: null,
-    id: null,
-
-    // --------------------------
-    // Active tab in a tabbed interface; default is 'tab1'
-    // --------------------------
-    activeTab: 'tab1',
-
-    // --------------------------
-    // Login form fields
-    // --------------------------
-    loginUsername: '',  // Username input for login form
-    loginPassword: '',  // Password input for login form
-    token: '',          // Token received after login
-    userRole: '',      // User role (e.g., admin, user)
-
-    // --------------------------
-    // Register form fields
-    // --------------------------
-    registerUsername: '',   // Username input for registration form
-    registerPassword: '',   // Password input for registration form
-    confirmPassword: '',    // Confirmation input for registration form
-
-    // --------------------------
-    // UI state flags for password visibility
+    // UI state flags for password visibility /used in html file/
     // --------------------------
     showLoginPassword: false,       // Controls if login password is visible
     showRegisterPassword: false,    // Controls if register password is visible
     showConfirmPassword: false,      // Controls if confirm password is visible
 
-    showAddCategory: false,
-    newCategory: '',
-
-    // --------------------------
-    // Product management
-    // --------------------------
-    products: [], // product list
-
+    // 🟦
     // --------------------------
     // Log In management
     // --------------------------
+    page: 'login', // Current page/view the user is on
+    user: null, // Currently logged-in user; null means no user is logged in
+    activeTab: 'tab1', // Active tab in a tabbed interface; default is 'tab1'
+    // Login form fields
+    loginUsername: '',  // Username input for login form
+    loginPassword: '',  // Password input for login form
+    token: '',          // Token received after login
+
     async login() {
       console.log('Login clicked', this.loginUsername, this.loginPassword);
 
@@ -113,6 +84,12 @@ document.addEventListener('alpine:init', () => {
     // --------------------------
     // Register management
     // --------------------------
+    id: null,
+    // Register form fields
+    registerUsername: '',   // Username input for registration form
+    registerPassword: '',   // Password input for registration form
+    confirmPassword: '',    // Confirmation input for registration form
+
     async register() {
       console.log('Register clicked', this.registerUsername, this.registerPassword, this.confirmPassword);
 
@@ -171,6 +148,8 @@ document.addEventListener('alpine:init', () => {
     // --------------------------
     // User Info management
     // --------------------------
+    userRole: '',      // User role (e.g., admin, user)
+
     async userInfo() {
       //console.log('Register clicked', this.registerUsername, this.registerPassword, this.confirmPassword);
 
@@ -223,6 +202,7 @@ document.addEventListener('alpine:init', () => {
       }
     },
 
+    // 🟦
     // --------------------------
     // Sale Statistics Graph management  
     // --------------------------
@@ -363,28 +343,72 @@ document.addEventListener('alpine:init', () => {
     },
 
     // --------------------------
-    // New product's fields
-    // --------------------------
-    name: '', // Product name input for the new product form
-    price: 0, // Product price input for the new product form
-    order_number: 0, // Order number input for the new product form
-    category_id: 0, // Category ID input for the new product form
-    image: '', // Product image URL input for the new product form
-    // "https://ftlcafe.pythonanywhere.com" + image
-
-    showFormIndex: null,
-
-    // --------------------------
     // Add Category Logic (Modified to include ID)
     // --------------------------
     // Helper to generate a unique ID (NOTE: In a real app, this should come from the server)
+
+    //🔴 DELETE !!!!!!!!!!!!!!!!!!!!!!!!!
     getNextCategoryId() {
       return this.products.length > 0
         ? Math.max(...this.products.map(p => p.id)) + 1
         : 1;
     },
 
+    // 🟦
+    // --------------------------
+    // Category Management
+    // --------------------------
+
+    async fetchCategories() {
+      if (!this.token) {
+        console.log('Token missing, cannot fetch categories.');
+        return;
+      }
+
+      console.log('Fetching categories...');
+      try {
+        const response = await fetch('https://ftlcafe.pythonanywhere.com/Categories/', {
+          method: 'GET',
+          headers: {
+            'accept': 'application/json',
+            // The API for GET /Categories/ does not require Authorization based on your CURL,
+            // but it's good practice to include it if subsequent endpoints need it.
+            // 'Authorization': 'Bearer ' + this.token, 
+          }
+        });
+
+        const text = await response.text();
+        console.log('Categories raw response:', text);
+
+        if (!response.ok) {
+          try {
+            const errorData = JSON.parse(text);
+            throw new Error(errorData.detail || 'Failed to fetch categories');
+          } catch {
+            throw new Error('Failed to fetch categories: ' + text);
+          }
+        }
+
+        const data = JSON.parse(text);
+        console.log('✅ Categories fetched:', data);
+
+        // ⭐️ Update the products array with the list of categories
+        // Assuming the API returns an array of category objects like [{id: 1, name: "Beverages", ...}, ...]
+        this.products = data;
+
+      } catch (err) {
+        console.error(err);
+        alert(err.message || 'Failed to fetch categories. Please try again.');
+      }
+    },
+
+
+    // --------------------------
     // Function to handle the creation of the new category
+    // --------------------------
+    showAddCategory: false,
+    newCategory: '',
+
     async createCategory() {
       if (this.newCategory.trim() === '') {
         alert('Please enter a category name.');
@@ -394,7 +418,7 @@ document.addEventListener('alpine:init', () => {
         alert('You must be logged in to create a category.');
         return;
       }
-      
+
       try {
         const response = await fetch('https://ftlcafe.pythonanywhere.com/Categories/', {
           method: 'POST',
@@ -409,7 +433,7 @@ document.addEventListener('alpine:init', () => {
         });
 
         const text = await response.text();
-        
+
         if (!response.ok) {
           try {
             const errorData = JSON.parse(text);
@@ -425,7 +449,7 @@ document.addEventListener('alpine:init', () => {
 
         this.newCategory = '';
         this.showAddCategory = false;
-        
+
         // ⭐️ NEW: Refresh the category list after a successful creation
         await this.fetchCategories();
 
@@ -435,9 +459,23 @@ document.addEventListener('alpine:init', () => {
       }
     },
 
+
     // --------------------------
-    // Add new product
+    // Product management
     // --------------------------
+    products: [], // product list
+
+    // New product's fields
+    name: '', // Product name input for the new product form
+    price: 0, // Product price input for the new product form
+    order_number: 0, // Order number input for the new product form
+    category_id: 0, // Category ID input for the new product form
+    image: '', // Product image URL input for the new product form
+    // "https://ftlcafe.pythonanywhere.com" + image
+
+    // 🔴 showFormIndex: null,
+
+    // 🔴 Check
     async addNewProduct() {
       console.log(
         'Add new product clicked',
@@ -532,57 +570,12 @@ document.addEventListener('alpine:init', () => {
       });
     },
 
-    // --------------------------
-    // ⭐️ NEW: Category Fetching Management
-    // --------------------------
-    async fetchCategories() {
-      if (!this.token) {
-        console.log('Token missing, cannot fetch categories.');
-        return;
-      }
-
-      console.log('Fetching categories...');
-      try {
-        const response = await fetch('https://ftlcafe.pythonanywhere.com/Categories/', {
-          method: 'GET',
-          headers: {
-            'accept': 'application/json',
-            // The API for GET /Categories/ does not require Authorization based on your CURL,
-            // but it's good practice to include it if subsequent endpoints need it.
-            // 'Authorization': 'Bearer ' + this.token, 
-          }
-        });
-
-        const text = await response.text();
-        console.log('Categories raw response:', text);
-
-        if (!response.ok) {
-          try {
-            const errorData = JSON.parse(text);
-            throw new Error(errorData.detail || 'Failed to fetch categories');
-          } catch {
-            throw new Error('Failed to fetch categories: ' + text);
-          }
-        }
-
-        const data = JSON.parse(text);
-        console.log('✅ Categories fetched:', data);
-
-        // ⭐️ Update the products array with the list of categories
-        // Assuming the API returns an array of category objects like [{id: 1, name: "Beverages", ...}, ...]
-        this.products = data; 
-
-      } catch (err) {
-        console.error(err);
-        alert(err.message || 'Failed to fetch categories. Please try again.');
-      }
-    },
-
 
 
   }));
 });
 
+// 🟦
 // --------------------------
 // Animated image
 // --------------------------
@@ -594,6 +587,7 @@ if (img) {
   });
 }
 
+// 🔷
 // Represents a single stat entry
 class SaleStatistic {
   constructor(timeGroup, totalSales, totalQuantity) {
@@ -603,6 +597,7 @@ class SaleStatistic {
   }
 }
 
+// 🔷
 // Represents filters used in the request
 class Filters {
   constructor(year, month = null, sellerId = null, categoryId = null) {
