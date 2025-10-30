@@ -601,16 +601,8 @@ input {
 
 /* ⭐️ KEY: This sets up the grid layout for the collection view ⭐️ */
 .product-collection-view {
-    /* 1. Sets the container to use CSS Grid */
     display: grid; 
-    
-    /* 2. Defines responsive columns: 
-       - `repeat(auto-fill, ...)` creates as many columns as fit.
-       - `minmax(150px, 1fr)` ensures each column is at least 150px wide 
-         but will expand to fill space equally. This forces the wrap. */
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
-    
-    /* 3. Spacing between the tiles (both horizontal and vertical) */
     gap: 20px;
 }
 
