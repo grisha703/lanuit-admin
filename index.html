@@ -34,21 +34,13 @@
                 <img src="icons/logo1x.png" alt="Login" class="login-image">
                 <input type="text" placeholder="Login" x-model="loginUsername">
                 <div class="password-wrapper">
-                    <input :type="showLoginPassword ? 'text' : 'password'" placeholder="Password"
-                        x-model="loginPassword">
-                    <span class="toggle-password" @click="showLoginPassword = !showLoginPassword">
-                        <svg x-show="showLoginPassword" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                            <circle cx="12" cy="12" r="3" />
-                        </svg>
-                        <svg x-show="!showLoginPassword" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17.94 17.94A10.94 10.94 0 0112 20c-7 0-11-8-11-8a18.36 18.36 0 014.52-5.57" />
-                            <path d="M1 1l22 22" />
-                        </svg>
-                    </span>
-                </div>
+  <input :type="showLoginPassword ? 'text' : 'password'" placeholder="Password"
+         x-model="loginPassword">
+  <span class="toggle-password" @click="showLoginPassword = !showLoginPassword">
+    <img x-show="showLoginPassword" src="icons/eye.fill.png" alt="Show Password" class="eye-icon">
+    <img x-show="!showLoginPassword" src="icons/eye.slash.fill.png" alt="Hide Password" class="eye-icon">
+  </span>
+</div>
                 <button @click="login()">Log in</button>
             </div>
             <p class="register-link">
@@ -62,37 +54,21 @@
                 <img src="icons/logo1x.png" alt="Register" class="login-image">
                 <input type="text" placeholder="Login" x-model="registerUsername">
                 <div class="password-wrapper">
-                    <input :type="showRegisterPassword ? 'text' : 'password'" placeholder="Password"
-                        x-model="registerPassword">
-                    <span class="toggle-password" @click="showRegisterPassword = !showRegisterPassword">
-                        <svg x-show="showRegisterPassword" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                            <circle cx="12" cy="12" r="3" />
-                        </svg>
-                        <svg x-show="!showRegisterPassword" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17.94 17.94A10.94 10.94 0 0112 20c-7 0-11-8-11-8a18.36 18.36 0 014.52-5.57" />
-                            <path d="M1 1l22 22" />
-                        </svg>
-                    </span>
-                </div>
+  <input :type="showRegisterPassword ? 'text' : 'password'" placeholder="Password"
+         x-model="registerPassword">
+  <span class="toggle-password" @click="showRegisterPassword = !showRegisterPassword">
+    <img x-show="showRegisterPassword" src="icons/eye.fill.png" alt="Show Password" class="eye-icon">
+    <img x-show="!showRegisterPassword" src="icons/eye.slash.fill.png" alt="Hide Password" class="eye-icon">
+  </span>
+</div>
                 <div class="password-wrapper confirm">
-                    <input :type="showConfirmPassword ? 'text' : 'password'" placeholder="Confirm Password"
-                        x-model="confirmPassword">
-                    <span class="toggle-password" @click="showConfirmPassword = !showConfirmPassword">
-                        <svg x-show="showConfirmPassword" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                            <circle cx="12" cy="12" r="3" />
-                        </svg>
-                        <svg x-show="!showConfirmPassword" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17.94 17.94A10.94 10.94 0 0112 20c-7 0-11-8-11-8a18.36 18.36 0 014.52-5.57" />
-                            <path d="M1 1l22 22" />
-                        </svg>
-                    </span>
-                </div>
+  <input :type="showConfirmPassword ? 'text' : 'password'" placeholder="Confirm Password"
+         x-model="confirmPassword">
+  <span class="toggle-password" @click="showConfirmPassword = !showConfirmPassword">
+    <img x-show="showConfirmPassword" src="icons/eye.fill.png" alt="Show Confirm Password" class="eye-icon">
+    <img x-show="!showConfirmPassword" src="icons/eye.slash.fill.png" alt="Hide Confirm Password" class="eye-icon">
+  </span>
+</div>
                 <button @click="register()">Register</button>
             </div>
             <p class="register-link">
