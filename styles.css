@@ -544,7 +544,7 @@ input {
 
 /* Line Under Product Name */
 .product-line {
-  height: 1px;
+  height: 0.1px;
   background-color: #9A8568;
   width: 100%;
   margin-bottom: 8px;
