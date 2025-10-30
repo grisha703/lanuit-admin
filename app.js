@@ -479,11 +479,11 @@ document.addEventListener('alpine:init', () => {
     allProducts: [],   // ⭐️ NEW: Stores the raw list of ALL products
 
     // New product's fields
-    name: '', // Product name input for the new product form
-    price: 0, // Product price input for the new product form
-    order_number: 0, // Order number input for the new product form
-    category_id: 0, // Category ID input for the new product form
-    image: '', // Product image URL input for the new product form
+    //name: '', // Product name input for the new product form // 🛑
+    //price: 0, // Product price input for the new product form // 🛑
+    //order_number: 0, // Order number input for the new product form // 🛑
+    //category_id: 0, // Category ID input for the new product form // 🛑
+    //image: '', // Product image URL input for the new product form // 🛑
     // "https://ftlcafe.pythonanywhere.com" + image
 
     // ⭐️ NEW: Fetch All Products
@@ -529,87 +529,79 @@ document.addEventListener('alpine:init', () => {
 
     // 🔴 showFormIndex: null,
 
-    // 🔴 Check
+    // --------------------------
+    // Add Product Modal & Submission (NEW/REFACTORED)
+    // --------------------------
+
+    // 🟢 Step 1: Opens the modal and sets the category context
+    showAddProductForm(categoryId) {
+        this.addProductCategoryId = categoryId;
+        this.addProductTempName = '';
+        this.addProductTempPrice = null;
+        this.addProductTempOrderNumber = null;
+        this.addProductFile = null; // Clear previous file
+        
+        // Reset file input element manually (if needed for visual clarity)
+        const fileInput = document.getElementById('newProductImage');
+        if (fileInput) fileInput.value = '';
+        
+        this.showAddProduct = true;
+    },
+    
+    // 🟢 Step 2: Stores the selected file from the <input type="file">
+    setNewProductFile(file) {
+        this.addProductFile = file;
+    },
+
+    // 🟢 Step 3: Submits the product data using modal state
     async addNewProduct() {
-      console.log(
-        'Add new product clicked',
-        this.name,
-        this.price,
-        this.order_number,
-        this.category_id
-      );
-
-      // Validate fields
-      if (
-        !this.name.trim() ||
-        !this.price.toString().trim() ||
-        !this.order_number.toString().trim() ||
-        !this.category_id.toString().trim()
-      ) {
-        alert('Please fill in all fields: Name, Price, Order Number, Category ID, and Image.');
-        return;
-      }
-
-      const fileInput = document.getElementById('productImage');
-      const file = fileInput?.files[0];
-      if (!file) {
-        alert('Please select an image.');
-        return;
-      }
-
-      // Convert image to Base64
-      const base64 = await this.toBase64(file);
-
-      // Build the request payload
-      const payload = {
-        name: this.name,
-        price: Number(this.price),
-        order_number: Number(this.order_number),
-        category_id: Number(this.category_id),
-        image: base64 // ✅ API expects Base64 string
-      };
-
-      console.log("📦 Sending product payload:", payload);
-
-      try {
-        const response = await fetch('https://ftlcafe.pythonanywhere.com/Products/', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + this.token, // ✅ include token
-          },
-          body: JSON.stringify(payload)
-        });
-
-        const text = await response.text();
-        console.log('Server raw response:', text);
-
-        if (!response.ok) {
-          try {
-            const errorData = JSON.parse(text);
-            throw new Error(errorData.detail || 'Failed to add product');
-          } catch {
-            throw new Error('Failed to add product: ' + text);
-          }
+        // Validation check uses new modal state properties
+        if (
+            !this.addProductTempName.trim() ||
+            !this.addProductTempPrice ||
+            !this.addProductCategoryId ||
+            !this.addProductFile
+        ) {
+            alert('Please fill in Name, Price, Category ID, and select an Image.');
+            return;
         }
 
-        const data = JSON.parse(text);
-        console.log('✅ Product added successfully:', data);
-        alert('✅ Product added successfully!');
+        const base64Image = await this.toBase64(this.addProductFile);
 
-        // Optional: refresh product list
-        this.products.push(data);
-        this.name = '';
-        this.price = 0;
-        this.order_number = 0;
-        this.category_id = 0;
-        fileInput.value = '';
+        const payload = {
+            name: this.addProductTempName,
+            price: Number(this.addProductTempPrice),
+            order_number: Number(this.addProductTempOrderNumber || 0),
+            category_id: Number(this.addProductCategoryId),
+            image: base64Image
+        };
 
-      } catch (err) {
-        console.error(err);
-        alert(err.message || 'Product upload failed.');
-      }
+        try {
+            const response = await fetch('https://ftlcafe.pythonanywhere.com/Products/', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + this.token,
+                },
+                body: JSON.stringify(payload)
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.detail || 'Failed to add product');
+            }
+
+            alert('✅ Product added successfully!');
+            this.showAddProduct = false;
+            
+            // Refresh the whole category/product list to display the new item
+            await this.fetchCategories(); 
+
+        } catch (err) {
+            console.error(err);
+            alert(err.message || 'Product upload failed.');
+        }
     },
 
     toBase64(file) {
