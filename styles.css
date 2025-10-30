@@ -582,7 +582,7 @@ input {
 
 
 
-/* Container for each category's list of products */
+/* Container for each category's list of products 
 .category-container {
     margin-bottom: 30px;
     padding: 15px;
@@ -590,7 +590,7 @@ input {
     border-radius: 8px;
     background-color: #f9f9f9;
 }
-
+*/
 .category-name-title {
     font-size: 1.5em;
     color: #333;
