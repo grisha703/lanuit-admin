@@ -539,7 +539,7 @@ input {
 }
 
 .category-container {
-    padding: 0 16px;
+    padding: 15px;
 }
 
 /* Line Under Product Name */
@@ -604,15 +604,14 @@ input {
     /* 1. Sets the container to use CSS Grid */
     display: grid; 
     
-    /* 2. Defines the columns: automatically fill the row with columns 
-          that are at least 150px wide, distributing extra space evenly. */
+    /* 2. Defines responsive columns: 
+       - `repeat(auto-fill, ...)` creates as many columns as fit.
+       - `minmax(150px, 1fr)` ensures each column is at least 150px wide 
+         but will expand to fill space equally. This forces the wrap. */
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); 
     
-    /* 3. Spacing between the tiles */
+    /* 3. Spacing between the tiles (both horizontal and vertical) */
     gap: 20px;
-    
-    /* Ensures the tiles flow left-to-right */
-    justify-content: start; 
 }
 
 /* Style for the Add Product tile/button */
