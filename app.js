@@ -20,6 +20,7 @@ document.addEventListener('alpine:init', () => {
     loginPassword: '',  // Password input for login form
     token: '',          // Token received after login
 
+    // 🟢
     async login() {
       console.log('Login clicked', this.loginUsername, this.loginPassword);
 
@@ -90,6 +91,7 @@ document.addEventListener('alpine:init', () => {
     registerPassword: '',   // Password input for registration form
     confirmPassword: '',    // Confirmation input for registration form
 
+    // 🟢
     async register() {
       console.log('Register clicked', this.registerUsername, this.registerPassword, this.confirmPassword);
 
@@ -150,6 +152,7 @@ document.addEventListener('alpine:init', () => {
     // --------------------------
     userRole: '',      // User role (e.g., admin, user)
 
+    // 🟢
     async userInfo() {
       //console.log('Register clicked', this.registerUsername, this.registerPassword, this.confirmPassword);
 
@@ -212,6 +215,8 @@ document.addEventListener('alpine:init', () => {
     // --------------------------
     // Sale Statistics Graph (MODIFIED TO USE time_group AS LABEL)
     // --------------------------
+
+    // 🟢
     async saleStatisticsGraph() {
       if (!this.token) {
         console.log('Token missing, skipping stat fetch.');
@@ -286,6 +291,8 @@ document.addEventListener('alpine:init', () => {
     // -----------------------------------------------------------
     // 🚀 NEW FUNCTION: initSalesChart (Corrected Axes Configuration)
     // -----------------------------------------------------------
+
+    // 🟢
     initSalesChart(labels, data) {
       if (!this.$refs.salesChart) {
         console.error("Chart canvas reference not found.");
@@ -359,49 +366,53 @@ document.addEventListener('alpine:init', () => {
     // Category Management
     // --------------------------
 
+    // --------------------------
+    // Category Fetching Management (Refactored to include products)
+    // --------------------------
     async fetchCategories() {
-      if (!this.token) {
-        console.log('Token missing, cannot fetch categories.');
-        return;
-      }
+        if (!this.token) {
+            console.log('Token missing, cannot fetch categories/products.');
+            return;
+        }
+        
+        // 1. Fetch categories
+        let categories = [];
+        try {
+            const catResponse = await fetch('https://ftlcafe.pythonanywhere.com/Categories/', {
+                method: 'GET',
+                headers: { 'accept': 'application/json' }
+            });
 
-      console.log('Fetching categories...');
-      try {
-        const response = await fetch('https://ftlcafe.pythonanywhere.com/Categories/', {
-          method: 'GET',
-          headers: {
-            'accept': 'application/json',
-            // The API for GET /Categories/ does not require Authorization based on your CURL,
-            // but it's good practice to include it if subsequent endpoints need it.
-            // 'Authorization': 'Bearer ' + this.token, 
-          }
+            if (!catResponse.ok) throw new Error('Failed to fetch categories');
+            categories = await catResponse.json();
+            
+        } catch (err) {
+            console.error('Category fetch error:', err);
+            alert('Failed to fetch categories.');
+            return;
+        }
+        
+        // 2. Fetch all products (calls the new function)
+        await this.fetchAllProducts();
+
+        // 3. Map Products to Categories
+        const combinedData = categories.map(category => {
+            // Find all products that belong to this category
+            const relatedProducts = this.allProducts.filter(
+                product => product.category_id === category.id
+            );
+            
+            // Return a new category object with a nested 'products' array
+            return {
+                ...category, // Keep existing category properties (id, name, etc.)
+                products: relatedProducts // ⭐️ Add the filtered products here
+            };
         });
 
-        const text = await response.text();
-        console.log('Categories raw response:', text);
-
-        if (!response.ok) {
-          try {
-            const errorData = JSON.parse(text);
-            throw new Error(errorData.detail || 'Failed to fetch categories');
-          } catch {
-            throw new Error('Failed to fetch categories: ' + text);
-          }
-        }
-
-        const data = JSON.parse(text);
-        console.log('✅ Categories fetched:', data);
-
-        // ⭐️ Update the products array with the list of categories
-        // Assuming the API returns an array of category objects like [{id: 1, name: "Beverages", ...}, ...]
-        this.products = data;
-
-      } catch (err) {
-        console.error(err);
-        alert(err.message || 'Failed to fetch categories. Please try again.');
-      }
+        // 4. Update the reactive property
+        this.products = combinedData;
+        console.log('✅ Combined Categories and Products:', this.products);
     },
-
 
     // --------------------------
     // Function to handle the creation of the new category
@@ -409,6 +420,7 @@ document.addEventListener('alpine:init', () => {
     showAddCategory: false,
     newCategory: '',
 
+    // 🟢
     async createCategory() {
       if (this.newCategory.trim() === '') {
         alert('Please enter a category name.');
@@ -463,7 +475,8 @@ document.addEventListener('alpine:init', () => {
     // --------------------------
     // Product management
     // --------------------------
-    products: [], // product list
+    products: [],      // ⭐️ Now stores categories with NESTED products
+    allProducts: [],   // ⭐️ NEW: Stores the raw list of ALL products
 
     // New product's fields
     name: '', // Product name input for the new product form
@@ -472,6 +485,47 @@ document.addEventListener('alpine:init', () => {
     category_id: 0, // Category ID input for the new product form
     image: '', // Product image URL input for the new product form
     // "https://ftlcafe.pythonanywhere.com" + image
+
+    // ⭐️ NEW: Fetch All Products
+    async fetchAllProducts() {
+        if (!this.token) {
+            console.log('Token missing, cannot fetch products.');
+            return;
+        }
+
+        console.log('Fetching all products...');
+        try {
+            const response = await fetch('https://ftlcafe.pythonanywhere.com/Products/', {
+                method: 'GET',
+                headers: {
+                    'accept': 'application/json',
+                    // The API requires the token for product fetching
+                    'Authorization': 'Bearer ' + this.token,
+                }
+            });
+
+            const text = await response.text();
+
+            if (!response.ok) {
+                try {
+                    const errorData = JSON.parse(text);
+                    throw new Error(errorData.detail || 'Failed to fetch products');
+                } catch {
+                    throw new Error('Failed to fetch products: ' + text);
+                }
+            }
+
+            const data = JSON.parse(text);
+            console.log('✅ All products fetched:', data);
+
+            // Store the raw list
+            this.allProducts = data;
+
+        } catch (err) {
+            console.error(err);
+            alert(err.message || 'Failed to fetch products. Please try again.');
+        }
+    },
 
     // 🔴 showFormIndex: null,
 

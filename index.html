@@ -34,13 +34,14 @@
                 <img src="icons/logo1x.png" alt="Login" class="login-image">
                 <input type="text" placeholder="Login" x-model="loginUsername">
                 <div class="password-wrapper">
-  <input :type="showLoginPassword ? 'text' : 'password'" placeholder="Password"
-         x-model="loginPassword">
-  <span class="toggle-password" @click="showLoginPassword = !showLoginPassword">
-    <img x-show="showLoginPassword" src="icons/eye.fill.png" alt="Show Password" class="eye-icon">
-    <img x-show="!showLoginPassword" src="icons/eye.slash.fill.png" alt="Hide Password" class="eye-icon">
-  </span>
-</div>
+                    <input :type="showLoginPassword ? 'text' : 'password'" placeholder="Password"
+                        x-model="loginPassword">
+                    <span class="toggle-password" @click="showLoginPassword = !showLoginPassword">
+                        <img x-show="showLoginPassword" src="icons/eye.fill.png" alt="Show Password" class="eye-icon">
+                        <img x-show="!showLoginPassword" src="icons/eye.slash.fill.png" alt="Hide Password"
+                            class="eye-icon">
+                    </span>
+                </div>
                 <button @click="login()">Log in</button>
             </div>
             <p class="register-link">
@@ -54,21 +55,25 @@
                 <img src="icons/logo1x.png" alt="Register" class="login-image">
                 <input type="text" placeholder="Login" x-model="registerUsername">
                 <div class="password-wrapper">
-  <input :type="showRegisterPassword ? 'text' : 'password'" placeholder="Password"
-         x-model="registerPassword">
-  <span class="toggle-password" @click="showRegisterPassword = !showRegisterPassword">
-    <img x-show="showRegisterPassword" src="icons/eye.fill.png" alt="Show Password" class="eye-icon">
-    <img x-show="!showRegisterPassword" src="icons/eye.slash.fill.png" alt="Hide Password" class="eye-icon">
-  </span>
-</div>
+                    <input :type="showRegisterPassword ? 'text' : 'password'" placeholder="Password"
+                        x-model="registerPassword">
+                    <span class="toggle-password" @click="showRegisterPassword = !showRegisterPassword">
+                        <img x-show="showRegisterPassword" src="icons/eye.fill.png" alt="Show Password"
+                            class="eye-icon">
+                        <img x-show="!showRegisterPassword" src="icons/eye.slash.fill.png" alt="Hide Password"
+                            class="eye-icon">
+                    </span>
+                </div>
                 <div class="password-wrapper confirm">
-  <input :type="showConfirmPassword ? 'text' : 'password'" placeholder="Confirm Password"
-         x-model="confirmPassword">
-  <span class="toggle-password" @click="showConfirmPassword = !showConfirmPassword">
-    <img x-show="showConfirmPassword" src="icons/eye.fill.png" alt="Show Confirm Password" class="eye-icon">
-    <img x-show="!showConfirmPassword" src="icons/eye.slash.fill.png" alt="Hide Confirm Password" class="eye-icon">
-  </span>
-</div>
+                    <input :type="showConfirmPassword ? 'text' : 'password'" placeholder="Confirm Password"
+                        x-model="confirmPassword">
+                    <span class="toggle-password" @click="showConfirmPassword = !showConfirmPassword">
+                        <img x-show="showConfirmPassword" src="icons/eye.fill.png" alt="Show Confirm Password"
+                            class="eye-icon">
+                        <img x-show="!showConfirmPassword" src="icons/eye.slash.fill.png" alt="Hide Confirm Password"
+                            class="eye-icon">
+                    </span>
+                </div>
                 <button @click="register()">Register</button>
             </div>
             <p class="register-link">
@@ -140,45 +145,35 @@
                     <p x-show="products.length === 0" class="empty-message">There is no product yet</p>
 
                     <div x-show="products.length > 0" class="product-list" x-transition>
+
+
                         <template x-for="category in products" :key="category.id">
 
-                            <div class="product-row" x-data="{ 
-                showForm: false, 
-                tempName: '', 
-                tempPrice: null, 
-                tempOrderNumber: null
-            }">
-                                <p class="product-name" x-text="category.name"></p>
-                                <div class="product-line"></div>
+    <div class="category-container">
+        <h3 class="category-name-title" x-text="category.name"></h3>
+        
+        <div class="product-collection-view">
 
-                                <button class="header-button" @click="showForm = true">
-                                    <img src="icons/plus.item.png" alt="Add Product" class="product-image-button">
-                                </button>
+            <button class="add-product-button" @click="$root.showAddProductForm(category.id)">
+                <img src="icons/plus.item.png" alt="Add Product">
+                <span>Add Product</span>
+            </button>
+            
+            <template x-for="product in category.products" :key="product.id">
+                <div class="product-item">
+                    <img :src="'https://ftlcafe.pythonanywhere.com' + product.image" :alt="product.name" class="product-image">
+                    <p class="product-name" x-text="product.name"></p>
+                    <p class="product-price" x-text="'$' + product.price"></p>
+                    </div>
+            </template>
 
-                                <div x-show="showForm" class="new-product-form" x-transition>
-                                    <h2>New Product for <span x-text="category.name"></span></h2>
+        </div>
+    </div>
+</template>
 
-                                    <input type="text" placeholder="Product Name" x-model="tempName">
-                                    <input type="number" placeholder="Price" x-model="tempPrice">
-                                    <input type="number" placeholder="Order Number" x-model="tempOrderNumber">
 
-                                    <input type="text" placeholder="Category ID" :value="category.id" readonly>
 
-                                    <input type="file" id="productImage-{{ category.id }}"
-                                        @change="$root.handleImageUpload($event, category.id)">
 
-                                    <div class="form-buttons">
-                                        <button @click="$root.addNewProduct({
-                                    name: tempName, 
-                                    price: tempPrice, 
-                                    order_number: tempOrderNumber 
-                                }, category.id); 
-                                showForm = false">Save</button>
-                                        <button @click="showForm = false">Cancel</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </template>
                     </div>
                 </div>
 
