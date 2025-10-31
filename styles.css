@@ -322,32 +322,12 @@ input {
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   margin-bottom: 0px;
-  position: relative; 
-  /* ⚠️ IMPORTANT: Set position: relative for the pseudo-element to anchor */
+  position: relative;
 
-  /* Remove existing border-bottom lines here */
-  /* border-bottom: 1px solid #D6D6D6; */
-
-  padding-bottom: 10px; 
-  margin-bottom: 15px;
-}
-
-.page-header::after {
-    content: '';
-    position: absolute;
-    bottom: 0; /* Align it to the bottom of the header */
-    left: 0;
-    right: 0;
-    
-    /* 1. Draw a 1px tall line */
-    height: 1px;
-    background-color: #D6D6D6; /* Your light divider color */
-
-    /* 2. Scale it vertically to make it appear like 0.5px (or less) */
-    transform: scaleY(0.5); 
-    
-    /* 3. Ensure the scaling origin is the bottom edge */
-    transform-origin: bottom;
+  /* 💥 FIX: Add a thin border line at the bottom of the header */
+  border-bottom: 1px solid #D6D6D6; /* Use a light color for a subtle divider */
+  padding-bottom: 10px; /* Add some space between the line and the button/title */
+  margin-bottom: 15px; /* Add space between the line and the category list below it */
 }
 
 .page-title {
@@ -675,13 +655,7 @@ input {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.product-image {
-    width: 100%;
-    height: 100px;
-    object-fit: cover;
-    border-radius: 4px;
-    margin-bottom: 8px;
-}
+
 
 .product-name {
     font-weight: 600;
