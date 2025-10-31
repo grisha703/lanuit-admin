@@ -370,48 +370,48 @@ document.addEventListener('alpine:init', () => {
     // Category Fetching Management (Refactored to include products)
     // --------------------------
     async fetchCategories() {
-        if (!this.token) {
-            console.log('Token missing, cannot fetch categories/products.');
-            return;
-        }
-        
-        // 1. Fetch categories
-        let categories = [];
-        try {
-            const catResponse = await fetch('https://ftlcafe.pythonanywhere.com/Categories/', {
-                method: 'GET',
-                headers: { 'accept': 'application/json' }
-            });
+      if (!this.token) {
+        console.log('Token missing, cannot fetch categories/products.');
+        return;
+      }
 
-            if (!catResponse.ok) throw new Error('Failed to fetch categories');
-            categories = await catResponse.json();
-            
-        } catch (err) {
-            console.error('Category fetch error:', err);
-            alert('Failed to fetch categories.');
-            return;
-        }
-        
-        // 2. Fetch all products (calls the new function)
-        await this.fetchAllProducts();
-
-        // 3. Map Products to Categories
-        const combinedData = categories.map(category => {
-            // Find all products that belong to this category
-            const relatedProducts = this.allProducts.filter(
-                product => product.category_id === category.id
-            );
-            
-            // Return a new category object with a nested 'products' array
-            return {
-                ...category, // Keep existing category properties (id, name, etc.)
-                products: relatedProducts // ⭐️ Add the filtered products here
-            };
+      // 1. Fetch categories
+      let categories = [];
+      try {
+        const catResponse = await fetch('https://ftlcafe.pythonanywhere.com/Categories/', {
+          method: 'GET',
+          headers: { 'accept': 'application/json' }
         });
 
-        // 4. Update the reactive property
-        this.products = combinedData;
-        console.log('✅ Combined Categories and Products:', this.products);
+        if (!catResponse.ok) throw new Error('Failed to fetch categories');
+        categories = await catResponse.json();
+
+      } catch (err) {
+        console.error('Category fetch error:', err);
+        alert('Failed to fetch categories.');
+        return;
+      }
+
+      // 2. Fetch all products (calls the new function)
+      await this.fetchAllProducts();
+
+      // 3. Map Products to Categories
+      const combinedData = categories.map(category => {
+        // Find all products that belong to this category
+        const relatedProducts = this.allProducts.filter(
+          product => product.category_id === category.id
+        );
+
+        // Return a new category object with a nested 'products' array
+        return {
+          ...category, // Keep existing category properties (id, name, etc.)
+          products: relatedProducts // ⭐️ Add the filtered products here
+        };
+      });
+
+      // 4. Update the reactive property
+      this.products = combinedData;
+      console.log('✅ Combined Categories and Products:', this.products);
     },
 
     // --------------------------
@@ -489,43 +489,43 @@ document.addEventListener('alpine:init', () => {
 
     // ⭐️ NEW: Fetch All Products
     async fetchAllProducts() {
-        if (!this.token) {
-            console.log('Token missing, cannot fetch products.');
-            return;
+      if (!this.token) {
+        console.log('Token missing, cannot fetch products.');
+        return;
+      }
+
+      console.log('Fetching all products...');
+      try {
+        const response = await fetch('https://ftlcafe.pythonanywhere.com/Products/', {
+          method: 'GET',
+          headers: {
+            'accept': 'application/json',
+            // The API requires the token for product fetching
+            'Authorization': 'Bearer ' + this.token,
+          }
+        });
+
+        const text = await response.text();
+
+        if (!response.ok) {
+          try {
+            const errorData = JSON.parse(text);
+            throw new Error(errorData.detail || 'Failed to fetch products');
+          } catch {
+            throw new Error('Failed to fetch products: ' + text);
+          }
         }
 
-        console.log('Fetching all products...');
-        try {
-            const response = await fetch('https://ftlcafe.pythonanywhere.com/Products/', {
-                method: 'GET',
-                headers: {
-                    'accept': 'application/json',
-                    // The API requires the token for product fetching
-                    'Authorization': 'Bearer ' + this.token,
-                }
-            });
+        const data = JSON.parse(text);
+        console.log('✅ All products fetched:', data);
 
-            const text = await response.text();
+        // Store the raw list
+        this.allProducts = data;
 
-            if (!response.ok) {
-                try {
-                    const errorData = JSON.parse(text);
-                    throw new Error(errorData.detail || 'Failed to fetch products');
-                } catch {
-                    throw new Error('Failed to fetch products: ' + text);
-                }
-            }
-
-            const data = JSON.parse(text);
-            console.log('✅ All products fetched:', data);
-
-            // Store the raw list
-            this.allProducts = data;
-
-        } catch (err) {
-            console.error(err);
-            alert(err.message || 'Failed to fetch products. Please try again.');
-        }
+      } catch (err) {
+        console.error(err);
+        alert(err.message || 'Failed to fetch products. Please try again.');
+      }
     },
 
     // 🔴 showFormIndex: null,
@@ -536,73 +536,73 @@ document.addEventListener('alpine:init', () => {
 
     // 🟢 Step 1: Opens the modal and sets the category context
     showAddProductForm(categoryId) {
-        this.addProductCategoryId = categoryId;
-        this.addProductTempName = '';
-        this.addProductTempPrice = null;
-        this.addProductTempOrderNumber = null;
-        this.addProductFile = null; // Clear previous file
-        
-        // Reset file input element manually (matches the ID in the HTML modal)
-        const fileInput = document.getElementById('newProductImage');
-        if (fileInput) fileInput.value = '';
-        
-        this.showAddProduct = true;
+      this.addProductCategoryId = categoryId;
+      this.addProductTempName = '';
+      this.addProductTempPrice = null;
+      this.addProductTempOrderNumber = null;
+      this.addProductFile = null; // Clear previous file
+
+      // Reset file input element manually (matches the ID in the HTML modal)
+      const fileInput = document.getElementById('newProductImage');
+      if (fileInput) fileInput.value = '';
+
+      this.showAddProduct = true;
     },
-    
+
     // 🟢 Step 2: Stores the selected file from the <input type="file">
     setNewProductFile(file) {
-        this.addProductFile = file;
+      this.addProductFile = file;
     },
 
     // 🟢 Step 3: Submits the product data using modal state
     async addNewProduct() {
-        // Validation check uses new modal state properties
-        if (
-            !this.addProductTempName.trim() ||
-            !this.addProductTempPrice ||
-            !this.addProductCategoryId ||
-            !this.addProductFile
-        ) {
-            alert('Please fill in Name, Price, Category ID, and select an Image.');
-            return;
+      // Validation check uses new modal state properties
+      if (
+        !this.addProductTempName.trim() ||
+        !this.addProductTempPrice ||
+        !this.addProductCategoryId ||
+        !this.addProductFile
+      ) {
+        alert('Please fill in Name, Price, Category ID, and select an Image.');
+        return;
+      }
+
+      const base64Image = await this.toBase64(this.addProductFile);
+
+      const payload = {
+        name: this.addProductTempName,
+        price: Number(this.addProductTempPrice),
+        order_number: Number(this.addProductTempOrderNumber || 0),
+        category_id: Number(this.addProductCategoryId),
+        image: base64Image
+      };
+
+      try {
+        const response = await fetch('https://ftlcafe.pythonanywhere.com/Products/', {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + this.token,
+          },
+          body: JSON.stringify(payload)
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.detail || 'Failed to add product');
         }
 
-        const base64Image = await this.toBase64(this.addProductFile);
+        alert('✅ Product added successfully!');
+        this.showAddProduct = false;
 
-        const payload = {
-            name: this.addProductTempName,
-            price: Number(this.addProductTempPrice),
-            order_number: Number(this.addProductTempOrderNumber || 0),
-            category_id: Number(this.addProductCategoryId),
-            image: base64Image
-        };
+        // Refresh the whole category/product list to display the new item
+        await this.fetchCategories();
 
-        try {
-            const response = await fetch('https://ftlcafe.pythonanywhere.com/Products/', {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + this.token,
-                },
-                body: JSON.stringify(payload)
-            });
-
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.detail || 'Failed to add product');
-            }
-
-            alert('✅ Product added successfully!');
-            this.showAddProduct = false;
-            
-            // Refresh the whole category/product list to display the new item
-            await this.fetchCategories(); 
-
-        } catch (err) {
-            console.error(err);
-            alert(err.message || 'Product upload failed.');
-        }
+      } catch (err) {
+        console.error(err);
+        alert(err.message || 'Product upload failed.');
+      }
     },
 
     toBase64(file) {

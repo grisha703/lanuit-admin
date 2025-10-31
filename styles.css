@@ -324,7 +324,7 @@ input {
   align-items: center;
   margin-bottom: 0px;
   position: relative;
-  
+
   /* Vertical spacing to separate content */
   padding-bottom: 10px;
   margin-bottom: 15px;
@@ -332,15 +332,15 @@ input {
 
 /* Tiny Line Separator for Header */
 .page-header::after {
-    content: '';
-    position: absolute;
-    bottom: 0; 
-    left: 0;
-    right: 0;
-    height: 1px;
-    background-color: #D6D6D6; 
-    transform: scaleY(0.5); 
-    transform-origin: bottom;
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #D6D6D6;
+  transform: scaleY(0.5);
+  transform-origin: bottom;
 }
 
 .page-title {
@@ -383,9 +383,9 @@ input {
 
 .tab-content {
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   position: relative;
-  min-height: calc(100vh - 120px); 
+  min-height: calc(100vh - 120px);
 }
 
 /* =======================================================================
@@ -505,9 +505,9 @@ input {
   margin-top: 5px;
   /* spacing from header */
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   align-items: flex-start;
-  flex: 1; 
+  flex: 1;
   overflow-y: auto;
   width: 100%;
   box-sizing: border-box;
@@ -537,150 +537,153 @@ input {
 
 /* Container for each category's list of products */
 .category-container {
-    margin-bottom: 30px;
-    padding: 8px 15px 15px 15px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    width: 100%; 
-    box-sizing: border-box;
+  margin-bottom: 30px;
+  padding: 8px 15px 15px 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .category-name-title {
-    font-family: 'Inter', sans-serif;
-    font-weight: 600; 
-    font-size: 18px;
-    color: #9A8568;
-    margin-top: 0;
-    margin-bottom: 15px;
-    border-bottom: 2px solid #9A8568; 
-    padding-bottom: 5px;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: #9A8568;
+  margin-top: 0;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #9A8568;
+  padding-bottom: 5px;
 }
 
 /* ⭐️ KEY: This sets up the grid layout for the collection view ⭐️ */
 .product-collection-view {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, 140px); 
-    grid-auto-rows: 140px; 
-    gap: 20px; 
-    justify-content: start;
-    align-items: start; /* 💥 makes all tiles (including add button) align to the top */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 140px);
+  grid-auto-rows: 140px;
+  gap: 20px;
+  justify-content: start;
+  align-items: start;
+  /* 💥 makes all tiles (including add button) align to the top */
 }
 
 /* --- Product Item (Image Tile) Styles --- */
 
 .product-item {
-    position: relative; 
-    width: 140px;
-    height: 140px; 
-    border-radius: 8px;
-    overflow: hidden; 
+  position: relative;
+  width: 140px;
+  height: 140px;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 /* Readability Overlay (Gradient) */
 .product-item::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: 50%; 
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%);
-    z-index: 5; 
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%);
+  z-index: 5;
 }
 
 .product-item .product-image {
-    position: absolute; 
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover; 
-    margin: 0; 
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  margin: 0;
 }
 
 
 /* --- Product Name (Bottom Left Overlay) --- */
 .product-name {
-    position: absolute;
-    bottom: 5px; 
-    left: 8px; 
-    z-index: 10; 
-    
-    color: white; 
-    font-family: 'Inter', sans-serif;
-    font-size: 14px; 
-    font-weight: 600;
-    text-shadow: 0 0 3px rgba(0, 0, 0, 0.8); 
-    padding: 0;
-    margin: 0;
-    max-width: 80%; 
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  position: absolute;
+  bottom: 5px;
+  left: 8px;
+  z-index: 10;
+
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+  padding: 0;
+  margin: 0;
+  max-width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* --- Product Price (Bottom Right Overlay) --- */
 .product-price {
-    position: absolute;
-    bottom: 5px; 
-    right: 8px; 
-    z-index: 10; 
-    
-    color: white; 
-    font-family: 'Inter', sans-serif;
-    font-size: 14px; 
-    font-weight: 700;
-    text-shadow: 0 0 3px rgba(0, 0, 0, 0.8); 
-    margin: 0;
+  position: absolute;
+  bottom: 5px;
+  right: 8px;
+  z-index: 10;
+
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+  margin: 0;
 }
 
 
 /* --- Add Product Tile Styles (Borderless) --- */
 .add-product-tile {
-    /* Ensures sizing and centering are applied */
-    width: 140px;
-    height: 140px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  /* Ensures sizing and centering are applied */
+  width: 140px;
+  height: 140px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-    /* 💥 FIX: Remove the border and set a solid background */
-    border: none; 
-    background-color: #F2F2F7; /* Matches the split-container background for seamless look */
-    border-radius: 8px; 
-    cursor: pointer;
-    transition: background-color 0.2s;
+  margin-bottom: 15px;
+  /* 💥 FIX: Remove the border and set a solid background */
+  border: none;
+  background-color: #F2F2F7;
+  /* Matches the split-container background for seamless look */
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
 }
 
 .add-product-tile:hover {
-    background-color: #E6E6E6;
+  background-color: #E6E6E6;
 }
 
 /* --- Add Product Icon Fix --- */
 .add-product-tile img {
-    /* 💥 FIX: Correct size for the icon */
-    width: 140px; 
-    height: 140px;
-    object-fit: contain;
+  /* 💥 FIX: Correct size for the icon */
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
 }
 
 .add-product-tile span {
-    font-weight: 600;
-    color: #9a8568;
+  font-weight: 600;
+  color: #9a8568;
 }
 
 /* Styles for the new Global Product Modal */
 .product-form-box {
-    width: 90%;
-    max-width: 400px;
+  width: 90%;
+  max-width: 400px;
 }
 
 .file-label {
-    display: block;
-    margin-top: 15px;
-    margin-bottom: 5px;
-    font-weight: 500;
-    color: #333;
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
 }

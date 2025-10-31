@@ -134,51 +134,52 @@
 
 
                 <div x-show="activeTab === 'tab2'" x-effect="if (activeTab === 'tab2') fetchCategories()"
-    class="tab-content" x-transition:enter.duration.500ms x-transition:leave.duration.300ms>
+                    class="tab-content" x-transition:enter.duration.500ms x-transition:leave.duration.300ms>
 
-    <div class="page-header">
-        <div class="page-header-spacer"></div>
-        <h1 class="page-title">Products</h1>
-        <button class="header-button" @click="showAddCategory = true">
-            <img src="icons/plus.png" alt="plus" class="icon" />
-            Add Category
-        </button>
-    </div>
-    
-    <p x-show="products.length === 0" class="empty-message">There is no product yet</p>
+                    <div class="page-header">
+                        <div class="page-header-spacer"></div>
+                        <h1 class="page-title">Products</h1>
+                        <button class="header-button" @click="showAddCategory = true">
+                            <img src="icons/plus.png" alt="plus" class="icon" />
+                            Add Category
+                        </button>
+                    </div>
 
-    <div x-show="products.length > 0" class="product-list" x-transition>
-        
-        <template x-for="category in products" :key="category.id">
+                    <p x-show="products.length === 0" class="empty-message">There is no product yet</p>
 
-            <div class="category-container">
-                <h3 class="category-name-title" x-text="category.name"></h3>
+                    <div x-show="products.length > 0" class="product-list" x-transition>
+
+                        <template x-for="category in products" :key="category.id">
+
+                            <div class="category-container">
+                                <h3 class="category-name-title" x-text="category.name"></h3>
 
 
-                
-                
-                <div class="product-collection-view">
 
-                    <button class="add-product-tile" @click="showAddProductForm(category.id)">
-    <img src="icons/plus.item.png" alt="Add Product">
-    </button>
-                    
-                    <template x-for="product in category.products" :key="product.id">
-                        <div class="product-item">
-                            <img :src="'https://ftlcafe.pythonanywhere.com' + product.image" :alt="product.name" class="product-image">
-                            <p class="product-name" x-text="product.name"></p>
-                            <p class="product-price" x-text="'$' + product.price"></p>
-                        </div>
-                    </template>
 
+                                <div class="product-collection-view">
+
+                                    <button class="add-product-tile" @click="showAddProductForm(category.id)">
+                                        <img src="icons/plus.item.png" alt="Add Product">
+                                    </button>
+
+                                    <template x-for="product in category.products" :key="product.id">
+                                        <div class="product-item">
+                                            <img :src="'https://ftlcafe.pythonanywhere.com' + product.image"
+                                                :alt="product.name" class="product-image">
+                                            <p class="product-name" x-text="product.name"></p>
+                                            <p class="product-price" x-text="'$' + product.price"></p>
+                                        </div>
+                                    </template>
+
+                                </div>
+
+
+
+                            </div>
+                        </template>
+                    </div>
                 </div>
-
-
-
-            </div>
-        </template>
-    </div>
-</div>
 
 
 
@@ -219,17 +220,16 @@
                 <h2 class="alert-title">
                     New Product in Category: <span x-text="addProductCategoryId"></span>
                 </h2>
-                
+
                 <input type="text" placeholder="Product Name" class="alert-input" x-model="addProductTempName">
                 <input type="number" placeholder="Price" class="alert-input" x-model="addProductTempPrice">
                 <input type="number" placeholder="Order Number" class="alert-input" x-model="addProductTempOrderNumber">
 
                 <label for="newProductImage" class="file-label">Product Image</label>
-                <input type="file" id="newProductImage" 
-                       @change="$root.setNewProductFile($event.target.files[0])">
+                <input type="file" id="newProductImage" @change="$root.setNewProductFile($event.target.files[0])">
 
                 <div class="alert-line"></div>
-                
+
                 <div class="form-buttons">
                     <button class="alert-button cancel" @click="showAddProduct = false">Cancel</button>
                     <button class="alert-button create" @click="addNewProduct()">
@@ -239,7 +239,7 @@
             </div>
         </div>
 
-        
+
 </body>
 
 </html>
