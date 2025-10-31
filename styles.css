@@ -325,8 +325,8 @@ input {
   position: relative;
 
   /* 💥 FIX: Add a thin border line at the bottom of the header */
-  padding-bottom: 10px; /* Add some space between the line and the button/title */
-  margin-bottom: 15px; /* Add space between the line and the category list below it */
+  /*padding-bottom: 10px; /* Add some space between the line and the button/title */
+  /*margin-bottom: 15px; /* Add space between the line and the category list below it */
 }
 
 .page-title {
