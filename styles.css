@@ -661,7 +661,10 @@ input {
 .add-product-tile img {
     width: 140px;
     height: 140px;
-    margin-bottom: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .add-product-tile span {
