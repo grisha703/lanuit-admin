@@ -567,6 +567,10 @@ input {
   object-fit: contain;
 }
 
+.tab-content {
+  position: relative;
+}
+
 /* Empty message when no products exist */
 .empty-message {
   font-family: 'Inter', sans-serif;
@@ -576,7 +580,6 @@ input {
   text-align: center;
   /* center empty message */
 }
-
 
 
 
