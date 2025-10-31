@@ -324,10 +324,23 @@ input {
   align-items: center;
   margin-bottom: 0px;
   position: relative;
+  
+  /* Vertical spacing to separate content */
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
 
-  /* 💥 FIX: Add a thin border line at the bottom of the header */
-  /*padding-bottom: 10px; /* Add some space between the line and the button/title */
-  /*margin-bottom: 15px; /* Add space between the line and the category list below it */
+/* Tiny Line Separator for Header */
+.page-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0; 
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #D6D6D6; 
+    transform: scaleY(0.5); 
+    transform-origin: bottom;
 }
 
 .page-title {
@@ -369,19 +382,10 @@ input {
 }
 
 .tab-content {
-  /*flex: 1;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  color: #9A8568;
-  font-family: 'Inter', sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  */
-
-  /*display: initial; 
-  height: 100%;*/
+  flex-direction: column; 
+  position: relative;
+  min-height: calc(100vh - 120px); 
 }
 
 /* =======================================================================
@@ -500,11 +504,8 @@ input {
 .product-list {
   margin-top: 5px;
   /* spacing from header */
-  
-  /* ✅ ADD THIS BACK TO MANAGE VERTICAL STACKING */
   display: flex;
   flex-direction: column; 
-  
   align-items: flex-start;
   flex: 1; 
   overflow-y: auto;
@@ -523,70 +524,16 @@ input {
   width: 100%;
 }
 
-/* Product Name Text */
-.product-name {
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  /* SemiBold */
-  font-size: 18px;
-  color: #9A8568;
-  padding-left: 16px;
-  /* increase left spacing */
-  padding-bottom: 8px;
-  /* increase bottom spacing */
-  text-align: left;
-  /* left-align text */
-  text-transform: capitalize;
-  /* CAPITALIZE first letter of each word */
-}
-
-/* Line Under Product Name */
-.product-line {
-  height: 0.5px;
-  background-color: #9A8568;
-  width: 100%;
-  margin-bottom: 8px;
-  /* spacing after line */
-}
-
-/* Image Under Line */
-.product-image {
-  width: 140px;
-  /* set your desired size */
-  height: 140px;
-  margin-left: 0px;
-  /* aligns with product-name */
-  margin-top: 0px;
-  /* spacing below image */
-  object-fit: contain;
-}
-
-
-.tab-content {
-  display: flex;
-  flex-direction: column; /* keep header on top, content below */
-  position: relative;
-  min-height: calc(100vh - 120px); /* adjust if needed */
-}
-
 .empty-message {
   flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-
   font-family: 'Inter', sans-serif;
   font-size: 16px;
   color: #9A8568;
   text-align: center;
 }
-
-
-
-
-
-
-
 
 /* Container for each category's list of products */
 .category-container {
@@ -595,76 +542,128 @@ input {
     border: 1px solid #e0e0e0;
     border-radius: 8px;
     background-color: #f9f9f9;
-    width: 100%; /* Force it to fill the parent .product-list */
+    width: 100%; 
     box-sizing: border-box;
 }
 
 .category-name-title {
     font-family: 'Inter', sans-serif;
-    font-weight: 600; /* SemiBold */
+    font-weight: 600; 
     font-size: 18px;
     color: #9A8568;
     margin-top: 0;
     margin-bottom: 15px;
-    border-bottom: 2px solid #9A8568; /* Lanuit color accent */
+    border-bottom: 2px solid #9A8568; 
     padding-bottom: 5px;
 }
 
 /* ⭐️ KEY: This sets up the grid layout for the collection view ⭐️ */
 .product-collection-view {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 140px); /* each column = 140px */
-    grid-auto-rows: 140px; /* each row = 140px */
-    gap: 20px; /* spacing between items */
-    justify-content: start; /* align grid to the left */
+    grid-template-columns: repeat(auto-fill, 140px); 
+    grid-auto-rows: 140px; 
+    gap: 20px; 
+    justify-content: start; 
 }
 
-/* Style for the Add Product tile/button */
+/* --- Product Item (Image Tile) Styles --- */
+
 .product-item {
-    /* Set the positioning context */
     position: relative; 
-    
-    /* Ensure it has fixed dimensions */
     width: 140px;
     height: 140px; 
-    
-    /* Add a slight radius for visual appeal */
     border-radius: 8px;
-    
-    /* Ensure nothing overflows the corners */
     overflow: hidden; 
 }
+
+/* Readability Overlay (Gradient) */
+.product-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50%; 
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0) 100%);
+    z-index: 5; 
+}
+
 .product-item .product-image {
-    position: absolute; /* Set image position absolutely */
+    position: absolute; 
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensures the image fills the tile without distortion */
-    margin: 0; /* Remove any previous margins */
+    object-fit: cover; 
+    margin: 0; 
 }
 
-.product-item,
+
+/* --- Product Name (Bottom Left Overlay) --- */
+.product-name {
+    position: absolute;
+    bottom: 5px; 
+    left: 8px; 
+    z-index: 10; 
+    
+    color: white; 
+    font-family: 'Inter', sans-serif;
+    font-size: 14px; 
+    font-weight: 600;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.8); 
+    padding: 0;
+    margin: 0;
+    max-width: 80%; 
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --- Product Price (Bottom Right Overlay) --- */
+.product-price {
+    position: absolute;
+    bottom: 5px; 
+    right: 8px; 
+    z-index: 10; 
+    
+    color: white; 
+    font-family: 'Inter', sans-serif;
+    font-size: 14px; 
+    font-weight: 700;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.8); 
+    margin: 0;
+}
+
+
+/* --- Add Product Tile Styles (Borderless) --- */
 .add-product-tile {
+    /* Ensures sizing and centering are applied */
     width: 140px;
     height: 140px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    /* 💥 FIX: Remove the border and set a solid background */
+    border: none; 
+    background-color: #F2F2F7; /* Matches the split-container background for seamless look */
+    border-radius: 8px; 
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
 .add-product-tile:hover {
-    background-color: #9a856833;
+    background-color: #E6E6E6;
 }
 
+/* --- Add Product Icon Fix --- */
 .add-product-tile img {
-    width: 140px;
-    height: 140px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    /* 💥 FIX: Correct size for the icon */
+    width: 40px; 
+    height: 40px;
+    margin-bottom: 8px;
+    object-fit: contain;
 }
 
 .add-product-tile span {
@@ -672,38 +671,6 @@ input {
     color: #9a8568;
 }
 
-
-.product-name {
-    /* 1. Positioning */
-    position: absolute;
-    bottom: 5px; /* Distance from the bottom edge */
-    left: 8px; /* Distance from the left edge */
-    z-index: 10; /* Ensure text is above the image */
-    
-    /* 2. Style */
-    color: white; /* Make the text white so it's readable over the image */
-    font-size: 14px; /* Slightly smaller for the overlay */
-    font-weight: 600;
-    text-shadow: 0 0 3px rgba(0, 0, 0, 0.8); /* Add a subtle shadow for contrast */
-    padding: 0;
-    margin: 0;
-    max-width: 80%; /* Ensure it doesn't collide with the price */
-}
-
-.product-price {
-    /* 1. Positioning */
-    position: absolute;
-    bottom: 5px; /* Distance from the bottom edge (match product-name) */
-    right: 8px; /* Distance from the right edge */
-    z-index: 10; /* Ensure text is above the image */
-    
-    /* 2. Style */
-    color: white; /* Change price to white to stand out over the image */
-    font-size: 14px; 
-    font-weight: 700;
-    text-shadow: 0 0 3px rgba(0, 0, 0, 0.8); /* Subtle shadow for contrast */
-    margin: 0;
-}
 /* Styles for the new Global Product Modal */
 .product-form-box {
     width: 90%;
