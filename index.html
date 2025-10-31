@@ -153,22 +153,28 @@
 
             <div class="category-container">
                 <h3 class="category-name-title" x-text="category.name"></h3>
+
+
+
                 
                 <div class="product-collection-view">
+    
+    <template x-for="product in category.products" :key="product.id">
+        <div class="product-item">
+            <img :src="'https://ftlcafe.pythonanywhere.com' + product.image" :alt="product.name" class="product-image">
+            <p class="product-name" x-text="product.name"></p>
+            <p class="product-price" x-text="'$' + product.price"></p>
+        </div>
+    </template>
 
-                    <button class="add-product-tile" @click="showAddProductForm(category.id)">
-    <img src="icons/plus.item.png" alt="Add Product">
+    <button class="add-product-tile" @click="showAddProductForm(category.id)">
+        <img src="icons/plus.item.png" alt="Add Product">
     </button>
-                    
-                    <template x-for="product in category.products" :key="product.id">
-                        <div class="product-item">
-                            <img :src="'https://ftlcafe.pythonanywhere.com' + product.image" :alt="product.name" class="product-image">
-                            <p class="product-name" x-text="product.name"></p>
-                            <p class="product-price" x-text="'$' + product.price"></p>
-                        </div>
-                    </template>
+    
+</div>
 
-                </div>
+
+
             </div>
         </template>
     </div>
