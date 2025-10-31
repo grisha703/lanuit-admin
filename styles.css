@@ -563,7 +563,8 @@ input {
     grid-template-columns: repeat(auto-fill, 140px); 
     grid-auto-rows: 140px; 
     gap: 20px; 
-    justify-content: start; 
+    justify-content: start;
+    align-items: start; /* 💥 makes all tiles (including add button) align to the top */
 }
 
 /* --- Product Item (Image Tile) Styles --- */
@@ -635,22 +636,15 @@ input {
 }
 
 
-/* --- Add Product Tile Styles (Borderless) --- */
+.product-item,
 .add-product-tile {
-    /* Ensures sizing and centering are applied */
     width: 140px;
     height: 140px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
-    /* 💥 FIX: Remove the border and set a solid background */
-    border: none; 
-    background-color: #F2F2F7; /* Matches the split-container background for seamless look */
-    border-radius: 8px; 
-    cursor: pointer;
-    transition: background-color 0.2s;
+    box-sizing: border-box;
 }
 
 .add-product-tile:hover {
@@ -659,10 +653,8 @@ input {
 
 /* --- Add Product Icon Fix --- */
 .add-product-tile img {
-    /* 💥 FIX: Correct size for the icon */
-    width: 140px; 
-    height: 140px;
-    object-fit: contain;
+    margin: 0;
+    display: block;
 }
 
 .add-product-tile span {
