@@ -659,15 +659,9 @@ input {
 }
 
 .add-product-tile img {
-    /* 💥 FIX: Set a small, fixed size for the 'plus' icon */
-    width: 40px; 
-    height: 40px;
-    
-    /* 💥 FIX: Set margin-bottom to 8px to separate it from the <span> text */
-    margin-bottom: 8px; 
-
-    /* Ensure no other styles interfere */
-    object-fit: contain; 
+    width: 140px;
+    height: 140px;
+    margin-bottom: 8px;
 }
 
 .add-product-tile span {
