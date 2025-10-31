@@ -597,6 +597,8 @@ input {
 
 /* Container for each category's list of products */
 .category-container {
+    width: 140px;
+    height: 140px;
     margin-bottom: 30px;
     padding: 8px 15px 15px 15px;
     border: 1px solid #e0e0e0;
