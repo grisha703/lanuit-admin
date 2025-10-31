@@ -633,10 +633,6 @@ input {
     
     /* Ensure nothing overflows the corners */
     overflow: hidden; 
-    
-    /* Remove default product-item border/shadow if desired */
-    /* border: 1px solid #ccc; */
-    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05); */
 }
 .product-item .product-image {
     position: absolute; /* Set image position absolutely */
@@ -663,27 +659,21 @@ input {
 }
 
 .add-product-tile img {
-    width: 140px;
-    height: 140px;
-    margin-bottom: 8px;
+    /* 💥 FIX: Set a small, fixed size for the 'plus' icon */
+    width: 40px; 
+    height: 40px;
+    
+    /* 💥 FIX: Set margin-bottom to 8px to separate it from the <span> text */
+    margin-bottom: 8px; 
+
+    /* Ensure no other styles interfere */
+    object-fit: contain; 
 }
 
 .add-product-tile span {
     font-weight: 600;
     color: #9a8568;
 }
-
-/* Style for individual product tiles */
-/*.product-item {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-}*/
-
 
 
 .product-name {
