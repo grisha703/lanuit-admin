@@ -567,13 +567,10 @@ input {
   object-fit: contain;
 }
 
-.tab-content {
-  position: relative;
-}
-
 /* Empty message when no products exist */
 .empty-message {
-  position: absolute;
+  position: relative;
+  min-height: calc(100vh - 120px); /* adjust 120px for your header/sidebar height */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
