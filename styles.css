@@ -561,9 +561,9 @@ input {
   width: 140px;
   /* set your desired size */
   height: 140px;
-  margin-left: 16px;
+  margin-left: 0px;
   /* aligns with product-name */
-  margin-top: 12px;
+  margin-top: 0px;
   /* spacing below image */
   object-fit: contain;
 }
