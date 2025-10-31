@@ -569,16 +569,17 @@ input {
 
 
 .tab-content {
-  position: relative; /* makes it a positioned parent */
-  height: 100%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  /* Ensure the content area fills the available screen space */
+  min-height: calc(100vh - 120px); /* Adjust 120px if you have a larger header */
 }
 
 .empty-message {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
   font-family: 'Inter', sans-serif;
   font-size: 16px;
   color: #9A8568;
