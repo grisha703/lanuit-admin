@@ -636,15 +636,22 @@ input {
 }
 
 
-.product-item,
+/* --- Add Product Tile Styles (Borderless) --- */
 .add-product-tile {
+    /* Ensures sizing and centering are applied */
     width: 140px;
     height: 140px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
+
+    /* 💥 FIX: Remove the border and set a solid background */
+    border: none; 
+    background-color: #F2F2F7; /* Matches the split-container background for seamless look */
+    border-radius: 8px; 
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
 .add-product-tile:hover {
@@ -653,8 +660,10 @@ input {
 
 /* --- Add Product Icon Fix --- */
 .add-product-tile img {
-    margin: 0;
-    display: block;
+    /* 💥 FIX: Correct size for the icon */
+    width: 140px; 
+    height: 140px;
+    object-fit: contain;
 }
 
 .add-product-tile span {
