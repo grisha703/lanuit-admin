@@ -624,14 +624,15 @@ input {
 }
 
 /* Style for the Add Product tile/button */
-/*.add-product-tile {
+.add-product-tile {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 150px; /* Match the product tile height */
+    width: 140px; /* Match the product tile height */
+    height: 140px; /* Match the product tile height */
     /*background-color: #9a85681a; /* Light accent background */
-    /*border: 2px dashed #9a8568;
+    /*border: 2px dashed #9a8568;*/
     border-radius: 8px;
     cursor: pointer;
     transition: background-color 0.2s;
