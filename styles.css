@@ -367,13 +367,6 @@ input {
 .tab-content canvas {
   margin-top: 72px;
 }
-/* ❌ ORIGINAL CODE:
-.tab-content {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-  */
 
 .tab-content {
   /*flex: 1;
@@ -387,8 +380,8 @@ input {
   font-size: 16px;
   */
 
-  display: initial; 
-  height: 100%;
+  /*display: initial; 
+  height: 100%;*/
 }
 
 /* =======================================================================
