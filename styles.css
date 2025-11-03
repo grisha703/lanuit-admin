@@ -537,7 +537,7 @@ input {
 
 /* Container for each category's list of products */
 .category-container {
-  margin-bottom: 30px;
+  margin-bottom: 0px;
   margin-top: 0px;
   padding: 8px 15px 15px 15px;
   border: 1px solid #e0e0e0;
@@ -563,8 +563,7 @@ input {
   display: grid;
   grid-template-columns: repeat(auto-fill, 140px);
   grid-auto-rows: 140px;
-  row-gap: 0;
-  column-gap: 20px;
+  gap: 20px;
   justify-content: start;
   align-items: start;
   /* 💥 makes all tiles (including add button) align to the top */
