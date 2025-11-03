@@ -554,7 +554,7 @@ input {
   color: #9A8568;
   margin-top: 0;
   margin-bottom: 15px;
-  border-bottom: 2px solid #9A8568;
+  border-bottom: 1px solid #9A8568;
   padding-bottom: 5px;
 }
 
@@ -563,7 +563,7 @@ input {
   display: grid;
   grid-template-columns: repeat(auto-fill, 140px);
   grid-auto-rows: 140px;
-  gap: 30px;
+  gap: 20px;
   justify-content: start;
   align-items: start;
   /* 💥 makes all tiles (including add button) align to the top */
