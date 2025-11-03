@@ -332,15 +332,15 @@ input {
 
 /* Tiny Line Separator for Header */
 .page-header::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background-color: #D6D6D6;
-  transform: scaleY(0.5);
-  transform-origin: bottom;
+    display: none; /* Add this line to hide the separator */
+    position: absolute;
+    bottom: 0; 
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #D6D6D6; 
+    transform: scaleY(0.5); 
+    transform-origin: bottom;
 }
 
 .page-title {
@@ -654,11 +654,6 @@ input {
   border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.2s;
-}
-
-/* Hide the line only for the Products header */
-.products-header::after {
-    display: none;
 }
 
 .add-product-tile:hover {
