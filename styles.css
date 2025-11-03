@@ -656,6 +656,11 @@ input {
   transition: background-color 0.2s;
 }
 
+/* Hide the line only for the Products header */
+.products-header::after {
+    display: none;
+}
+
 .add-product-tile:hover {
   background-color: #E6E6E6;
 }
