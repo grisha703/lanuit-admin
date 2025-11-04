@@ -326,7 +326,7 @@ input {
   position: relative;
 
   /* Vertical spacing to separate content */
-  padding-bottom: 10px;
+  padding-bottom: 0px;
   margin-bottom: 15px;
 }
 
@@ -502,7 +502,7 @@ input {
 
 /* Product List Container */
 .product-list {
-  margin-top: 5px;
+  margin-top: 0px;
   /* spacing from header */
   display: flex;
   flex-direction: column;
