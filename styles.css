@@ -567,6 +567,8 @@ input {
   border-bottom: 1px solid #9A8568; /* Changed to 2px for better visibility of the change */
   padding-bottom: 5px;
   box-sizing: border-box; /* Crucial for calc() and padding to work correctly */
+  /* 💥 FIX: Force capitalization of the first letter of each word */
+  text-transform: capitalize;
 }
 
 /* ⭐️ KEY: This sets up the grid layout for the collection view ⭐️ */
