@@ -540,9 +540,10 @@ input {
   margin-bottom: 0px;
   margin-top: 0px;
   padding: 8px 15px 15px 15px;
-  border: 1px solid #e0e0e0;
+  /*border: 1px solid #e0e0e0;
   border-radius: 8px;
   background-color: #f9f9f9;
+  */
   width: 100%;
   box-sizing: border-box;
 }
@@ -554,8 +555,18 @@ input {
   color: #9A8568;
   margin-top: 0;
   margin-bottom: 15px;
-  border-bottom: 1px solid #9A8568;
+  /* 💥 KEY FIXES BELOW */
+  /* 1. Use negative margin to pull the title element (and its border) to the left padding edge of the parent */
+  margin-left: -15px; 
+  /* 2. Increase width to span the full width of the parent (including the original 15px padding on both sides) */
+  width: calc(100% + 30px); /* 100% + 15px left margin + 15px right margin of the parent container */
+  /* 3. Add padding-left back so the text doesn't overlap the left edge */
+  padding-left: 15px;
+
+  /* Keep border and padding-bottom */
+  border-bottom: 1px solid #9A8568; /* Changed to 2px for better visibility of the change */
   padding-bottom: 5px;
+  box-sizing: border-box; /* Crucial for calc() and padding to work correctly */
 }
 
 /* ⭐️ KEY: This sets up the grid layout for the collection view ⭐️ */
