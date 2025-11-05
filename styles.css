@@ -460,15 +460,11 @@ input {
 
 /* Line under input */
 .alert-line {
-  /* 💥 FIX 1: Set width to 100% to fill the content area */
-  width: 100%;
+  width: 338px;
   max-width: 100%;
   height: 1px;
   background: #9A8568;
   margin-bottom: 16px;
-  /* Ensure no centering or overriding margins */
-  margin-left: 0; 
-  margin-right: 0;
 }
 
 /* Buttons */
@@ -693,8 +689,9 @@ input {
 
 /* Styles for the new Global Product Modal */
 .product-form-box {
-  width: 90%;
-  max-width: 400px;
+  /* 💥 FIX: Override the 90% and max-width to match the fixed width of .alert-box (330px) */
+  width: 330px; 
+  max-width: 330px;
 }
 
 .file-label {
