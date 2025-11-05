@@ -461,8 +461,7 @@ input {
 
 /* Line under input */
 .alert-line {
-  width: 338px;
-  max-width: 100%;
+  width: 100%;
   height: 1px;
   background: #9A8568;
   margin-bottom: 16px;
@@ -470,7 +469,7 @@ input {
 
 /* Buttons */
 .alert-button {
-  width: 332px;
+  width: 100%;
   height: 46px;
   border-radius: 12px;
   font-family: 'Inter', sans-serif;
