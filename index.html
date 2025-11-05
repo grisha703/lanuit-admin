@@ -230,15 +230,11 @@
 
                 <div class="alert-line"></div>
 
-                <div x-show="showAddProduct" class="alert-backdrop" x-transition>
-                    <div class="alert-box product-form-box">
-                        <div class="alert-line"></div>
-
-                        <button class="alert-button cancel" @click="showAddProduct = false">Cancel</button>
-                        <button class="alert-button create" @click="addNewProduct()">
-                            Save Product
-                        </button>
-                    </div>
+                <div class="form-buttons">
+                    <button class="alert-button cancel" @click="showAddProduct = false">Cancel</button>
+                    <button class="alert-button create" @click="addNewProduct()">
+                        Save Product
+                    </button>
                 </div>
             </div>
         </div>
