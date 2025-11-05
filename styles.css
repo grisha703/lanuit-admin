@@ -689,9 +689,8 @@ input {
 
 /* Styles for the new Global Product Modal */
 .product-form-box {
-  /* 💥 FIX: Override the 90% and max-width to match the fixed width of .alert-box (330px) */
-  width: 330px; 
-  max-width: 330px;
+    width: 90%;
+    max-width: 400px;
 }
 
 .file-label {
