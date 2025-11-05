@@ -692,6 +692,12 @@ input {
     max-width: 400px;
 }
 
+.form-buttons {
+    width: 100%; /* Ensure it spans the full width of the unpadded parent */
+    padding: 0 16px; /* Apply 16px padding on the left/right */
+    box-sizing: border-box; /* Ensure padding is included in width calculation */
+}
+
 .file-label {
   display: block;
   margin-top: 15px;
