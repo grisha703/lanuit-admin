@@ -408,8 +408,7 @@ input {
 
 /* Alert box container */
 .alert-box {
-  width: 90%;
-  max-width: 400px;
+  width: 330px;
   /*height: 236px;*/
   background: #FFFFFF;
   border-radius: 12px;
