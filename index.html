@@ -226,7 +226,7 @@
                 <input type="number" placeholder="Order Number" class="alert-input" x-model="addProductTempOrderNumber">
 
                 <label for="newProductImage" class="file-label">Product Image</label>
-                <input type="file" id="newProductImage" class="file-input-hidden" @change="$root.setNewProductFile($event.target.files[0])">
+                <input type="file" id="newProductImage" @change="$root.setNewProductFile($event.target.files[0])">
 
                 <div class="alert-line"></div>
 

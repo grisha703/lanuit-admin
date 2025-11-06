@@ -715,23 +715,3 @@ input {
     text-align: left;
     cursor: pointer; /* Indicate it's clickable */
 }
-
-/* 2. Hide the default file input element (which shows "No file chosen") */
-.file-input-hidden {
-    /* Visually hide the input element but keep it accessible */
-    opacity: 0;
-    width: 0.1px;
-    height: 0.1px;
-    position: absolute;
-    overflow: hidden;
-    z-index: -1;
-}
-
-.alert-box > .alert-title,
-.alert-box > .alert-input,
-.alert-box > .file-label {
-    width: calc(100% - 32px);
-    padding-left: 16px;
-    padding-right: 16px;
-    box-sizing: border-box;
-}
