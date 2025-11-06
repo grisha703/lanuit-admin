@@ -726,3 +726,12 @@ input {
     overflow: hidden;
     z-index: -1;
 }
+
+.alert-box > .alert-title,
+.alert-box > .alert-input,
+.alert-box > .file-label {
+    width: calc(100% - 32px);
+    padding-left: 16px;
+    padding-right: 16px;
+    box-sizing: border-box;
+}
