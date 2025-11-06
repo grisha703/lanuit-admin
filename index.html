@@ -228,11 +228,11 @@
                 <p class="custom-label-text">Product Image</p>
                 
                 <input type="file" id="newProductImage" class="hidden-file-input"
-                    @change="handleImageSelection($event.target.files[0])" accept="image/*"> <label
-                    for="newProductImage" class="custom-image-frame"
+                    @change="handleImageSelection($event.target.files[0])" accept="image/*">
+                    <label for="newProductImage" class="custom-image-frame"
                     :style="newProductImagePreview ? `background-image: url(${newProductImagePreview})` : ''">
                     <template x-if="!newProductImagePreview">
-                        <img src="icons/plus.item.png" alt="Add Product" class="plus-icon">
+                        <img src="icons/plus.png" alt="Add Product" class="plus-icon">
                     </template>
                 </label>
 
