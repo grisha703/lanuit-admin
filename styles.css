@@ -699,19 +699,9 @@ input {
 }
 
 .file-label {
-    /* Inherit the look of .alert-input */
-    font-family: 'Inter', sans-serif;
-    font-weight: 500; /* Medium */
-    font-size: 24px;
-    color: #9A8568; /* Matches alert-input text color */
-
-    /* Existing display/margin tweaks */
-    display: block;
-    margin-top: 15px;
-    margin-bottom: 5px;
-
-    /* Treat the label like a full-width input field */
-    width: 100%; 
-    text-align: left;
-    cursor: pointer; /* Indicate it's clickable */
+  display: block;
+  margin-top: 15px;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #333;
 }
