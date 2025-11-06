@@ -540,6 +540,7 @@ document.addEventListener('alpine:init', () => {
       this.addProductTempName = '';
       this.addProductTempPrice = null;
       this.addProductTempOrderNumber = null;
+      this.newProductImagePreview = '';
       this.addProductFile = null; // Clear previous file
 
       // Reset file input element manually (matches the ID in the HTML modal)
