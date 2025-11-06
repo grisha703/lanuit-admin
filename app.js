@@ -22,9 +22,6 @@ document.addEventListener('alpine:init', () => {
 
     // 🟢
     async login() {
-          this.user = this.loginUsername; //🔴
-          this.page = 'main'; // 🔴
-          this.activeTab = 'tab1'; // 🔴
       console.log('Login clicked', this.loginUsername, this.loginPassword);
 
       if (!this.loginUsername || !this.loginPassword) {
