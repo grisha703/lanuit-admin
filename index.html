@@ -225,8 +225,14 @@
                 <input type="number" placeholder="Price" class="alert-input" x-model="addProductTempPrice">
                 <input type="number" placeholder="Order Number" class="alert-input" x-model="addProductTempOrderNumber">
 
-                <label for="newProductImage" class="file-label">Product Image</label>
-                <input type="file" id="newProductImage" @change="$root.setNewProductFile($event.target.files[0])">
+                <input type="file" id="newProductImage" class="hidden-file-input"
+                    @change="handleImageSelection($event.target.files[0])" accept="image/*"> <label
+                    for="newProductImage" class="custom-image-frame"
+                    :style="newProductImagePreview ? `background-image: url(${newProductImagePreview})` : ''">
+                    <template x-if="!newProductImagePreview">
+                        <img src="icons/plus.item.png" alt="Add Product" class="plus-icon">
+                    </template>
+                </label>
 
                 <div class="alert-line"></div>
 
