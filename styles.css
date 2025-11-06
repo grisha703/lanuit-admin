@@ -743,7 +743,7 @@ input {
     background-size: cover; /* Important for background image to fill the frame */
     background-position: center; /* Center the background image */
     background-repeat: no-repeat; /* Do not repeat the image */
-    margin: 15px auto; /* Center the frame in the modal */
+    margin: 15px 0 15px 8px;
     transition: background-color 0.2s, border-color 0.2s; /* Smooth transitions */
 }
 
