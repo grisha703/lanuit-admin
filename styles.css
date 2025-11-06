@@ -458,6 +458,23 @@ input {
   /* makes first letter of each word uppercase */
 }
 
+/* Custom Label Text for Image Frame */
+.custom-label-text {
+    /* 🔑 Match font/color properties of your form elements */
+    font-family: 'Inter', sans-serif;
+    font-size: 20px; 
+    font-weight: 400; /* Regular weight */
+    color: #97866A; 
+    
+    /* 🔑 Positioning and spacing */
+    width: 100%; /* Important for alignment */
+    text-align: left; /* Ensure it aligns with the left edge of the inputs */
+    margin-top: 5px;  /* Spacing from the previous input */
+    margin-bottom: 5px; /* Spacing before the image frame */
+    padding: 0 8px; /* Match the horizontal padding of the input fields */
+    box-sizing: border-box;
+}
+
 /* Line under input */
 .alert-line {
   width: 100%;

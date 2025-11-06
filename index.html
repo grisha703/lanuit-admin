@@ -225,6 +225,8 @@
                 <input type="number" placeholder="Price" class="alert-input" x-model="addProductTempPrice">
                 <input type="number" placeholder="Order Number" class="alert-input" x-model="addProductTempOrderNumber">
 
+                <p class="custom-label-text">Product Image</p>
+                
                 <input type="file" id="newProductImage" class="hidden-file-input"
                     @change="handleImageSelection($event.target.files[0])" accept="image/*"> <label
                     for="newProductImage" class="custom-image-frame"
