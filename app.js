@@ -420,9 +420,15 @@ document.addEventListener('alpine:init', () => {
     showAddCategory: false,
     newCategory: '',
 
+    // Add this new method to reset the category form
+    resetAddCategoryForm() {
+      this.showAddCategory = false; // Hide the modal
+      this.newCategory = '';        // Clear the input field text
+    },
+
     // 🟢
     async createCategory() {
-      if (this.newCategory.trim() === '') {
+      if (!this.newCategory.trim()) {
         alert('Please enter a category name.');
         return;
       }
@@ -459,9 +465,7 @@ document.addEventListener('alpine:init', () => {
         console.log('✅ Category created:', newCategoryData);
         alert(`Category "${this.newCategory}" created successfully!`);
 
-        this.newCategory = '';
-        this.showAddCategory = false;
-
+        this.resetAddCategoryForm();
         // ⭐️ NEW: Refresh the category list after a successful creation
         await this.fetchCategories();
 

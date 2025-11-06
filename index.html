@@ -206,7 +206,7 @@
                 <h2 class="alert-title">Name</h2>
                 <input type="text" placeholder="Enter product name" class="alert-input" x-model="newCategory">
                 <div class="alert-line"></div>
-                <button class="alert-button cancel" @click="showAddCategory = false">Cancel</button>
+                <button class="alert-button cancel" @click="resetAddCategoryForm()">Cancel</button>
                 <button class="alert-button create" @click="createCategory()">
                     Create
                 </button>
