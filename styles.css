@@ -705,3 +705,62 @@ input {
   font-weight: 500;
   color: #333;
 }
+
+
+
+
+/* =======================================================================
+   CUSTOM IMAGE UPLOAD FRAME
+   ======================================================================= */
+
+/* 1. Hide the actual file input completely */
+.hidden-file-input {
+    /* Standard way to visually hide an input while keeping it accessible */
+    opacity: 0;
+    position: absolute;
+    z-index: -1;
+    width: 0.1px;
+    height: 0.1px;
+    overflow: hidden;
+    pointer-events: none; /* Allows clicks to pass through to the label */
+}
+
+/* 2. Style your custom 140x140px frame */
+.custom-image-frame {
+    width: 140px;
+    height: 140px;
+    border: 1px dashed #D6D6D6; /* Example: a dashed border for the frame */
+    border-radius: 8px;
+    background-color: #F8F8F8; /* Light background for empty state */
+    display: flex; /* For centering the plus icon */
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden; /* Ensures image doesn't spill out */
+    background-size: cover; /* Important for background image to fill the frame */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    margin: 15px auto; /* Center the frame in the modal */
+    transition: background-color 0.2s, border-color 0.2s; /* Smooth transitions */
+}
+
+.custom-image-frame:hover {
+    background-color: #EFEFEF; /* Slightly darker on hover */
+    border-color: #9A8568; /* Highlight border on hover */
+}
+
+/* 3. Style the plus icon inside the empty frame */
+.custom-image-frame .plus-icon {
+    width: 50px; /* Adjust size of your plus icon */
+    height: 50px;
+    object-fit: contain;
+    opacity: 0.6; /* Make it slightly transparent */
+}
+
+/* When an image is present, hide the plus icon */
+.custom-image-frame[style*="background-image"] .plus-icon {
+    display: none;
+}
+
+/* If you still have the old .file-label, you can remove or repurpose it */
+/* .file-label { display: none; } */
