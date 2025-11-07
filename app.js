@@ -563,6 +563,19 @@ document.addEventListener('alpine:init', () => {
     newProductImageFile: null,       // Stores the actual File object
     newProductImagePreview: '',      // Stores the URL for the image preview
 
+    resetAddProductForm() {
+      this.showAddProduct = false; // Hide the modal
+
+      // Clear the image-related properties
+      this.newProductImageFile = null;
+      this.newProductImagePreview = '';
+
+      // Clear other form fields for a complete reset
+      this.addProductTempName = '';
+      this.addProductTempPrice = '';
+      this.addProductTempOrderNumber = '';
+    },
+
     // New method to handle image selection and create a preview
     handleImageSelection(file) {
       this.newProductImageFile = file;
@@ -599,14 +612,9 @@ document.addEventListener('alpine:init', () => {
 
         if (response.ok) {
           alert('Product added successfully!');
-          this.showAddProduct = false;
           this.fetchCategories(); // Refresh product list
           // Reset product form fields and image preview
-          this.addProductTempName = '';
-          this.addProductTempPrice = '';
-          this.addProductTempOrderNumber = '';
-          this.newProductImageFile = null;
-          this.newProductImagePreview = '';
+          resetAddProductForm()
         } else {
           const errorData = await response.json();
           alert('Failed to add product: ' + (errorData.message || response.statusText));
