@@ -696,6 +696,15 @@ input {
     align-items: flex-start;
 }
 
+.product-form-box input.alert-input {
+    /* Override the border: none from the generic .alert-input */
+    border: 1px solid #9A8568; 
+    background-color: #FFFFFF; 
+    border-radius: 4px; 
+    padding: 8px; 
+    margin-bottom: 12px; /* Space between inputs */
+}
+
 .form-buttons {
     width: 100%; /* Ensure it spans the full width of the unpadded parent */
     padding: 0 0px; /* Apply 16px padding on the left/right */
