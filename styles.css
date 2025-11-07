@@ -694,7 +694,34 @@ input {
     width: 90%;
     max-width: 400px;
     align-items: flex-start;
+    /* Remove default flex-direction: column behavior by managing children inside .form-grid */
+    /* Adjust padding to account for elements spanning the width */
+    padding: 0px 16px 0px 16px; /* Keeping original padding */
 }
+
+.form-grid {
+    align-items: end;
+}
+
+.left-inputs {
+    /* Ensures items in the left column stack vertically */
+    display: flex;
+    flex-direction: column;
+    /* Pushes inputs to the top */
+    justify-content: flex-start;
+}
+
+.right-image-area {
+    /* Ensures items in the right column stack vertically */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Aligns the "Product Image" label and frame */
+    padding-left: 12px; /* 💥 12px inset between left inputs and image frame */
+    /* Use auto margin to push it to the right boundary of its column */
+    margin-left: auto;
+}
+
+
 
 .input-label {
     /* Styles similar to your alert-title but left-aligned for form fields */
@@ -710,6 +737,16 @@ input {
     margin-left: 0px;
 }
 
+.left-inputs .input-label:first-child {
+    margin-top: 0;
+}
+
+.right-image-area .input-label:first-child {
+    /* Target the label above the Price input to match its top alignment */
+    /* This calculation is a bit tricky, but should visually align with the 'Price' label's top edge */
+    margin-top: 15px; 
+}
+
 .product-form-box input.alert-input {
     /* Override the border: none from the generic .alert-input */
     border: 1px solid #9A8568; /* Changed to 1px as per your snippet */
@@ -720,8 +757,11 @@ input {
     margin-bottom: 12px; /* Space between inputs */
     
     /* 💥 CRITICAL FIX: Ensure padding and border are included in the 100% width calculation */
-    width: 100%;
+    width: calc(100% - 12px); /* 100% of the grid column width minus the 12px inset */
     box-sizing: border-box;
+    /* Adjustments for vertical spacing when used with new .input-label */
+    margin-top: 0px; 
+    margin-bottom: 12px;
 }
 
 .form-buttons {
@@ -772,7 +812,7 @@ input {
     background-size: cover; /* Important for background image to fill the frame */
     background-position: center; /* Center the background image */
     background-repeat: no-repeat; /* Do not repeat the image */
-    margin: 15px 0 15px 8px;
+    margin: 0 0 15px 0;
     transition: background-color 0.2s, border-color 0.2s; /* Smooth transitions */
 }
 
@@ -796,5 +836,3 @@ input {
 
 /* If you still have the old .file-label, you can remove or repurpose it */
 /* .file-label { display: none; } */
-
-
