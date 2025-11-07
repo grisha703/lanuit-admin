@@ -712,16 +712,18 @@ input {
     /* ❌ REMOVE align-items: end; to fix the content being pushed to the bottom. */
     /* We will use margins to manage the alignment instead. */
     /* align-items: end; */
+    align-items: start;
 }
 
 .left-inputs {
+    grid-column: 1 / 2;
     /* Ensures items in the left column stack vertically, starting from the top */
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
 }
 
 .right-image-area {
+  grid-column: 2 / 3;
     /* Ensures items in the right column stack vertically, starting from the top */
     display: flex;
     flex-direction: column;
@@ -729,6 +731,8 @@ input {
     
     /* Set the 12px inset/spacing on the left side of the image column */
     padding-left: 12px;
+    justify-content: space-between;
+    margin-bottom: 0;
 }
 
 
@@ -771,6 +775,8 @@ input {
     box-sizing: border-box;
     /* Adjustments for vertical spacing when used with new .input-label */
     margin-right: 12px;
+    margin-top: 0px; 
+    margin-bottom: 12px;
 }
 
 .form-buttons {
