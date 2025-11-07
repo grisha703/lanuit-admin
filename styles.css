@@ -700,25 +700,35 @@ input {
 }
 
 .form-grid {
-    align-items: end;
+    /* 💥 Core Change: Set up the 2-column grid */
+    display: grid;
+    /* Column 1 (Left Inputs): Flexible width (1fr) 
+       Column 2 (Right Image): Fixed width (140px image) + 12px inset = 152px total width for the image container */
+    grid-template-columns: 1fr 152px; 
+    gap: 0;
+    width: 100%;
+    margin-top: 10px;
+    
+    /* ❌ REMOVE align-items: end; to fix the content being pushed to the bottom. */
+    /* We will use margins to manage the alignment instead. */
+    /* align-items: end; */
 }
 
 .left-inputs {
-    /* Ensures items in the left column stack vertically */
+    /* Ensures items in the left column stack vertically, starting from the top */
     display: flex;
     flex-direction: column;
-    /* Pushes inputs to the top */
     justify-content: flex-start;
 }
 
 .right-image-area {
-    /* Ensures items in the right column stack vertically */
+    /* Ensures items in the right column stack vertically, starting from the top */
     display: flex;
     flex-direction: column;
-    align-items: flex-start; /* Aligns the "Product Image" label and frame */
-    padding-left: 12px; /* 💥 12px inset between left inputs and image frame */
-    /* Use auto margin to push it to the right boundary of its column */
-    margin-left: auto;
+    align-items: flex-start;
+    
+    /* Set the 12px inset/spacing on the left side of the image column */
+    padding-left: 12px;
 }
 
 
@@ -744,7 +754,7 @@ input {
 .right-image-area .input-label:first-child {
     /* Target the label above the Price input to match its top alignment */
     /* This calculation is a bit tricky, but should visually align with the 'Price' label's top edge */
-    margin-top: 15px; 
+    margin-top: 71px;
 }
 
 .product-form-box input.alert-input {
@@ -757,11 +767,10 @@ input {
     margin-bottom: 12px; /* Space between inputs */
     
     /* 💥 CRITICAL FIX: Ensure padding and border are included in the 100% width calculation */
-    width: calc(100% - 12px); /* 100% of the grid column width minus the 12px inset */
+    width: 100%;
     box-sizing: border-box;
     /* Adjustments for vertical spacing when used with new .input-label */
-    margin-top: 0px; 
-    margin-bottom: 12px;
+    margin-right: 12px;
 }
 
 .form-buttons {
@@ -812,8 +821,14 @@ input {
     background-size: cover; /* Important for background image to fill the frame */
     background-position: center; /* Center the background image */
     background-repeat: no-repeat; /* Do not repeat the image */
-    margin: 0 0 15px 0;
+    margin: 0;
+    margin-bottom: 0px;
     transition: background-color 0.2s, border-color 0.2s; /* Smooth transitions */
+}
+
+.left-inputs input.alert-input:last-child {
+    /* 💥 To make the Order Number input line up with the image's bottom, we remove its bottom margin */
+    margin-bottom: 0px; 
 }
 
 .custom-image-frame:hover {
