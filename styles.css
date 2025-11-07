@@ -758,7 +758,8 @@ input {
 .right-image-area .input-label:first-child {
     /* Target the label above the Price input to match its top alignment */
     /* This calculation is a bit tricky, but should visually align with the 'Price' label's top edge */
-    margin-top: 71px;
+    margin-top: calc(71px + 21px + 12px);
+    margin-top: 104px;
 }
 
 .product-form-box input.alert-input {
@@ -827,6 +828,7 @@ input {
     background-size: cover; /* Important for background image to fill the frame */
     background-position: center; /* Center the background image */
     background-repeat: no-repeat; /* Do not repeat the image */
+    flex-grow: 0; 
     margin: 0;
     margin-bottom: 0px;
     transition: background-color 0.2s, border-color 0.2s; /* Smooth transitions */
