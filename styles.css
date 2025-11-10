@@ -815,7 +815,7 @@ input {
 
 /* 2. Style your custom 140x140px frame */
 .custom-image-frame {
-    width: 137px;
+    width: 130px;
     height: 137px;
     border: 1px dashed #D6D6D6; /* Example: a dashed border for the frame */
     border-radius: 8px;
