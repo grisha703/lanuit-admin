@@ -743,7 +743,7 @@ input {
     font-weight: 500; /* Medium */
     font-size: 16px;
     color: #9A8568;
-    margin-top: 15px; /* Spacing above the label */
+    margin-top: 8px; /* Spacing above the label */
     margin-bottom: 5px; /* Small space before the input */
     padding-left: 0px; /* Aligns with the input text field */
     width: 100%;
