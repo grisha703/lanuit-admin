@@ -705,7 +705,7 @@ input {
     /* Column 1 (Left Inputs): Flexible width (1fr) 
        Column 2 (Right Image): Fixed width (140px image) + 12px inset = 152px total width for the image container */
     grid-template-columns: 1fr 144px;
-    gap: 0;
+    gap: 12px;
     width: 100%;
     margin-top: 10px;
     
@@ -730,7 +730,7 @@ input {
     align-items: flex-start;
     
     /* Set the 12px inset/spacing on the left side of the image column */
-    padding-left: 12px;
+    
     justify-content: space-between;
     margin-bottom: 0;
     margin-left: 0px;
@@ -773,7 +773,7 @@ input {
     margin-bottom: 6px; /* Space between inputs */
     
     /* 💥 CRITICAL FIX: Ensure padding and border are included in the 100% width calculation */
-    width: calc(100% - 12px);
+    width: 100%;
     box-sizing: border-box;
     /* Adjustments for vertical spacing when used with new .input-label */
     margin-right: 0px;
