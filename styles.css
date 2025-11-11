@@ -704,7 +704,7 @@ input {
     display: grid;
     /* Column 1 (Left Inputs): Flexible width (1fr) 
        Column 2 (Right Image): Fixed width (140px image) + 12px inset = 152px total width for the image container */
-    grid-template-columns: 1fr 145px;
+    grid-template-columns: 1fr 144px;
     gap: 0;
     width: 100%;
     margin-top: 10px;
