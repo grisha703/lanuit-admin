@@ -773,7 +773,7 @@ input {
     margin-bottom: 6px; /* Space between inputs */
     
     /* 💥 CRITICAL FIX: Ensure padding and border are included in the 100% width calculation */
-    width: calc(100% - 12px);
+    width: 100%;
     box-sizing: border-box;
     /* Adjustments for vertical spacing when used with new .input-label */
     margin-right: 0px;
@@ -864,7 +864,11 @@ input {
 /* If you still have the old .file-label, you can remove or repurpose it */
 /* .file-label { display: none; } */
 .left-inputs input.alert-input:nth-of-type(1) {
-    width: 150px !important; 
-    /* Use !important if the previous width definition is hard to override */
-    margin-right: auto; /* Optional: centers the 150px block within the grid column */
+    /* Force the element to span all columns */
+    grid-column: 1 / 3; /* Spans from start of column 1 to end of column 2 */
+    width: 100%; /* Makes it fill the new span */
+    margin-bottom: 12px; /* Maintain necessary spacing */
+
+    /* Remove the !important if you did add it */
+    /* width: 150px !important; <-- REMOVE THIS LINE */ 
 }
