@@ -219,49 +219,51 @@
 
 
         <div x-show="showAddProduct" class="alert-backdrop" x-transition>
-    <div class="alert-box product-form-box">
-        <h2 class="alert-title">
-            New Product in Category: <span x-text="addProductCategoryId"></span>
-        </h2>
+            <div class="alert-box product-form-box">
+                <h2 class="alert-title">
+                    New Product in Category: <span x-text="addProductCategoryId"></span>
+                </h2>
 
-        <div class="form-grid">
-            <div class="left-inputs">
-                <p class="input-label">Product Name</p>
-                <input type="text" placeholder="Enter product name" class="alert-input form-input"
-                    x-model="addProductTempName">
+                 <p class="input-label">Product Name</p>
+                        <input type="text" placeholder="Enter product name" class="alert-input form-input"
+                            x-model="addProductTempName">
 
-                <p class="input-label">Price</p>
-                <input type="number" placeholder="Enter price" class="alert-input form-input"
-                    x-model="addProductTempPrice">
+                <div class="form-grid">
+                    <div class="left-inputs">
+                       
 
-                <p class="input-label">Order Number</p>
-                <input type="number" placeholder="Enter order number" class="alert-input form-input"
-                    x-model="addProductTempOrderNumber">
-            </div>
+                        <p class="input-label">Price</p>
+                        <input type="number" placeholder="Enter price" class="alert-input form-input"
+                            x-model="addProductTempPrice">
 
-            <div class="right-image-area">
-                <p class="input-label">Product Image</p>
+                        <p class="input-label">Order Number</p>
+                        <input type="number" placeholder="Enter order number" class="alert-input form-input"
+                            x-model="addProductTempOrderNumber">
+                    </div>
 
-                <input type="file" id="newProductImage" class="hidden-file-input"
-                    @change="handleImageSelection($event.target.files[0])" accept="image/*">
-                <label for="newProductImage" class="custom-image-frame"
-                    :style="newProductImagePreview ? `background-image: url(${newProductImagePreview})` : ''">
-                    <template x-if="!newProductImagePreview">
-                        <img src="icons/add.image.png" alt="Add Product" class="plus-icon">
-                    </template>
-                </label>
+                    <div class="right-image-area">
+                        <p class="input-label">Product Image</p>
+
+                        <input type="file" id="newProductImage" class="hidden-file-input"
+                            @change="handleImageSelection($event.target.files[0])" accept="image/*">
+                        <label for="newProductImage" class="custom-image-frame"
+                            :style="newProductImagePreview ? `background-image: url(${newProductImagePreview})` : ''">
+                            <template x-if="!newProductImagePreview">
+                                <img src="icons/add.image.png" alt="Add Product" class="plus-icon">
+                            </template>
+                        </label>
+                    </div>
+                </div>
+                <div class="alert-line"></div>
+
+                <div class="form-buttons">
+                    <button class="alert-button cancel" @click="resetAddProductForm()">Cancel</button>
+                    <button class="alert-button create" @click="addNewProduct()">
+                        Save Product
+                    </button>
+                </div>
             </div>
         </div>
-        <div class="alert-line"></div>
-
-        <div class="form-buttons">
-            <button class="alert-button cancel" @click="resetAddProductForm()">Cancel</button>
-            <button class="alert-button create" @click="addNewProduct()">
-                Save Product
-            </button>
-        </div>
-    </div>
-</div>
 
 
 
