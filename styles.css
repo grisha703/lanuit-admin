@@ -864,7 +864,7 @@ input {
 
 /* If you still have the old .file-label, you can remove or repurpose it */
 .left-inputs input.alert-input:nth-of-type(1) {
-    width: 368px !important; 
+    width: 268px !important; 
     /* Use !important if the previous width definition is hard to override */
     margin-right: auto; /* Optional: centers the 150px block within the grid column */
 }
