@@ -773,7 +773,7 @@ input {
     margin-bottom: 6px; /* Space between inputs */
     
     /* 💥 CRITICAL FIX: Ensure padding and border are included in the 100% width calculation */
-    width: 100%;
+    width: calc(100% - 12px);
     box-sizing: border-box;
     /* Adjustments for vertical spacing when used with new .input-label */
     margin-right: 0px;
