@@ -457,8 +457,8 @@ input {
   text-align: left;
   width: 100%;
   margin-bottom: 0px;
-  text-transform: capitalize;
-  /* makes first letter of each word uppercase */
+  /*text-transform: capitalize;
+   makes first letter of each word uppercase */
 }
 
 /* Line under input */
