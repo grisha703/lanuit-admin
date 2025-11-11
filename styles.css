@@ -775,7 +775,7 @@ input {
     width: 100%;
     box-sizing: border-box;
     /* Adjustments for vertical spacing when used with new .input-label */
-    margin-right: 12px;
+    margin-right: 0px;
     margin-top: 0px; 
     margin-bottom: 12px;
 }
