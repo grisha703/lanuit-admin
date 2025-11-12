@@ -861,8 +861,7 @@ input {
     display: none;
 }
 
-/* --- Fix for Number Input Placeholder clipping due to picker arrows --- */
-input[type="number"].alert-input::placeholder {
-  /* Reduce font size to prevent the text from being clipped by the number picker arrows */
+/* Reduce font size to prevent the text from being clipped by the number picker arrows */
+/* input[type="number"].alert-input::placeholder {
   font-size: 20px; 
-}
+} */
