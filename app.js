@@ -613,7 +613,7 @@ document.addEventListener('alpine:init', () => {
           price: Number(this.addProductTempPrice),
           order_number: this.orderCounter,
           category_id: Number(this.addProductCategoryId),
-          image: base64Image // send Base64 string
+          image: base64Image.split(',')[1] // ✅ send only raw Base64
         };
 
         const response = await fetch('https://ftlcafe.pythonanywhere.com/Products/', {
