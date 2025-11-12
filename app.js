@@ -588,42 +588,69 @@ document.addEventListener('alpine:init', () => {
     },
 
     // 🟢 Step 3: Submits the product data using modal state
+    orderCounter: 6, // Start from 6
+
+    // Initialize orderCounter from localStorage (if exists) or start from 6
+    orderCounter: Number(localStorage.getItem('orderCounter')) || 6,
+
     async addNewProduct() {
-      if (!this.addProductTempName || !this.addProductTempPrice || !this.newProductImageFile) {
+      if (!this.addProductTempName || !this.addProductTempPrice || !this.addProductCategoryId || !this.newProductImageFile) {
         alert('Please fill all product details and select an image.');
         return;
       }
 
-      const formData = new FormData();
-      formData.append('name', this.addProductTempName);
-      formData.append('price', this.addProductTempPrice);
-      formData.append('category', this.addProductCategoryId);
-      formData.append('order_number', this.addProductTempOrderNumber || 0); // Default to 0 if not set
-      formData.append('image', this.newProductImageFile); // Append the actual File object
+      if (!this.token) {
+        alert('You must be logged in to add a product.');
+        return;
+      }
 
       try {
-        const response = await fetch('https://ftlcafe.pythonanywhere.com/products', {
+        const formData = new FormData();
+        formData.append('name', this.addProductTempName);
+        formData.append('price', this.addProductTempPrice);
+        formData.append('order_number', this.orderCounter); // Auto increment
+        formData.append('category_id', this.addProductCategoryId);
+        formData.append('image', this.newProductImageFile);
+
+        const response = await fetch('https://ftlcafe.pythonanywhere.com/Products/', {
           method: 'POST',
           headers: {
-            'Authorization': `Bearer ${this.token}`,
+            'Authorization': `Bearer ${this.token}`
           },
-          body: formData,
+          body: formData
         });
 
-        if (response.ok) {
-          alert('Product added successfully!');
-          this.fetchCategories(); // Refresh product list
-          // Reset product form fields and image preview
-          resetAddProductForm()
-        } else {
-          const errorData = await response.json();
-          alert('Failed to add product: ' + (errorData.message || response.statusText));
+        const text = await response.text();
+        console.log('Raw response body:', text);
+
+        if (!response.ok) {
+          try {
+            const errorData = JSON.parse(text);
+            throw new Error(errorData.detail || 'Failed to add product');
+          } catch {
+            throw new Error('Failed to add product: ' + text);
+          }
         }
-      } catch (error) {
-        console.error('Error adding product:', error);
-        alert('An error occurred while adding the product.');
+
+        const data = JSON.parse(text);
+        console.log('✅ Product created:', data);
+        alert('Product added successfully!');
+
+        // Increment order counter for next product
+        this.orderCounter++;
+
+        // Reset form
+        this.resetAddProductForm();
+
+        // Refresh category/product list
+        await this.fetchCategories();
+
+      } catch (err) {
+        console.error(err);
+        alert(err.message || 'Product creation failed. Please try again.');
       }
     },
+
 
     toBase64(file) {
       return new Promise((resolve, reject) => {
