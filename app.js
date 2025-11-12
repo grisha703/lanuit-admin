@@ -605,19 +605,25 @@ document.addEventListener('alpine:init', () => {
       }
 
       try {
-        const formData = new FormData();
-        formData.append('name', this.addProductTempName);
-        formData.append('price', this.addProductTempPrice);
-        formData.append('order_number', this.orderCounter); // Auto increment
-        formData.append('category_id', this.addProductCategoryId);
-        formData.append('image', this.newProductImageFile);
+        // Convert image file to Base64 string
+        const base64Image = await this.toBase64(this.newProductImageFile);
+
+        const body = {
+          name: this.addProductTempName,
+          price: Number(this.addProductTempPrice),
+          order_number: this.orderCounter,
+          category_id: Number(this.addProductCategoryId),
+          image: base64Image // send Base64 string
+        };
 
         const response = await fetch('https://ftlcafe.pythonanywhere.com/Products/', {
           method: 'POST',
           headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${this.token}`
           },
-          body: formData
+          body: JSON.stringify(body)
         });
 
         const text = await response.text();
@@ -636,31 +642,27 @@ document.addEventListener('alpine:init', () => {
         console.log('✅ Product created:', data);
         alert('Product added successfully!');
 
-        // Increment order counter for next product
+        // Increment order counter and save it
         this.orderCounter++;
+        localStorage.setItem('orderCounter', this.orderCounter);
 
-        // Reset form
+        // Reset form and refresh
         this.resetAddProductForm();
-
-        // Refresh category/product list
         await this.fetchCategories();
 
       } catch (err) {
         console.error(err);
-        alert(err.message || 'Product creation failed. Please try again.');
+        alert('Failed to add product: ' + err.message);
       }
     },
 
-
+    // Helper function to convert file → Base64
     toBase64(file) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
-        reader.onload = () => {
-          const result = reader.result.split(',')[1]; // remove "data:image/jpeg;base64,"
-          resolve(result);
-        };
-        reader.onerror = error => reject(error);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = (error) => reject(error);
       });
     },
 
