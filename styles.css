@@ -457,8 +457,8 @@ input {
   text-align: left;
   width: 100%;
   margin-bottom: 0px;
-  /*text-transform: capitalize;
-   makes first letter of each word uppercase */
+  text-transform: capitalize;
+  /*makes first letter of each word uppercase */
 }
 
 /* Line under input */
@@ -721,6 +721,7 @@ input {
     /* Ensures items in the left column stack vertically, starting from the top */
     display: flex;
     flex-direction: column;
+    padding: 0;
 }
 
 .right-image-area {
@@ -773,7 +774,7 @@ input {
     margin-bottom: 6px; /* Space between inputs */
     
     /* 💥 CRITICAL FIX: Ensure padding and border are included in the 100% width calculation */
-    width: calc(100% - 12px);
+    width: 100%;
     box-sizing: border-box;
     /* Adjustments for vertical spacing when used with new .input-label */
     margin-right: 0px;
@@ -839,8 +840,7 @@ input {
     /* 💥 To make the Order Number input line up with the image's bottom, we remove its bottom margin */
     margin-bottom: 0px; 
 
-    width: calc(100% - 12px); 
-    margin-right: 0px;
+    width: 100%;
 }
 
 .custom-image-frame:hover {
