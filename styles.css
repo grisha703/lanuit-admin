@@ -761,7 +761,6 @@ input {
     /* Target the label above the Price input to match its top alignment */
     /* This calculation is a bit tricky, but should visually align with the 'Price' label's top edge */
     margin-top: calc(71px + 21px + 12px);
-    margin-top: 92px;
 }
 
 .product-form-box input.alert-input {
