@@ -732,7 +732,7 @@ input {
     
     /* Set the 12px inset/spacing on the left side of the image column */
     padding-left: 12px;
-    justify-content: space-between;
+    justify-content: flex-start;
     margin-bottom: 0;
     margin-left: 0px;
 }
@@ -760,7 +760,7 @@ input {
 .right-image-area .input-label:first-child {
     /* Target the label above the Price input to match its top alignment */
     /* This calculation is a bit tricky, but should visually align with the 'Price' label's top edge */
-    margin-top: calc(71px + 21px + 12px);
+    margin-top: 0px;
 }
 
 .product-form-box input.alert-input {
