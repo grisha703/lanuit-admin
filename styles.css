@@ -774,7 +774,7 @@ input {
     margin-bottom: 6px; /* Space between inputs */
     
     /* 💥 CRITICAL FIX: Ensure padding and border are included in the 100% width calculation */
-    width: calc(100% - 12px);
+    width: calc(100% - 8px);
     box-sizing: border-box;
     /* Adjustments for vertical spacing when used with new .input-label */
     margin-right: 0px;
@@ -840,7 +840,7 @@ input {
     /* 💥 To make the Order Number input line up with the image's bottom, we remove its bottom margin */
     margin-bottom: 0px; 
 
-    width: calc(100% - 12px);
+    width: calc(100% - 8px);
 }
 
 .custom-image-frame:hover {
