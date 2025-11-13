@@ -386,6 +386,14 @@ document.addEventListener('alpine:init', () => {
         if (!catResponse.ok) throw new Error('Failed to fetch categories');
         categories = await catResponse.json();
 
+        // Sort products: group by category, newest first
+        this.products = data.sort((a, b) => {
+          if (a.category_id === b.category_id) {
+            return b.id - a.id; // newest first
+          }
+          return a.category_id - b.category_id; // group by category
+        });
+
       } catch (err) {
         console.error('Category fetch error:', err);
         alert('Failed to fetch categories.');
