@@ -375,52 +375,48 @@ document.addEventListener('alpine:init', () => {
         return;
       }
 
-      // 1. Fetch categories
-      let categories = [];
       try {
+        // 1️⃣ Fetch categories
         const catResponse = await fetch('https://ftlcafe.pythonanywhere.com/Categories/', {
           method: 'GET',
           headers: { 'accept': 'application/json' }
         });
 
         if (!catResponse.ok) throw new Error('Failed to fetch categories');
-        categories = await catResponse.json();
+        const categories = await catResponse.json();
 
-        // Sort products: group by category, newest first
-        this.products = data.sort((a, b) => {
+        // 2️⃣ Fetch all products
+        await this.fetchAllProducts();
+
+        // 3️⃣ Sort allProducts by category (grouped) and newest first
+        this.allProducts.sort((a, b) => {
           if (a.category_id === b.category_id) {
-            return b.id - a.id; // newest first
+            return b.id - a.id; // newest first inside each category
           }
           return a.category_id - b.category_id; // group by category
         });
 
+        // 4️⃣ Combine categories and their related (sorted) products
+        const combinedData = categories.map(category => {
+          const relatedProducts = this.allProducts.filter(
+            product => product.category_id === category.id
+          );
+          return {
+            ...category,
+            products: relatedProducts
+          };
+        });
+
+        // 5️⃣ Save the final combined structure
+        this.products = combinedData;
+        console.log('✅ Combined & sorted categories/products:', this.products);
+
       } catch (err) {
         console.error('Category fetch error:', err);
         alert('Failed to fetch categories.');
-        return;
       }
-
-      // 2. Fetch all products (calls the new function)
-      await this.fetchAllProducts();
-
-      // 3. Map Products to Categories
-      const combinedData = categories.map(category => {
-        // Find all products that belong to this category
-        const relatedProducts = this.allProducts.filter(
-          product => product.category_id === category.id
-        );
-
-        // Return a new category object with a nested 'products' array
-        return {
-          ...category, // Keep existing category properties (id, name, etc.)
-          products: relatedProducts // ⭐️ Add the filtered products here
-        };
-      });
-
-      // 4. Update the reactive property
-      this.products = combinedData;
-      console.log('✅ Combined Categories and Products:', this.products);
     },
+
 
     // --------------------------
     // Function to handle the creation of the new category
