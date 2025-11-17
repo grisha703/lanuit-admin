@@ -578,8 +578,7 @@ input {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   grid-auto-rows: 140px;
-   gap: 16px;
-   width: 100%;
+  gap: 20px;
   justify-content: start;
   align-items: start;
   /* 💥 makes all tiles (including add button) align to the top */
