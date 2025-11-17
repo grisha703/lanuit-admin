@@ -575,13 +575,21 @@ input {
 
 /* ⭐️ KEY: This sets up the grid layout for the collection view ⭐️ */
 .product-collection-view {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(135px, 1fr));
-  grid-auto-rows: 140px;
-  gap: 20px;
-  justify-content: start;
-  align-items: start;
-  /* 💥 makes all tiles (including add button) align to the top */
+    display: grid;
+    grid-template-columns: repeat(6, 1fr); /* always 6 items per row */
+    gap: 20px; /* vertical & horizontal spacing */
+    justify-content: center; /* centers the entire row in the container */
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 20px; /* ensures first item left = last item right = 20px */
+}
+
+.product-item,
+.add-product-tile {
+    width: 100%; /* grid column handles width */
+    aspect-ratio: 1 / 1; /* square tiles */
+    border-radius: 8px;
+    overflow: hidden;
 }
 
 /* --- Product Item (Image Tile) Styles --- */
