@@ -586,10 +586,10 @@ input {
 
   /* left & right inset so right side = 25px */
   padding-left: 15px;
-  padding-right: 25px;
+  padding-right: 15px;
 
   box-sizing: border-box;
-  background: gray;
+  background: white;
 }
 
 /* --- Product Item (Image Tile) Styles --- */
