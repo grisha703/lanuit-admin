@@ -584,7 +584,7 @@ input {
   gap: 15px;
 
   /* required insets */
-  padding: 0 15px;
+  padding: 0 0px;
 
   box-sizing: border-box;
   background: white;
