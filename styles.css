@@ -668,8 +668,8 @@ input {
 /* --- Add Product Tile Styles (Borderless) --- */
 .add-product-tile {
   /* Ensures sizing and centering are applied */
-  width: 140px;
-  height: 140px;
+  width: 100%;
+  aspect-ratio: 1;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -691,8 +691,8 @@ input {
 /* --- Add Product Icon Fix --- */
 .add-product-tile img {
   /* 💥 FIX: Correct size for the icon */
-  width: 140px;
-  height: 140px;
+  width: 90%;
+  height: 90%;
   object-fit: contain;
 }
 
