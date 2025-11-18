@@ -693,7 +693,7 @@ input {
   /* 💥 FIX: Correct size for the icon */
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .add-product-tile span {
