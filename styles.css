@@ -592,19 +592,14 @@ input {
 
 .product-item,
 .add-product-tile {
-  width: 100%;       /* fills column */
-  aspect-ratio: 1;   /* keeps items square */
-  border-radius: 8px;
-  overflow: hidden;
-  background: #fafafa;
+  width: 100%;       /* fill the grid cell */
+  aspect-ratio: 1;   /* keep square */
 }
 
 /* --- Product Item (Image Tile) Styles --- */
 
 .product-item {
   position: relative;
-  width: 140px;
-  height: 140px;
   border-radius: 8px;
   overflow: hidden;
 }
