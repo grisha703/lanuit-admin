@@ -589,6 +589,7 @@ input {
   padding-right: 25px;
 
   box-sizing: border-box;
+  background: gray;
 }
 
 /* --- Product Item (Image Tile) Styles --- */
