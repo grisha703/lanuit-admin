@@ -580,9 +580,7 @@ input {
   /* Create 6 equal-flex columns */
   /*1️⃣ grid-template-columns: repeat(6, minmax(0, 150px)); justify-content: space-between;*/
   /*2️⃣ grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));*/
-  /*grid-template-columns: repeat(6, minmax(0, 1fr));*/
-  grid-template-columns: repeat(auto-fit, minmax(120px, 150px));
-  justify-content: start;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
 
   /* spacing */
   gap: 15px;
