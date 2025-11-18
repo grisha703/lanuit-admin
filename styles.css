@@ -690,10 +690,10 @@ input {
 
 /* --- Add Product Icon Fix --- */
 .add-product-tile img {
-  /* 💥 FIX: Correct size for the icon */
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  border-radius: 8px; /* same as product-item */
 }
 
 .add-product-tile span {
