@@ -876,3 +876,7 @@ input {
 /* input[type="number"].alert-input::placeholder {
   font-size: 20px; 
 } */
+
+.product-form-box .right-image-area {
+    margin-bottom: 15px;
+}
