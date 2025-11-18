@@ -581,7 +581,7 @@ input {
   grid-template-columns: repeat(6, minmax(0, 1fr));
 
   /* spacing */
-  gap: 15px;
+  gap: 6px;
 
   /* required insets */
   padding: 0 0px;
