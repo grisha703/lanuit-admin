@@ -581,10 +581,10 @@ input {
   grid-template-columns: repeat(6, minmax(0, 1fr));
 
   /* spacing */
-  gap: 6px;
+  gap: 15px;
 
-  /* required insets */
-  padding: 0 0px;
+  /* required insets padding: TOP RIGHT BOTTOM LEFT; */ 
+  padding: 0 0 0 0px;
 
   box-sizing: border-box;
   background: white;
