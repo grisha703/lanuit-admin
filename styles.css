@@ -577,19 +577,26 @@ input {
 .product-collection-view {
   display: grid;
 
-  /* 6 fixed columns */
-  grid-template-columns: repeat(6, 140px);
+  /* Create 6 equal-flex columns */
+  grid-template-columns: repeat(6, minmax(0, 1fr));
 
-  /* item spacing */
-  column-gap: 15px;
-  row-gap: 15px;
+  /* spacing */
+  gap: 15px;
 
-  /* left & right inset so right side = 25px */
-  padding-left: 15px;
-  padding-right: 15px;
+  /* required insets */
+  padding: 0 15px;
 
   box-sizing: border-box;
   background: white;
+}
+
+.product-item,
+.add-product-tile {
+  width: 100%;       /* fills column */
+  aspect-ratio: 1;   /* keeps items square */
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fafafa;
 }
 
 /* --- Product Item (Image Tile) Styles --- */
