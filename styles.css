@@ -578,7 +578,11 @@ input {
   display: grid;
 
   /* Create 6 equal-flex columns */
-  grid-template-columns: repeat(6, minmax(0, 1fr));
+  /*1️⃣ grid-template-columns: repeat(6, minmax(0, 150px)); justify-content: space-between;*/
+  /*2️⃣ grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));*/
+  /*grid-template-columns: repeat(6, minmax(0, 1fr));*/
+  grid-template-columns: repeat(auto-fit, minmax(120px, 150px));
+  justify-content: center;
 
   /* spacing */
   gap: 15px;
