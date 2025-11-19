@@ -131,9 +131,8 @@ input {
 .login-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  /* pushes last element to bottom */
-  align-items: center;
+  justify-content: center;      /* vertical center */
+  align-items: stretch;         /* <-- FIX: was center */
   height: 100%;
   padding: 16px;
   box-sizing: border-box;
@@ -144,10 +143,11 @@ input {
   flex-direction: column;
   align-items: center;
   gap: 6px;
-  padding-top: 60px;
+  padding-top: 40px;           /* optional */
   width: 100%;
   max-width: 400px;
-  margin: 0 auto;
+  margin: 0 auto;              /* <-- centers horizontally */
+  box-sizing: border-box;
 }
 
 .login-form input {
