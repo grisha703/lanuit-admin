@@ -409,6 +409,9 @@ input {
 /* Alert box container */
 .alert-box {
   width: 330px;
+
+  max-height: 90vh; /* ⬅️ ADD THIS: Limit height to 90% of viewport height */
+  overflow-y: auto; /* ⬅️ ADD THIS: Enable vertical scrolling if content overflows */
   /*height: 236px;*/
   background: #FFFFFF;
   border-radius: 12px;
