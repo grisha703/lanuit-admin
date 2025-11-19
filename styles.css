@@ -410,8 +410,8 @@ input {
 .alert-box {
   width: 330px;
 
-  max-height: 90vh; /* ⬅️ ADD THIS: Limit height to 90% of viewport height */
-  overflow-y: auto; /* ⬅️ ADD THIS: Enable vertical scrolling if content overflows */
+  max-height: 110vh; /* ⬅️ ADD THIS: Limit height to 90% of viewport height */
+  overflow-y: auto;
   /*height: 236px;*/
   background: #FFFFFF;
   border-radius: 12px;
@@ -708,10 +708,6 @@ input {
 .product-form-box {
     width: 90%;
     max-width: 400px;
-
-    max-height: 90vh;
-    overflow-y: auto;
-
     align-items: flex-start;
     /* Remove default flex-direction: column behavior by managing children inside .form-grid */
     /* Adjust padding to account for elements spanning the width */
