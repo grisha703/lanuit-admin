@@ -880,3 +880,9 @@ input {
 .product-form-box .right-image-area {
     margin-bottom: 15px;
 }
+
+html, body {
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+}
