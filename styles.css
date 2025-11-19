@@ -410,7 +410,7 @@ input {
 .alert-box {
   width: 330px;
 
-  max-height: 110vh; /* ⬅️ ADD THIS: Limit height to 90% of viewport height */
+  max-height: 80vh; /* ⬅️ ADD THIS: Limit height to 90% of viewport height */
   overflow-y: auto;
   /*height: 236px;*/
   background: #FFFFFF;
