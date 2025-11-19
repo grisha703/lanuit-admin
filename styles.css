@@ -882,6 +882,91 @@ input {
 }
 
 
+/* =======================================================================
+   RESPONSIVE STYLES
+   ======================================================================= */
+/* =======================================================================
+   MOBILE MEDIA QUERIES (Max Width 768px)
+   ======================================================================= */
+@media (max-width: 768px) {
+    /* --- Split Layout (Sidebar/Content) Fix --- */
+    .split-container {
+        /* Change from 2-column grid to 1-column stack */
+        grid-template-columns: 1fr; 
+        /* Add space for the new fixed bottom navigation bar */
+        height: calc(100vh - 60px); 
+    }
+
+    /* --- Sidebar/Navigation Fix --- */
+    .split-sidebar {
+        /* Move sidebar to a fixed position at the bottom */
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 60px; /* Fixed height for bottom bar */
+        padding: 0;
+        
+        /* Change from column to row for a horizontal nav bar */
+        flex-direction: row; 
+        justify-content: space-around;
+        align-items: center;
+        background: #F2F2F7;
+        border-top: 1px solid #D6D6D6;
+        border-right: none;
+        z-index: 20; /* Ensure it's on top of content */
+    }
+
+    /* --- Tab Navigation Buttons Fix --- */
+    .tab-nav {
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        height: 100%;
+    }
+
+    .tab-nav button {
+        /* Center content vertically and horizontally */
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 4px 0;
+        width: auto;
+        flex-grow: 1; /* Make buttons expand evenly */
+        font-size: 12px; /* Smaller font for mobile */
+    }
+
+    /* Remove button style changes on hover/active for mobile nav */
+    .tab-nav button:hover,
+    .tab-nav button.active {
+        background: none;
+        box-shadow: none;
+        width: auto;
+    }
+    
+    /* Highlight the icon, not the background for active tab */
+    .tab-nav button.active img.icon {
+        filter: invert(57%) sepia(19%) saturate(836%) hue-rotate(344deg) brightness(89%) contrast(85%); /* Makes icon look gold/brown like the text */
+    }
+
+    /* --- Content Area Fix --- */
+    .split-content {
+        padding: 8px; /* Less padding on mobile */
+        /* Content now occupies the full width above the fixed navigation */
+        height: 100%;
+        overflow-y: auto; 
+    }
+
+    .tab-content {
+        /* Ensure content takes up the available vertical space */
+        min-height: auto; 
+        padding-bottom: 60px; /* Prevent content from hiding behind fixed nav */
+    }
+}
+
+
+
 @media (max-width: 768px) {
     /* --- Login/Register Fixes --- */
     .login-form {
