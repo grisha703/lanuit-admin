@@ -993,3 +993,42 @@ input {
         height: 150px;
     }
 }
+
+@media (max-width: 768px) {
+    /* --- Modal/Alert Fixes --- */
+    .alert-backdrop {
+        /* Remove sidebar offset and center globally */
+        padding-left: 0; 
+    }
+
+    .alert-box, .product-form-box {
+        width: 90%; /* Wider on mobile */
+        max-width: 90%; /* Use almost full width */
+    }
+    
+    /* --- Add Product Form Grid Fix --- */
+    .product-form-box {
+        /* Allows the grid to stack for smaller screens */
+        padding: 0 16px;
+    }
+    
+    .form-grid {
+        /* Stack inputs and image vertically */
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    
+    .right-image-area {
+        grid-column: 1 / 2; /* Move image to its own full-width row */
+        padding-left: 0;
+        align-items: center; /* Center the image in its new full-width space */
+    }
+    
+    .custom-image-frame {
+        margin: 10px auto; /* Center the image frame horizontally */
+    }
+    
+    .left-inputs input.alert-input:last-child {
+        margin-bottom: 12px; /* Restore margin after removing stacking dependency */
+    }
+}
