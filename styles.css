@@ -708,6 +708,10 @@ input {
 .product-form-box {
     width: 90%;
     max-width: 400px;
+
+    max-height: 90vh;
+    overflow-y: auto;
+
     align-items: flex-start;
     /* Remove default flex-direction: column behavior by managing children inside .form-grid */
     /* Adjust padding to account for elements spanning the width */
