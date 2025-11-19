@@ -965,6 +965,38 @@ input {
     }
 }
 
+@media (max-width: 768px) {
+    /* --- Product Grid Fix --- */
+    .product-collection-view {
+        /* Change from 6 columns to 3 columns on mobile */
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px; /* Reduce gap */
+    }
+
+    .category-container {
+        /* Reduce padding for mobile */
+        padding: 8px 5px 10px 5px;
+    }
+    
+    .category-name-title {
+        /* Adjust the negative margin to match new padding */
+        margin-left: -5px; 
+        width: calc(100% + 10px); /* 100% + 5px left + 5px right */
+        padding-left: 5px;
+        font-size: 16px; /* Smaller title */
+    }
+    
+    .page-title {
+        font-size: 16px;
+    }
+
+    /* --- Product Details Font Fix --- */
+    .product-name, .product-price {
+        font-size: 12px; /* Smaller font for item details */
+        bottom: 3px;
+    }
+}
+
 
 
 @media (max-width: 768px) {
