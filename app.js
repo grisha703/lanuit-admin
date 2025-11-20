@@ -672,6 +672,53 @@ document.addEventListener('alpine:init', () => {
 
 
 
+    // --------------------------
+    // Orders Management
+    // --------------------------
+    orders: [],   // store the fetched orders here
+
+    // 🟢 Fetch Orders
+    async fetchOrders() {
+      if (!this.token) {
+        alert('Please log in to load orders.');
+        return;
+      }
+
+      try {
+        const response = await fetch('https://ftlcafe.pythonanywhere.com/Orders/', {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Authorization': 'Bearer ' + this.token
+          }
+        });
+
+        const text = await response.text();
+        console.log('Raw Orders response:', text);
+
+        if (!response.ok) {
+          try {
+            const errorData = JSON.parse(text);
+            throw new Error(errorData.detail || 'Failed to fetch orders');
+          } catch {
+            throw new Error('Failed to fetch orders: ' + text);
+          }
+        }
+
+        const data = JSON.parse(text);
+        console.log('✅ Orders fetched:', data);
+
+        this.orders = data;  // save to state
+
+      } catch (err) {
+        console.error(err);
+        alert(err.message || 'Orders fetch failed.');
+      }
+    },
+
+
+
+
   }));
 });
 
