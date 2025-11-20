@@ -190,22 +190,37 @@
                     </template>
 
                     <div class="order-list">
-
                         <template x-for="order in orders" :key="order.id">
                             <div class="order-card">
+
                                 <h3>Order #<span x-text="order.id"></span></h3>
 
-                                <div x-for="item in order.items" class="order-item-row">
-                                    <p><strong>Product:</strong> <span x-text="item.product"></span></p>
-                                    <p><strong>Quantity:</strong> <span x-text="item.quantity"></span></p>
-                                    <p><strong>Status:</strong> <span x-text="item.status"></span></p>
-                                    <hr>
+                                <div class="order-item-row">
+                                    <p><strong>Product:</strong> <span x-text="order.product"></span></p>
                                 </div>
+
+                                <div class="order-item-row">
+                                    <p><strong>Quantity:</strong> <span x-text="order.quantity"></span></p>
+                                </div>
+
+                                <div class="order-item-row">
+                                    <p><strong>Status:</strong> <span x-text="order.status"></span></p>
+                                </div>
+
+                                <hr>
+
+                                <p><strong>Note:</strong> <span x-text="order.note"></span></p>
+
+                                <p class="order-date">
+                                    <strong>Created:</strong>
+                                    <span x-text="new Date(order.created_at).toLocaleString()"></span>
+                                </p>
+
                             </div>
                         </template>
-
                     </div>
                 </div>
+
 
 
 

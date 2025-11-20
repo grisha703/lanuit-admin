@@ -706,9 +706,9 @@ document.addEventListener('alpine:init', () => {
         }
 
         const data = JSON.parse(text);
-        console.log('✅ Orders fetched:', data);
+        console.log('Orders fetched:', data);
 
-        this.orders = data;  // save to state
+        this.orders = data;
 
       } catch (err) {
         console.error(err);
