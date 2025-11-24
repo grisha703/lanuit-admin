@@ -1067,3 +1067,55 @@ input {
         margin-bottom: 12px; /* Restore margin after removing stacking dependency */
     }
 }
+
+
+/* =======================================================================
+   ORDER STYLES
+   ======================================================================= */
+.order-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 15px;
+}
+
+.order-card {
+  background: #FFFFFF;
+  border: 1px solid #D6D6D6;
+  border-radius: 8px;
+  padding: 12px 16px;
+  font-family: 'Inter', sans-serif;
+  color: #9A8568;
+}
+
+.order-card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #9A8568;
+  margin: 0 0 10px 0;
+}
+
+.order-item-row p {
+  margin: 4px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #9A8568;
+}
+
+.order-card p {
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  color: #9A8568;
+}
+
+.order-date {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #A6A6A6;
+}
+
+.order-card hr {
+  border: none;
+  border-bottom: 1px solid #D6D6D6;
+  margin: 10px 0;
+}
