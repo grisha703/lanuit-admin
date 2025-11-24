@@ -212,7 +212,6 @@
                                 <div class="order-item" x-data="{ open: false }">
 
                                     <div class="order-header">
-                                        <h3>Order #12345</h3>
 
                                         <button @click="open = !open" class="toggle-note-btn">
                                             <span x-text="open ? 'Hide details' : 'Show details'"></span>
@@ -224,19 +223,18 @@
                                     </div>
 
                                     <div class="order-extra" x-show="open" x-collapse>
-                                        <p><strong>Note:</strong> Client wants delivery after 5 PM.</p>
-                                        <p><strong>Created:</strong> 2025-02-12 14:33</p>
+                                        <p><strong>Note:</strong> <span x-text="order.note"></span></p>
+
+                                        <p class="order-date">
+                                            <strong>Created:</strong>
+                                            <span x-text="new Date(order.created_at).toLocaleString()"></span>
+                                        </p>
                                     </div>
 
                                 </div>
 
 
-                                <p><strong>Note:</strong> <span x-text="order.note"></span></p>
 
-                                <p class="order-date">
-                                    <strong>Created:</strong>
-                                    <span x-text="new Date(order.created_at).toLocaleString()"></span>
-                                </p>
 
                             </div>
                         </template>
