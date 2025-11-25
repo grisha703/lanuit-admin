@@ -1120,6 +1120,13 @@ input {
   margin: 10px 0;
 }
 
+.toggle-note-btn {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
 .toggle-icon {
     width: 20px;
     height: 20px;
