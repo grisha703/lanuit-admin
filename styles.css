@@ -1120,6 +1120,16 @@ input {
   margin: 10px 0;
 }
 
+.toggle-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.toggle-text {
+    cursor: pointer;
+}
+
 .toggle-note-btn {
     background: transparent;
     border: none;
