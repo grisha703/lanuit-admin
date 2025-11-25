@@ -680,7 +680,7 @@ document.addEventListener('alpine:init', () => {
     // 🟢 Fetch Orders
     async fetchOrders() {
       if (!this.token) {
-        alert('Please log in to load orders.');
+        //alert('Please log in to load orders.');
         return;
       }
 
