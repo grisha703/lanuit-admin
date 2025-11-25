@@ -210,17 +210,6 @@
 
                                 <div class="order-item" x-data="{ open: false }">
 
-                                    <div class="toggle-wrapper">
-                                        <button @click="open = !open" class="toggle-note-btn">
-                                            <img :src="open ? 'icons/show.less.image.png' : 'icons/show.more.image.png'"
-                                                class="toggle-icon">
-                                        </button>
-
-                                        <span class="toggle-text" @click="open = !open">
-                                            <span x-text="open ? 'Show less' : 'Show more'"></span>
-                                        </span>
-                                    </div>
-
 
                                     <div class="order-summary">
                                         <!-- your product info -->
@@ -233,6 +222,17 @@
                                             <strong>Created:</strong>
                                             <span x-text="new Date(order.created_at).toLocaleString()"></span>
                                         </p>
+                                    </div>
+
+                                    <div class="toggle-wrapper">
+                                        <button @click="open = !open" class="toggle-note-btn">
+                                            <img :src="open ? 'icons/show.less.image.png' : 'icons/show.more.image.png'"
+                                                class="toggle-icon">
+                                        </button>
+
+                                        <span class="toggle-text" @click="open = !open">
+                                            <span x-text="open ? 'Show less' : 'Show more'"></span>
+                                        </span>
                                     </div>
 
                                 </div>
