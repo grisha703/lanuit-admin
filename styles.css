@@ -332,15 +332,16 @@ input {
 
 /* Tiny Line Separator for Header */
 .page-header::after {
-    display: none; /* Add this line to hide the separator */
-    position: absolute;
-    bottom: 0; 
-    left: 0;
-    right: 0;
-    height: 1px;
-    background-color: #D6D6D6; 
-    transform: scaleY(0.5); 
-    transform-origin: bottom;
+  display: none;
+  /* Add this line to hide the separator */
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #D6D6D6;
+  transform: scaleY(0.5);
+  transform-origin: bottom;
 }
 
 .page-title {
@@ -410,7 +411,8 @@ input {
 .alert-box {
   width: 330px;
 
-  max-height: 60vh; /* ⬅️ ADD THIS: Limit height to 90% of viewport height */
+  max-height: 60vh;
+  /* ⬅️ ADD THIS: Limit height to 90% of viewport height */
   overflow-y: auto;
   /*height: 236px;*/
   background: #FFFFFF;
@@ -419,7 +421,8 @@ input {
   /* ⬅️ reduced bottom padding */
   display: flex;
   flex-direction: column;
-  align-items: flex-start;;
+  align-items: flex-start;
+  ;
 }
 
 /* Title */
@@ -562,16 +565,19 @@ input {
   margin-bottom: 15px;
   /* 💥 KEY FIXES BELOW */
   /* 1. Use negative margin to pull the title element (and its border) to the left padding edge of the parent */
-  margin-left: -15px; 
+  margin-left: -15px;
   /* 2. Increase width to span the full width of the parent (including the original 15px padding on both sides) */
-  width: calc(100% + 30px); /* 100% + 15px left margin + 15px right margin of the parent container */
+  width: calc(100% + 30px);
+  /* 100% + 15px left margin + 15px right margin of the parent container */
   /* 3. Add padding-left back so the text doesn't overlap the left edge */
   padding-left: 15px;
 
   /* Keep border and padding-bottom */
-  border-bottom: 1px solid #9A8568; /* Changed to 2px for better visibility of the change */
+  border-bottom: 1px solid #9A8568;
+  /* Changed to 2px for better visibility of the change */
   padding-bottom: 5px;
-  box-sizing: border-box; /* Crucial for calc() and padding to work correctly */
+  box-sizing: border-box;
+  /* Crucial for calc() and padding to work correctly */
   /* 💥 FIX: Force capitalization of the first letter of each word */
   text-transform: capitalize;
 }
@@ -588,7 +594,7 @@ input {
   /* spacing */
   gap: 15px;
 
-  /* required insets padding: TOP RIGHT BOTTOM LEFT; */ 
+  /* required insets padding: TOP RIGHT BOTTOM LEFT; */
   padding: 0 0 0 0px;
 
   box-sizing: border-box;
@@ -597,8 +603,10 @@ input {
 
 .product-item,
 .add-product-tile {
-  width: 100%;       /* fill the grid cell */
-  aspect-ratio: 1;   /* keep square */
+  width: 100%;
+  /* fill the grid cell */
+  aspect-ratio: 1;
+  /* keep square */
 }
 
 /* --- Product Item (Image Tile) Styles --- */
@@ -694,9 +702,10 @@ input {
 
 /* --- Add Product Icon Fix --- */
 .add-product-tile img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* same as product images */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* same as product images */
 }
 
 .add-product-tile span {
@@ -706,100 +715,111 @@ input {
 
 /* Styles for the new Global Product Modal */
 .product-form-box {
-    width: 90%;
-    max-width: 400px;
-    align-items: flex-start;
-    /* Remove default flex-direction: column behavior by managing children inside .form-grid */
-    /* Adjust padding to account for elements spanning the width */
-    padding: 0px 16px 0px 16px; /* Keeping original padding */
+  width: 90%;
+  max-width: 400px;
+  align-items: flex-start;
+  /* Remove default flex-direction: column behavior by managing children inside .form-grid */
+  /* Adjust padding to account for elements spanning the width */
+  padding: 0px 16px 0px 16px;
+  /* Keeping original padding */
 }
 
 .form-grid {
-    /* 💥 Core Change: Set up the 2-column grid */
-    display: grid;
-    /* Column 1 (Left Inputs): Flexible width (1fr) 
+  /* 💥 Core Change: Set up the 2-column grid */
+  display: grid;
+  /* Column 1 (Left Inputs): Flexible width (1fr) 
        Column 2 (Right Image): Fixed width (140px image) + 12px inset = 152px total width for the image container */
-    grid-template-columns: 1fr 144px;
-    gap: 0;
-    width: 100%;
-    margin-top: 10px;
-    
-    /* ❌ REMOVE align-items: end; to fix the content being pushed to the bottom. */
-    /* We will use margins to manage the alignment instead. */
-    /* align-items: end; */
-    align-items: start;
+  grid-template-columns: 1fr 144px;
+  gap: 0;
+  width: 100%;
+  margin-top: 10px;
+
+  /* ❌ REMOVE align-items: end; to fix the content being pushed to the bottom. */
+  /* We will use margins to manage the alignment instead. */
+  /* align-items: end; */
+  align-items: start;
 }
 
 .left-inputs {
-    grid-column: 1 / 2;
-    /* Ensures items in the left column stack vertically, starting from the top */
-    display: flex;
-    flex-direction: column;
-    padding: 0;
+  grid-column: 1 / 2;
+  /* Ensures items in the left column stack vertically, starting from the top */
+  display: flex;
+  flex-direction: column;
+  padding: 0;
 }
 
 .right-image-area {
   grid-column: 2 / 3;
-    /* Ensures items in the right column stack vertically, starting from the top */
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    
-    /* Set the 12px inset/spacing on the left side of the image column */
-    padding-left: 12px;
-    justify-content: flex-start;
-    margin-bottom: 0;
-    margin-left: 0px;
+  /* Ensures items in the right column stack vertically, starting from the top */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  /* Set the 12px inset/spacing on the left side of the image column */
+  padding-left: 12px;
+  justify-content: flex-start;
+  margin-bottom: 0;
+  margin-left: 0px;
 }
 
 
 
 .input-label {
-    /* Styles similar to your alert-title but left-aligned for form fields */
-    font-family: 'Inter', sans-serif;
-    font-weight: 500; /* Medium */
-    font-size: 16px;
-    color: #9A8568;
-    margin-top: 8px; /* Spacing above the label */
-    margin-bottom: 5px; /* Small space before the input */
-    padding-left: 0px; /* Aligns with the input text field */
-    width: 100%;
-    text-align: left;
-    margin-left: 0px;
+  /* Styles similar to your alert-title but left-aligned for form fields */
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  /* Medium */
+  font-size: 16px;
+  color: #9A8568;
+  margin-top: 8px;
+  /* Spacing above the label */
+  margin-bottom: 5px;
+  /* Small space before the input */
+  padding-left: 0px;
+  /* Aligns with the input text field */
+  width: 100%;
+  text-align: left;
+  margin-left: 0px;
 }
 
 .left-inputs .input-label:first-child {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 .right-image-area .input-label:first-child {
-    /* Target the label above the Price input to match its top alignment */
-    /* This calculation is a bit tricky, but should visually align with the 'Price' label's top edge */
-    margin-top: 0px;
+  /* Target the label above the Price input to match its top alignment */
+  /* This calculation is a bit tricky, but should visually align with the 'Price' label's top edge */
+  margin-top: 0px;
 }
 
 .product-form-box input.alert-input {
-    /* Override the border: none from the generic .alert-input */
-    border: 1px solid #9A8568; /* Changed to 1px as per your snippet */
-    background-color: #FFFFFF; 
-    border-radius: 8px; /* Changed to 8px as per your snippet */
-    padding: 8px 8px;
-    margin-top: 0px;
-    margin-bottom: 6px; /* Space between inputs */
-    
-    /* 💥 CRITICAL FIX: Ensure padding and border are included in the 100% width calculation */
-    width: calc(100% - 8px);
-    box-sizing: border-box;
-    /* Adjustments for vertical spacing when used with new .input-label */
-    margin-right: 0px;
-    margin-top: 0px; 
-    margin-bottom: 12px;
+  /* Override the border: none from the generic .alert-input */
+  border: 1px solid #9A8568;
+  /* Changed to 1px as per your snippet */
+  background-color: #FFFFFF;
+  border-radius: 8px;
+  /* Changed to 8px as per your snippet */
+  padding: 8px 8px;
+  margin-top: 0px;
+  margin-bottom: 6px;
+  /* Space between inputs */
+
+  /* 💥 CRITICAL FIX: Ensure padding and border are included in the 100% width calculation */
+  width: calc(100% - 8px);
+  box-sizing: border-box;
+  /* Adjustments for vertical spacing when used with new .input-label */
+  margin-right: 0px;
+  margin-top: 0px;
+  margin-bottom: 12px;
 }
 
 .form-buttons {
-    width: 100%; /* Ensure it spans the full width of the unpadded parent */
-    padding: 0 0px; /* Apply 16px padding on the left/right */
-    box-sizing: border-box; /* Ensure padding is included in width calculation */
+  width: 100%;
+  /* Ensure it spans the full width of the unpadded parent */
+  padding: 0 0px;
+  /* Apply 16px padding on the left/right */
+  box-sizing: border-box;
+  /* Ensure padding is included in width calculation */
 }
 
 .file-label {
@@ -819,60 +839,73 @@ input {
 
 /* 1. Hide the actual file input completely */
 .hidden-file-input {
-    /* Standard way to visually hide an input while keeping it accessible */
-    opacity: 0;
-    position: absolute;
-    z-index: -1;
-    width: 0.1px;
-    height: 0.1px;
-    overflow: hidden;
-    pointer-events: none; /* Allows clicks to pass through to the label */
+  /* Standard way to visually hide an input while keeping it accessible */
+  opacity: 0;
+  position: absolute;
+  z-index: -1;
+  width: 0.1px;
+  height: 0.1px;
+  overflow: hidden;
+  pointer-events: none;
+  /* Allows clicks to pass through to the label */
 }
 
 /* 2. Style your custom 140x140px frame */
 .custom-image-frame {
-    width: 130px;
-    height: 137px;
-    border: 1px dashed #D6D6D6; /* Example: a dashed border for the frame */
-    border-radius: 8px;
-    background-color: #F8F8F8; /* Light background for empty state */
-    display: flex; /* For centering the plus icon */
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    overflow: hidden; /* Ensures image doesn't spill out */
-    background-size: cover; /* Important for background image to fill the frame */
-    background-position: center; /* Center the background image */
-    background-repeat: no-repeat; /* Do not repeat the image */
-    flex-grow: 0; 
-    margin: 0;
-    margin-bottom: 0px;
-    transition: background-color 0.2s, border-color 0.2s; /* Smooth transitions */
+  width: 130px;
+  height: 137px;
+  border: 1px dashed #D6D6D6;
+  /* Example: a dashed border for the frame */
+  border-radius: 8px;
+  background-color: #F8F8F8;
+  /* Light background for empty state */
+  display: flex;
+  /* For centering the plus icon */
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  overflow: hidden;
+  /* Ensures image doesn't spill out */
+  background-size: cover;
+  /* Important for background image to fill the frame */
+  background-position: center;
+  /* Center the background image */
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  flex-grow: 0;
+  margin: 0;
+  margin-bottom: 0px;
+  transition: background-color 0.2s, border-color 0.2s;
+  /* Smooth transitions */
 }
 
 .left-inputs input.alert-input:last-child {
-    /* 💥 To make the Order Number input line up with the image's bottom, we remove its bottom margin */
-    margin-bottom: 0px; 
+  /* 💥 To make the Order Number input line up with the image's bottom, we remove its bottom margin */
+  margin-bottom: 0px;
 
-    width: calc(100% - 8px);
+  width: calc(100% - 8px);
 }
 
 .custom-image-frame:hover {
-    background-color: #EFEFEF; /* Slightly darker on hover */
-    border-color: #9A8568; /* Highlight border on hover */
+  background-color: #EFEFEF;
+  /* Slightly darker on hover */
+  border-color: #9A8568;
+  /* Highlight border on hover */
 }
 
 /* 3. Style the plus icon inside the empty frame */
 .custom-image-frame .plus-icon {
-    width: 50px; /* Adjust size of your plus icon */
-    height: 50px;
-    object-fit: contain;
-    opacity: 0.6; /* Make it slightly transparent */
+  width: 50px;
+  /* Adjust size of your plus icon */
+  height: 50px;
+  object-fit: contain;
+  opacity: 0.6;
+  /* Make it slightly transparent */
 }
 
 /* When an image is present, hide the plus icon */
 .custom-image-frame[style*="background-image"] .plus-icon {
-    display: none;
+  display: none;
 }
 
 /* Reduce font size to prevent the text from being clipped by the number picker arrows */
@@ -881,7 +914,7 @@ input {
 } */
 
 .product-form-box .right-image-area {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 
@@ -892,180 +925,207 @@ input {
    MOBILE MEDIA QUERIES (Max Width 768px)
    ======================================================================= */
 @media (max-width: 768px) {
-    /* --- Split Layout (Sidebar/Content) Fix --- */
-    .split-container {
-        /* Change from 2-column grid to 1-column stack */
-        grid-template-columns: 1fr; 
-        /* Add space for the new fixed bottom navigation bar */
-        height: calc(100vh - 60px); 
-    }
 
-    /* --- Sidebar/Navigation Fix --- */
-    .split-sidebar {
-        /* Move sidebar to a fixed position at the bottom */
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        height: 60px; /* Fixed height for bottom bar */
-        padding: 0;
-        
-        /* Change from column to row for a horizontal nav bar */
-        flex-direction: row; 
-        justify-content: space-around;
-        align-items: center;
-        background: #F2F2F7;
-        border-top: 1px solid #D6D6D6;
-        border-right: none;
-        z-index: 20; /* Ensure it's on top of content */
-    }
+  /* --- Split Layout (Sidebar/Content) Fix --- */
+  .split-container {
+    /* Change from 2-column grid to 1-column stack */
+    grid-template-columns: 1fr;
+    /* Add space for the new fixed bottom navigation bar */
+    height: calc(100vh - 60px);
+  }
 
-    /* --- Tab Navigation Buttons Fix --- */
-    .tab-nav {
-        display: flex;
-        width: 100%;
-        justify-content: space-around;
-        height: 100%;
-    }
+  /* --- Sidebar/Navigation Fix --- */
+  .split-sidebar {
+    /* Move sidebar to a fixed position at the bottom */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 60px;
+    /* Fixed height for bottom bar */
+    padding: 0;
 
-    .tab-nav button {
-        /* Center content vertically and horizontally */
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 4px 0;
-        width: auto;
-        flex-grow: 1; /* Make buttons expand evenly */
-        font-size: 12px; /* Smaller font for mobile */
-    }
+    /* Change from column to row for a horizontal nav bar */
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    background: #F2F2F7;
+    border-top: 1px solid #D6D6D6;
+    border-right: none;
+    z-index: 20;
+    /* Ensure it's on top of content */
+  }
 
-    /* Remove button style changes on hover/active for mobile nav */
-    .tab-nav button:hover,
-    .tab-nav button.active {
-        background: none;
-        box-shadow: none;
-        width: auto;
-    }
-    
-    /* Highlight the icon, not the background for active tab */
-    .tab-nav button.active img.icon {
-        filter: invert(57%) sepia(19%) saturate(836%) hue-rotate(344deg) brightness(89%) contrast(85%); /* Makes icon look gold/brown like the text */
-    }
+  /* --- Tab Navigation Buttons Fix --- */
+  .tab-nav {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    height: 100%;
+  }
 
-    /* --- Content Area Fix --- */
-    .split-content {
-        padding: 8px; /* Less padding on mobile */
-        /* Content now occupies the full width above the fixed navigation */
-        height: 100%;
-        overflow-y: auto; 
-    }
+  .tab-nav button {
+    /* Center content vertically and horizontally */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 0;
+    width: auto;
+    flex-grow: 1;
+    /* Make buttons expand evenly */
+    font-size: 12px;
+    /* Smaller font for mobile */
+  }
 
-    .tab-content {
-        /* Ensure content takes up the available vertical space */
-        min-height: auto; 
-        padding-bottom: 60px; /* Prevent content from hiding behind fixed nav */
-    }
+  /* Remove button style changes on hover/active for mobile nav */
+  .tab-nav button:hover,
+  .tab-nav button.active {
+    background: none;
+    box-shadow: none;
+    width: auto;
+  }
+
+  /* Highlight the icon, not the background for active tab */
+  .tab-nav button.active img.icon {
+    filter: invert(57%) sepia(19%) saturate(836%) hue-rotate(344deg) brightness(89%) contrast(85%);
+    /* Makes icon look gold/brown like the text */
+  }
+
+  /* --- Content Area Fix --- */
+  .split-content {
+    padding: 8px;
+    /* Less padding on mobile */
+    /* Content now occupies the full width above the fixed navigation */
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .tab-content {
+    /* Ensure content takes up the available vertical space */
+    min-height: auto;
+    padding-bottom: 60px;
+    /* Prevent content from hiding behind fixed nav */
+  }
 }
 
 @media (max-width: 768px) {
-    /* --- Product Grid Fix --- */
-    .product-collection-view {
-        /* Change from 6 columns to 3 columns on mobile */
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-        gap: 10px; /* Reduce gap */
-    }
 
-    .category-container {
-        /* Reduce padding for mobile */
-        padding: 8px 5px 10px 5px;
-    }
-    
-    .category-name-title {
-        /* Adjust the negative margin to match new padding */
-        margin-left: -5px; 
-        width: calc(100% + 10px); /* 100% + 5px left + 5px right */
-        padding-left: 5px;
-        font-size: 16px; /* Smaller title */
-    }
-    
-    .page-title {
-        font-size: 16px;
-    }
+  /* --- Product Grid Fix --- */
+  .product-collection-view {
+    /* Change from 6 columns to 3 columns on mobile */
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+    /* Reduce gap */
+  }
 
-    /* --- Product Details Font Fix --- */
-    .product-name, .product-price {
-        font-size: 12px; /* Smaller font for item details */
-        bottom: 3px;
-    }
+  .category-container {
+    /* Reduce padding for mobile */
+    padding: 8px 5px 10px 5px;
+  }
+
+  .category-name-title {
+    /* Adjust the negative margin to match new padding */
+    margin-left: -5px;
+    width: calc(100% + 10px);
+    /* 100% + 5px left + 5px right */
+    padding-left: 5px;
+    font-size: 16px;
+    /* Smaller title */
+  }
+
+  .page-title {
+    font-size: 16px;
+  }
+
+  /* --- Product Details Font Fix --- */
+  .product-name,
+  .product-price {
+    font-size: 12px;
+    /* Smaller font for item details */
+    bottom: 3px;
+  }
 }
 
 
 
 @media (max-width: 768px) {
-    /* --- Login/Register Fixes --- */
-    .login-form {
-        padding-top: 10vh; /* Better vertical centering on mobile */
-        max-width: 90%; /* Use most of the screen width */
-    }
 
-    .login-form input {
-        width: 100%; /* Make inputs fill the max-width */
-        font-size: 16px;
-    }
+  /* --- Login/Register Fixes --- */
+  .login-form {
+    padding-top: 10vh;
+    /* Better vertical centering on mobile */
+    max-width: 90%;
+    /* Use most of the screen width */
+  }
 
-    .login-form input::placeholder {
-        font-size: 16px;
-    }
+  .login-form input {
+    width: 100%;
+    /* Make inputs fill the max-width */
+    font-size: 16px;
+  }
 
-    .login-form button {
-        font-size: 16px;
-    }
+  .login-form input::placeholder {
+    font-size: 16px;
+  }
 
-    /* Splash image size reduction */
-    .login-image, #animatedImage {
-        width: 150px;
-        height: 150px;
-    }
+  .login-form button {
+    font-size: 16px;
+  }
+
+  /* Splash image size reduction */
+  .login-image,
+  #animatedImage {
+    width: 150px;
+    height: 150px;
+  }
 }
 
 @media (max-width: 768px) {
-    /* --- Modal/Alert Fixes --- */
-    .alert-backdrop {
-        /* Remove sidebar offset and center globally */
-        padding-left: 0; 
-    }
 
-    .alert-box, .product-form-box {
-        width: 90%; /* Wider on mobile */
-        max-width: 90%; /* Use almost full width */
-    }
-    
-    /* --- Add Product Form Grid Fix --- */
-    .product-form-box {
-        /* Allows the grid to stack for smaller screens */
-        padding: 0 16px;
-    }
-    
-    .form-grid {
-        /* Stack inputs and image vertically */
-        grid-template-columns: 1fr;
-        gap: 10px;
-    }
-    
-    .right-image-area {
-        grid-column: 1 / 2; /* Move image to its own full-width row */
-        padding-left: 0;
-        align-items: center; /* Center the image in its new full-width space */
-    }
-    
-    .custom-image-frame {
-        margin: 10px auto; /* Center the image frame horizontally */
-    }
-    
-    .left-inputs input.alert-input:last-child {
-        margin-bottom: 12px; /* Restore margin after removing stacking dependency */
-    }
+  /* --- Modal/Alert Fixes --- */
+  .alert-backdrop {
+    /* Remove sidebar offset and center globally */
+    padding-left: 0;
+  }
+
+  .alert-box,
+  .product-form-box {
+    width: 90%;
+    /* Wider on mobile */
+    max-width: 90%;
+    /* Use almost full width */
+  }
+
+  /* --- Add Product Form Grid Fix --- */
+  .product-form-box {
+    /* Allows the grid to stack for smaller screens */
+    padding: 0 16px;
+  }
+
+  .form-grid {
+    /* Stack inputs and image vertically */
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .right-image-area {
+    grid-column: 1 / 2;
+    /* Move image to its own full-width row */
+    padding-left: 0;
+    align-items: center;
+    /* Center the image in its new full-width space */
+  }
+
+  .custom-image-frame {
+    margin: 10px auto;
+    /* Center the image frame horizontally */
+  }
+
+  .left-inputs input.alert-input:last-child {
+    margin-bottom: 12px;
+    /* Restore margin after removing stacking dependency */
+  }
 }
 
 
@@ -1121,23 +1181,35 @@ input {
 }
 
 .toggle-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .toggle-text {
-    cursor: pointer;
+  font-size: 14px;
+  /* adjust to your design */
+  color: #333;
+  /* adjust to your colors */
 }
 
 .toggle-note-btn {
-    background: transparent;
-    border: none;
-    padding: 0;
-    cursor: pointer;
+  display: flex;
+  align-items: center;
+  /* vertical center */
+  justify-content: center;
+  /* horizontal center */
+  gap: 6px;
+  /* space between icon + text */
+
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
+
 .toggle-icon {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
