@@ -207,6 +207,12 @@
                                     <p><strong>Status:</strong> <span x-text="order.status"></span></p>
                                 </div>
 
+                                <div class="order-actions">
+                                    <button class="order-btn delete" @click="deleteOrder(order.id)">
+                                        Delete
+                                    </button>
+                                </div>
+
 
                                 <div class="order-item" x-data="{ open: false }">
                                     <hr>

@@ -1221,3 +1221,21 @@ input {
   width: 15px;
   height: 15px;
 }
+
+.order-actions {
+    margin-top: 12px;
+}
+
+.order-btn.delete {
+    padding: 8px 14px;
+    font-size: 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+}
+
+.order-btn.delete:hover {
+    opacity: 0.85;
+}
