@@ -1239,8 +1239,8 @@ input {
     height: 40px; /* Optional: match delete button height exactly */
 }
 
-.toggle-combo-btn,
-.delete-btn {
+.toggle-combo-btn {
+
     height: 36px; /* set same height for both */
     display: flex;
     align-items: center; /* vertically center content */
