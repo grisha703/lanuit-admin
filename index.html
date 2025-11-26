@@ -207,6 +207,7 @@
                                     <p><strong>Status:</strong> <span x-text="order.status"></span></p>
                                 </div>
 
+
                                 <div class="order-item" x-data="{ open: false }">
                                     <hr>
 
@@ -223,18 +224,40 @@
                                         </p>
                                     </div>
 
-                                    <button @click="open = !open" class="toggle-combo-btn">
-                                        <img :src="open ? 'icons/show.less.image.png' : 'icons/show.more.image.png'"
-                                            class="toggle-icon">
+                                    <div class="toggle-wrapper">
+                                        <div class="toggle-left" @click="open = !open">
+                                            <button class="toggle-note-btn">
+                                                <img :src="open ? 'icons/show-less.png' : 'icons/show-more.png'"
+                                                    class="toggle-icon">
+                                            </button>
 
-                                        <span x-text="open ? 'Show less' : 'Show more'"></span>
-                                    </button>
+                                            <span class="toggle-text">
+                                                <span x-text="open ? 'Show less' : 'Show more'"></span>
+                                            </span>
+                                        </div>
+
+                                        <button class="delete-btn" @click="deleteOrder(order.id)">
+                                            Delete
+                                        </button>
+                                    </div>
+
+
+
 
                                 </div>
+
+
+
+
                             </div>
                         </template>
                     </div>
                 </div>
+
+
+
+
+
 
                 <div x-show="activeTab === 'tab4'" class="tab-content">
                     <h1 class="page-title">Settings</h1>
