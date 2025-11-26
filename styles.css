@@ -1223,6 +1223,12 @@ input {
     font-weight: 500;
 }
 
+.delete-btn:hover {
+    background: #c0392b;
+    color: white;
+    border: none;
+}
+
 .toggle-combo-btn {
     display: flex;
     align-items: center;
@@ -1256,11 +1262,6 @@ input {
 .toggle-icon {
     width: 16px;
     height: 16px;
-}
-
-
-.delete-btn:hover {
-    background: #c0392b;
 }
 
 
