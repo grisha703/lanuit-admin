@@ -1201,7 +1201,7 @@ input {
     gap: 6px;
     cursor: pointer;
 }
-/*
+
 .delete-btn {
     background: #e74c3c;
     border: none;
@@ -1210,8 +1210,8 @@ input {
     border-radius: 6px;
     font-weight: 600;
     cursor: pointer;
-}*/
-.delete-btn {
+}
+/*.delete-btn {
     border: 1px solid #9A8568;
     border-radius: 8px;
     padding: 6px 12px;
@@ -1219,7 +1219,7 @@ input {
     color: #9A8568;
     font-size: 16px;
     font-weight: 500;
-}
+}*/
 
 .toggle-combo-btn {
     display: flex;
