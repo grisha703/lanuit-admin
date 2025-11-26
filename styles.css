@@ -1225,18 +1225,17 @@ input {
 }
 
 .toggle-note-btn {
-  display: flex;
-  align-items: center;
-  /* vertical center */
-  justify-content: center;
-  /* horizontal center */
-  gap: 6px;
-  /* space between icon + text */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 6px;      /* Rounded corners */
+    padding: 4px 8px;        /* Space inside the button */
+    background-color: white; /* Optional background */
+    cursor: pointer;         /* Pointer on hover */
+    transition: all 0.2s ease; /* Smooth hover effect */
+}
 
-  background: transparent;
-  border: none;
-  padding: 0;
-  cursor: pointer;
+.toggle-note-btn:hover {
+    border-color: #888;      /* Darker border on hover */
+    background-color: #f9f9f9; /* Slight hover background */
 }
 
 
