@@ -1238,6 +1238,27 @@ input {
     background-color: #f9f9f9; /* Slight hover background */
 }
 
+.toggle-combo-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* space between icon and text */
+    
+    border: 1px solid #9A8568;  /* same color as your product screen */
+    border-radius: 8px;
+    padding: 6px 12px;
+
+    background-color: transparent; /* clear background */
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 500;
+    color: #9A8568;
+
+    transition: 0.2s ease;
+}
+
+.toggle-combo-btn:hover {
+    background-color: rgba(154, 133, 104, 0.10); /* light tint hover */
+}
 
 .toggle-icon {
   width: 15px;
