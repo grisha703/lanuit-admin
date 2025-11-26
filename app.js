@@ -716,6 +716,34 @@ document.addEventListener('alpine:init', () => {
       }
     },
 
+    async deleteOrder(id) {
+      if (!confirm("Are you sure you want to delete this order?")) return;
+
+      try {
+        const res = await fetch(`https://ftlcafe.pythonanywhere.com/Orders/${id}`, {
+          method: 'DELETE',
+          headers: {
+            'accept': 'application/json',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2NDEzNzc5MywianRpIjoiZGJkZTI3ZDQtOWQ3ZC00MzM0LTliY2MtMTY0Mjk4MWIzNTU0IiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEzIiwibmJmIjoxNzY0MTM3NzkzLCJjc3JmIjoiZjE4YjIzYjAtZTJhNy00YjY1LWJjY2EtODU5MThkYzgwMmJkIiwiZXhwIjoxNzY0MTk1MzkzLCJ1c2VyX3JvbGUiOiJhZG1pbiIsInVzZXJfc3RhdHVzIjoiYWN0aXZlIn0.-B18dAyTyPFW3Ge7VX-rWGC2HRZIfk31pohzQRuWDUk'
+          }
+        });
+
+        if (res.ok) {
+          // Remove deleted order from your orders array
+          this.orders = this.orders.filter(o => o.id !== id);
+          alert('Order deleted successfully');
+        } else {
+          alert('Failed to delete order');
+          console.error(await res.text());
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Error deleting order');
+      }
+    },
+
+
+
 
 
 
