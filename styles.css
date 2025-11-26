@@ -1239,6 +1239,11 @@ input {
     height: 40px; /* Optional: match delete button height exactly */
 }
 
+.toggle-combo-btn,
+.delete-btn {
+    width: 100px; /* or any value that fits your content */
+}
+
 .toggle-icon {
     width: 16px;
     height: 16px;
