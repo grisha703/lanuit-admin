@@ -225,17 +225,24 @@
                                     </div>
 
                                     <div class="toggle-wrapper">
-                                        <button @click="open = !open" class="toggle-note-btn">
-                                            <img :src="open ? 'icons/show.less.image.png' : 'icons/show.more.image.png'"
-                                                class="toggle-icon">
-                                        </button>
+                                        <div class="toggle-left" @click="open = !open">
+                                            <button class="toggle-note-btn">
+                                                <img :src="open ? 'icons/show.less.image.png' : 'icons/show.more.image.png'"
+                                                    class="toggle-icon">
+                                            </button>
 
-                                        <span class="toggle-text" @click="open = !open">
-                                            <span x-text="open ? 'Show less' : 'Show more'"></span>
-                                        </span>
+                                            <span class="toggle-text">
+                                                <span x-text="open ? 'Show less' : 'Show more'"></span>
+                                            </span>
+                                        </div>
+
+                                        <button class="delete-btn" @click="deleteOrder(order.id)">
+                                            Delete
+                                        </button>
                                     </div>
 
-                                    
+
+
 
                                 </div>
 

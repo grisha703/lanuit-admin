@@ -1189,10 +1189,33 @@ input {
 }
 
 .toggle-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 12px;
 }
+
+.toggle-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+
+.delete-btn {
+    background: #e74c3c;
+    border: none;
+    padding: 6px 14px;
+    color: white;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.delete-btn:hover {
+    background: #c0392b;
+}
+
 
 .toggle-text {
   font-size: 14px;
@@ -1234,8 +1257,4 @@ input {
     background-color: #d9534f;
     color: white;
     border: none;
-}
-
-.order-btn.delete:hover {
-    opacity: 0.85;
 }
