@@ -1232,36 +1232,42 @@ input {
 .toggle-combo-btn {
     display: flex;
     align-items: center;
-    gap: 8px;
 
     border: 1px solid #9A8568;   /* SAME as delete */
-    border-radius: 8px;          /* SAME as delete */
-    padding: 6px 12px;           /* SAME as delete */
-    background-color: transparent;
-    cursor: pointer;
 
     color: #9A8568;              /* SAME text color */
     font-size: 16px;             /* SAME font */
     font-weight: 500;            /* SAME weight */
 
-    height: 40px; /* Optional: match delete button height exactly */
-}
-
-.toggle-combo-btn {
     height: 36px; /* set same height for both */
-    display: flex;
-    align-items: center; /* vertically center content */
     justify-content: center;
-    padding: 0 12px; /* horizontal padding */
-    border: 1px solid #ccc;
-    border-radius: 6px;
     background: #fff;
     cursor: pointer;
+
+    gap: 6px; /* space between icon and text */
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background-color: #fff;
+    cursor: pointer;
+    height: 40px; /* match delete button height */
+    transition: background 0.3s ease, border 0.3s ease;
+}
+
+.toggle-combo-btn:hover {
+    background-color: #f0f0f0;
 }
 
 .toggle-icon {
     width: 16px;
     height: 16px;
+}
+
+.order-extra {
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 
 
