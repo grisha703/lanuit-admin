@@ -1241,7 +1241,15 @@ input {
 
 .toggle-combo-btn,
 .delete-btn {
-    width: 100px; /* or any value that fits your content */
+    height: 36px; /* set same height for both */
+    display: flex;
+    align-items: center; /* vertically center content */
+    justify-content: center;
+    padding: 0 12px; /* horizontal padding */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: #fff;
+    cursor: pointer;
 }
 
 .toggle-icon {
