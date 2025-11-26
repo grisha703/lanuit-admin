@@ -215,18 +215,14 @@
                                         <!-- your product info -->
                                     </div>
 
-                                    <div class="toggle-wrapper">
-                                        <button class="toggle-combo-btn" @click="open = !open">
-                                            <img :src="open ? 'icons/show-less.png' : 'icons/show-more.png'"
-                                                class="toggle-icon">
-                                            <span x-text="open ? 'Show less' : 'Show more'"></span>
-                                        </button>
+                                    <div class="order-extra" x-show="open" x-collapse>
+                                        <p><strong>Note:</strong> <span x-text="order.note"></span></p>
 
-                                        <button class="delete-btn" @click="deleteOrder(order.id)">
-                                            Delete
-                                        </button>
+                                        <p class="order-date">
+                                            <strong>Created:</strong>
+                                            <span x-text="new Date(order.created_at).toLocaleString()"></span>
+                                        </p>
                                     </div>
-
                                     <div class="toggle-wrapper">
 
 
