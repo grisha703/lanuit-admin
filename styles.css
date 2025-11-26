@@ -1203,6 +1203,7 @@ input {
 }
 
 .delete-btn {
+    height: 36px;
     background: #e74c3c;
     border: none;
     padding: 6px 14px;
@@ -1240,7 +1241,6 @@ input {
 }
 
 .toggle-combo-btn {
-
     height: 36px; /* set same height for both */
     display: flex;
     align-items: center; /* vertically center content */
