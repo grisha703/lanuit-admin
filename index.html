@@ -223,32 +223,22 @@
                                             <span x-text="new Date(order.created_at).toLocaleString()"></span>
                                         </p>
                                     </div>
-
                                     <div class="toggle-wrapper">
-                                        <div class="toggle-left" @click="open = !open">
-                                            <button class="toggle-note-btn">
-                                                <img :src="open ? 'icons/show-less.png' : 'icons/show-more.png'"
-                                                    class="toggle-icon">
-                                            </button>
 
-                                            <span class="toggle-text">
-                                                <span x-text="open ? 'Show less' : 'Show more'"></span>
-                                            </span>
-                                        </div>
+
+                                        <button class="toggle-combo-btn" @click="open = !open">
+                                            <img :src="open ? 'icons/show-less.png' : 'icons/show-more.png'"
+                                                class="toggle-icon">
+                                            <span x-text="open ? 'Show less' : 'Show more'"></span>
+                                        </button>
+
+
 
                                         <button class="delete-btn" @click="deleteOrder(order.id)">
                                             Delete
                                         </button>
                                     </div>
-
-
-
-
                                 </div>
-
-
-
-
                             </div>
                         </template>
                     </div>

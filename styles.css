@@ -1201,7 +1201,7 @@ input {
     gap: 6px;
     cursor: pointer;
 }
-
+/*
 .delete-btn {
     background: #e74c3c;
     border: none;
@@ -1210,7 +1210,40 @@ input {
     border-radius: 6px;
     font-weight: 600;
     cursor: pointer;
+}*/
+.delete-btn {
+    border: 1px solid #9A8568;
+    border-radius: 8px;
+    padding: 6px 12px;
+    background-color: transparent;
+    color: #9A8568;
+    font-size: 16px;
+    font-weight: 500;
 }
+
+.toggle-combo-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    border: 1px solid #9A8568;   /* SAME as delete */
+    border-radius: 8px;          /* SAME as delete */
+    padding: 6px 12px;           /* SAME as delete */
+    background-color: transparent;
+    cursor: pointer;
+
+    color: #9A8568;              /* SAME text color */
+    font-size: 16px;             /* SAME font */
+    font-weight: 500;            /* SAME weight */
+
+    height: 40px; /* Optional: match delete button height exactly */
+}
+
+.toggle-icon {
+    width: 16px;
+    height: 16px;
+}
+
 
 .delete-btn:hover {
     background: #c0392b;
