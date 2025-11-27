@@ -736,9 +736,7 @@ document.addEventListener('alpine:init', () => {
           this.showToast("Order deleted successfully")
 
           // Auto-hide toast
-          setTimeout(() => {
-            toastRoot.__x.$data.showToast = false;
-          }, 20000);
+          
 
         } else {
           // Toast error
