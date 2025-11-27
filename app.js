@@ -717,7 +717,7 @@ document.addEventListener('alpine:init', () => {
     },
 
     async deleteOrder(id) {
-      if (!confirm("Are you sure you want to delete this order?")) return;
+      if (!this.showToast("Are you sure you want to delete this order?")) return;
 
       try {
         const res = await fetch(`https://ftlcafe.pythonanywhere.com/Orders/${id}`, {
