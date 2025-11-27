@@ -716,10 +716,6 @@ document.addEventListener('alpine:init', () => {
       }
     },
 
-    showToast: false,
-    message: "",
-    toastType: "",   // "success" | "error"
-
     async deleteOrder(id) {
       if (!confirm("Are you sure you want to delete this order?")) return;
 
@@ -737,10 +733,7 @@ document.addEventListener('alpine:init', () => {
           this.orders = this.orders.filter(o => o.id !== id);
 
           // Access global Alpine toast
-          this.showToast = true;
-          toastRoot.__x.$data.message = "Order deleted successfully";
-          toastRoot.__x.$data.type = "success";
-          toastRoot.__x.$data.showToast = true;
+          this.showToast("Order deleted successfully")
 
           // Auto-hide toast
           setTimeout(() => {
@@ -749,26 +742,34 @@ document.addEventListener('alpine:init', () => {
 
         } else {
           // Toast error
-          this.showToast = true;
-          toastRoot.__x.$data.message = "Failed to delete order";
-          toastRoot.__x.$data.type = "error";
-          toastRoot.__x.$data.showToast = true;
+          this.showToast("Failed to delete order")
 
           console.error(await res.text());
         }
       } catch (err) {
         console.error(err);
 
-        this.showToast = true;
-        toastRoot.__x.$data.message = "Error deleting order";
-        toastRoot.__x.$data.type = "error";
-        toastRoot.__x.$data.showToast = true;
+        this.showToast("Error deleting order")
       }
     },
 
+    // 🟦
+// --------------------------
+// Show Toast
+// --------------------------
+showToast: false,
+    message: "",
+    toastType: "",   // "success" | "error"
 
+showToast(message, type = 'success') {
+    this.message = message;
+    this.type = type;
+    this.showToast = true;
 
-
+    setTimeout(() => {
+        this.showToast = false;
+    }, 3000);
+}
 
   }));
 });
