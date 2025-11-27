@@ -736,7 +736,7 @@ document.addEventListener('alpine:init', () => {
           this.showToast("Order deleted successfully")
 
           // Auto-hide toast
-          
+
 
         } else {
           // Toast error
@@ -752,22 +752,24 @@ document.addEventListener('alpine:init', () => {
     },
 
     // 🟦
-// --------------------------
-// Show Toast
-// --------------------------
-showToast: false,
+    // --------------------------
+    // Show Toast
+    // --------------------------
+    showToast: false,
     message: "",
     toastType: "",   // "success" | "error"
 
-showToast(message, type = 'success') {
-    this.message = message;
-    this.type = type;
-    this.showToast = true;
+    showToast(message, type = 'success') {
+      this.message = message;
+      this.type = type;
+      this.showToast = true;
 
-    setTimeout(() => {
+      // Auto-hide toast
+      setTimeout(() => {
         this.showToast = false;
-    }, 3000);
-}
+      }, 2500);
+    }
+
 
   }));
 });
