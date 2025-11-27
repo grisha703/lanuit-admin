@@ -25,7 +25,7 @@ document.addEventListener('alpine:init', () => {
       console.log('Login clicked', this.loginUsername, this.loginPassword);
 
       if (!this.loginUsername || !this.loginPassword) {
-        alert('Please enter username and password!');
+        this.showToast('Please enter username and password!');
         return;
       }
 
@@ -74,11 +74,11 @@ document.addEventListener('alpine:init', () => {
           // ✅ Fetch user info right after login
           await this.userInfo();
         } else {
-          alert('Invalid username or password:');
+          this.showToast('Invalid username or password:');
         }
       } catch (err) {
         console.error(err);
-        alert('Login failed. Please check your credentials.');
+        this.showToast('Login failed. Please check your credentials.');
       }
     },
 
@@ -96,7 +96,7 @@ document.addEventListener('alpine:init', () => {
       console.log('Register clicked', this.registerUsername, this.registerPassword, this.confirmPassword);
 
       if (!this.registerUsername.trim() || !this.registerPassword.trim()) {
-        alert('Please enter username and password!');
+        this.showToast('Please enter username and password!');
         return;
       }
 
@@ -139,11 +139,11 @@ document.addEventListener('alpine:init', () => {
           this.page = 'registerResponse';
           console.log('Registration successful for user ID:', data.id);
         } else {
-          alert('Unexpected response format.');
+          this.showToast('Unexpected response format.');
         }
       } catch (err) {
         console.error(err);
-        alert(err.message || 'Registration failed. Please try again.');
+        this.showToast(err.message || 'Registration failed. Please try again.');
       }
     },
 
@@ -157,7 +157,7 @@ document.addEventListener('alpine:init', () => {
       //console.log('Register clicked', this.registerUsername, this.registerPassword, this.confirmPassword);
 
       if (!this.token) {
-        alert('Please log in before checking your user information.');
+        this.showToast('Please log in before checking your user information.');
         return;
       }
 
@@ -195,13 +195,13 @@ document.addEventListener('alpine:init', () => {
           this.userRole = userRole;
           //this.page = 'registerResponse';
           //console.log('Successfully fetched user info for token:', token);
-          alert('Welcome! Your role: ' + userRole);
+          this.showToast('Welcome! Your role: ' + userRole);
         } else {
-          alert('Unexpected response format.');
+          this.showToast('Unexpected response format.');
         }
       } catch (err) {
         console.error(err);
-        alert(err.message || 'Failed to fetch user info. Please try again.');
+        this.showToast(err.message || 'Failed to fetch user info. Please try again.');
       }
     },
 
@@ -284,7 +284,7 @@ document.addEventListener('alpine:init', () => {
 
       } catch (err) {
         console.error('Sale statistics fetch failed:', err);
-        alert(err.message || 'Failed to fetch sale statistics.');
+        this.showToast(err.message || 'Failed to fetch sale statistics.');
       }
     },
 
@@ -413,7 +413,7 @@ document.addEventListener('alpine:init', () => {
 
       } catch (err) {
         console.error('Category fetch error:', err);
-        alert('Failed to fetch categories.');
+        this.showToast('Failed to fetch categories.');
       }
     },
 
@@ -433,11 +433,11 @@ document.addEventListener('alpine:init', () => {
     // 🟢
     async createCategory() {
       if (!this.newCategory.trim()) {
-        alert('Please enter a category name.');
+        this.showToast('Please enter a category name.');
         return;
       }
       if (!this.token) {
-        alert('You must be logged in to create a category.');
+        this.showToast('You must be logged in to create a category.');
         return;
       }
 
@@ -467,7 +467,7 @@ document.addEventListener('alpine:init', () => {
 
         const newCategoryData = JSON.parse(text);
         console.log('✅ Category created:', newCategoryData);
-        alert(`Category "${this.newCategory}" created successfully!`);
+        this.showToast(`Category "${this.newCategory}" created successfully!`);
 
         this.resetAddCategoryForm();
         // ⭐️ NEW: Refresh the category list after a successful creation
@@ -475,7 +475,7 @@ document.addEventListener('alpine:init', () => {
 
       } catch (err) {
         console.error(err);
-        alert(err.message || 'Category creation failed. Please try again.');
+        this.showToast(err.message || 'Category creation failed. Please try again.');
       }
     },
 
@@ -532,7 +532,7 @@ document.addEventListener('alpine:init', () => {
 
       } catch (err) {
         console.error(err);
-        alert(err.message || 'Failed to fetch products. Please try again.');
+        this.showToast(err.message || 'Failed to fetch products. Please try again.');
       }
     },
 
@@ -599,12 +599,12 @@ document.addEventListener('alpine:init', () => {
 
     async addNewProduct() {
       if (!this.addProductTempName || !this.addProductTempPrice || !this.addProductCategoryId || !this.newProductImageFile) {
-        alert('Please fill all product details and select an image.');
+        this.showToast('Please fill all product details and select an image.');
         return;
       }
 
       if (!this.token) {
-        alert('You must be logged in to add a product.');
+        this.showToast('You must be logged in to add a product.');
         return;
       }
 
@@ -644,7 +644,7 @@ document.addEventListener('alpine:init', () => {
 
         const data = JSON.parse(text);
         console.log('✅ Product created:', data);
-        alert('Product added successfully!');
+        this.showToast('Product added successfully!');
 
         // Increment order counter and save it
         this.orderCounter++;
@@ -656,7 +656,7 @@ document.addEventListener('alpine:init', () => {
 
       } catch (err) {
         console.error(err);
-        alert('Failed to add product: ' + err.message);
+        this.showToast('Failed to add product: ' + err.message);
       }
     },
 
@@ -712,12 +712,11 @@ document.addEventListener('alpine:init', () => {
 
       } catch (err) {
         console.error(err);
-        alert(err.message || 'Orders fetch failed.');
+        this.showToast(err.message || 'Orders fetch failed.');
       }
     },
 
     async deleteOrder(id) {
-      this.showToast("Order deleted successfully")
       if (!confirm("Are you sure you want to delete this order?")) return;
 
       try {
