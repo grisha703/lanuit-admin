@@ -717,6 +717,7 @@ document.addEventListener('alpine:init', () => {
     },
 
     async deleteOrder(id) {
+      this.showToast("Order deleted successfully")
       if (!confirm("Are you sure you want to delete this order?")) return;
 
       try {
