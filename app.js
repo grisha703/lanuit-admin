@@ -737,7 +737,7 @@ document.addEventListener('alpine:init', () => {
           this.orders = this.orders.filter(o => o.id !== id);
 
           // Access global Alpine toast
-          const toastRoot = document.querySelector('#toast-root');
+          this.showToast = true;
           toastRoot.__x.$data.message = "Order deleted successfully";
           toastRoot.__x.$data.type = "success";
           toastRoot.__x.$data.showToast = true;
@@ -749,7 +749,7 @@ document.addEventListener('alpine:init', () => {
 
         } else {
           // Toast error
-          const toastRoot = document.querySelector('#toast-root');
+          this.showToast = true;
           toastRoot.__x.$data.message = "Failed to delete order";
           toastRoot.__x.$data.type = "error";
           toastRoot.__x.$data.showToast = true;
@@ -759,7 +759,7 @@ document.addEventListener('alpine:init', () => {
       } catch (err) {
         console.error(err);
 
-        const toastRoot = document.querySelector('#toast-root');
+        this.showToast = true;
         toastRoot.__x.$data.message = "Error deleting order";
         toastRoot.__x.$data.type = "error";
         toastRoot.__x.$data.showToast = true;
