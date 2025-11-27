@@ -322,6 +322,11 @@
             </div>
         </div>
 
+        <div id="toast-root" x-data="{ showToast: false, message: '', type: 'success' }" x-show="showToast" x-transition
+            :class="type === 'success' ? 'toast success' : 'toast error'" class="toast">
+            <span x-text="message"></span>
+        </div>
+
 
 </body>
 
