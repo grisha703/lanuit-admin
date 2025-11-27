@@ -717,7 +717,7 @@ document.addEventListener('alpine:init', () => {
     },
 
     async deleteOrder(id) {
-      this.showToast("Are you sure you want to delete this order?")
+      if (!confirm("Are you sure you want to delete this order?")) return;
 
       try {
         const res = await fetch(`https://ftlcafe.pythonanywhere.com/Orders/${id}`, {
@@ -738,7 +738,7 @@ document.addEventListener('alpine:init', () => {
           // Auto-hide toast
           setTimeout(() => {
             toastRoot.__x.$data.showToast = false;
-          }, 2000);
+          }, 20000);
 
         } else {
           // Toast error
