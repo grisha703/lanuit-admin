@@ -716,51 +716,55 @@ document.addEventListener('alpine:init', () => {
       }
     },
 
-    async deleteOrder(id) {
-    if (!confirm("Are you sure you want to delete this order?")) return;
+    showToast: false,
+    message: "",
+    toastType: "",   // "success" | "error"
 
-    try {
+    async deleteOrder(id) {
+      if (!confirm("Are you sure you want to delete this order?")) return;
+
+      try {
         const res = await fetch(`https://ftlcafe.pythonanywhere.com/Orders/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'accept': 'application/json',
-                'Authorization': 'Bearer ' + this.token
-            }
+          method: 'DELETE',
+          headers: {
+            'accept': 'application/json',
+            'Authorization': 'Bearer ' + this.token
+          }
         });
 
         if (res.ok) {
-            // Remove deleted order from the array
-            this.orders = this.orders.filter(o => o.id !== id);
+          // Remove deleted order from the array
+          this.orders = this.orders.filter(o => o.id !== id);
 
-            // Access global Alpine toast
-            const toastRoot = document.querySelector('#toast-root');
-            toastRoot.__x.$data.message = "Order deleted successfully";
-            toastRoot.__x.$data.type = "success";
-            toastRoot.__x.$data.showToast = true;
+          // Access global Alpine toast
+          const toastRoot = document.querySelector('#toast-root');
+          toastRoot.__x.$data.message = "Order deleted successfully";
+          toastRoot.__x.$data.type = "success";
+          toastRoot.__x.$data.showToast = true;
 
-            // Auto-hide toast
-            setTimeout(() => {
-                toastRoot.__x.$data.showToast = false;
-            }, 2000);
+          // Auto-hide toast
+          setTimeout(() => {
+            toastRoot.__x.$data.showToast = false;
+          }, 2000);
 
         } else {
-            // Toast error
-            const toastRoot = document.querySelector('#toast-root');
-            toastRoot.__x.$data.message = "Failed to delete order";
-            toastRoot.__x.$data.type = "error";
-            toastRoot.__x.$data.showToast = true;
+          // Toast error
+          const toastRoot = document.querySelector('#toast-root');
+          toastRoot.__x.$data.message = "Failed to delete order";
+          toastRoot.__x.$data.type = "error";
+          toastRoot.__x.$data.showToast = true;
 
-            console.error(await res.text());
+          console.error(await res.text());
         }
-    } catch (err) {
+      } catch (err) {
         console.error(err);
 
         const toastRoot = document.querySelector('#toast-root');
         toastRoot.__x.$data.message = "Error deleting order";
         toastRoot.__x.$data.type = "error";
         toastRoot.__x.$data.showToast = true;
-    }
-},
+      }
+    },
 
 
 
