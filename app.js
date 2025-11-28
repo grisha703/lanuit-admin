@@ -758,7 +758,7 @@ document.addEventListener('alpine:init', () => {
     showToast: false,
     message: "",
     toastType: "error",
-/*
+
     showToast(message) {
       // If previous toast exists — remove it
       const oldToast = document.getElementById('toast');
@@ -780,19 +780,18 @@ document.addEventListener('alpine:init', () => {
       toast.style.transition = 'opacity 0.3s ease';
 
       document.body.appendChild(toast);
-
+/*
       // fade in
       setTimeout(() => {
         toast.style.opacity = '1';
       }, 10);
-
+*/
       // fade out and remove
       setTimeout(() => {
         toast.style.opacity = '0';
         setTimeout(() => toast.remove(), 300);
       }, 2500);
     },
-*/
 
 
   }));
