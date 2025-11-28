@@ -758,7 +758,7 @@ document.addEventListener('alpine:init', () => {
     showToast: false,
     message: "",
     toastType: "error",
-
+/*
     showToast(message) {
       // If previous toast exists — remove it
       const oldToast = document.getElementById('toast');
@@ -792,7 +792,7 @@ document.addEventListener('alpine:init', () => {
         setTimeout(() => toast.remove(), 300);
       }, 2500);
     },
-
+*/
 
 
   }));
