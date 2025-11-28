@@ -757,18 +757,17 @@ document.addEventListener('alpine:init', () => {
     // --------------------------
     showToast: false,
     message: "",
-    toastType: "",   // "success" | "error"
+    toastType: "error",
 
-    showToast(message, type = 'success') {
+    showToast(message, type = "error") {
       this.message = message;
-      this.type = type;
+      this.toastType = type;
       this.showToast = true;
 
-      // Auto-hide toast
       setTimeout(() => {
         this.showToast = false;
       }, 2500);
-    }
+    },
 
 
   }));
