@@ -51,7 +51,7 @@ body {
    NEW SCREEN (AFTER SPLASH)
    ======================================================================= */
 .new-screen {
-  /*display: none;*/
+  display: none;
   color: #A6A6A6;
   font-size: 1em;
   width: 100%;
