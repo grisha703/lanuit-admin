@@ -780,12 +780,11 @@ document.addEventListener('alpine:init', () => {
       toast.style.transition = 'opacity 0.3s ease';
 
       document.body.appendChild(toast);
-/*
       // fade in
       setTimeout(() => {
         toast.style.opacity = '1';
       }, 10);
-*/
+      
       // fade out and remove
       setTimeout(() => {
         toast.style.opacity = '0';
