@@ -1306,37 +1306,56 @@ input {
     border: none;
 }
 
-.toast {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 
-  background: #333;
-  color: white;
-  padding: 12px 18px;
-  border-radius: 6px;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-  z-index: 9999;
+
+
+/* =======================================================================
+   TOAST NOTIFICATION STYLES
+   ======================================================================= */
+
+.toast-container {
+    /* 1. Fix the element to the viewport */
+    position: fixed;
+    /* 2. Position it at the bottom of the screen */
+    bottom: 0;
+    /* 3. Make it span the full width horizontally */
+    left: 0;
+    right: 0;
+    /* 4. Use flexbox to center the content horizontally */
+    display: flex;
+    justify-content: center;
+    /* 5. Add some padding around the toast message itself */
+    padding: 1rem; /* 16px padding */
+    /* 6. Ensure it's above other content */
+    z-index: 99999; 
+    /* 7. Allow clicks to pass through the container (but not the message) */
+    pointer-events: none;
 }
 
-.toast.show {
-  opacity: 1;
+.toast-message {
+    /* Styles for the actual toast content block */
+    color: white;
+    padding: 0.75rem 1.5rem; /* 12px vertical, 24px horizontal */
+    border-radius: 0.5rem; /* 8px rounded corners */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+    
+    /* Allow the toast message itself to be clickable */
+    pointer-events: auto;
+    
+    /* Lift it slightly off the bottom edge */
+    margin-bottom: 1.5rem; /* 24px off the bottom */
 }
 
-/* Green success */
-.toast.success {
-    background: #28a745;
+/* Define the colors that were previously Tailwind classes */
+.bg-green-600 {
+    background-color: #059669; /* A nice green for success */
 }
 
-/* Red error */
-.toast.error {
-    background: #e53935;
+.bg-red-600 {
+    background-color: #dc2626; /* A nice red for error */
 }
 
-body, html {
-    position: static !important;
-    overflow: visible !important;
-    transform: none !important;
+/* Optional: Add a transition for when the toast appears/disappears */
+.toast-container {
+    transition: opacity 0.3s ease-in-out;
 }
