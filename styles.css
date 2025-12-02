@@ -1317,11 +1317,14 @@ input {
     /* 2. Position it at the bottom of the screen */
     bottom: 0;
     /* 3. Make it span the full width horizontally */
+    /* 🔑 CRITICAL FIX: Ensure full width */
     left: 0;
     right: 0;
+    
     /* 4. Use flexbox to center the content horizontally */
     display: flex;
     justify-content: center;
+    
     /* 5. Add some padding around the toast message itself */
     padding: 1rem; /* 16px padding */
     /* 6. Ensure it's above other content */
