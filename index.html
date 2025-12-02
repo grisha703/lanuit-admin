@@ -322,8 +322,8 @@
             </div>
         </div>
 
-        <div x-show="showToast" x-transition :class="toastType === 'success' ? 'bg-green-600' : 'bg-red-600'" class="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
-            text-white px-6 py-3 rounded shadow-lg">
+        <div x-show="showToast" x-transition :class="toastType === 'success' ? 'toast-success' : 'toast-error'"
+            class="toast-center">
             <span x-text="message"></span>
         </div>
 

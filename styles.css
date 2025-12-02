@@ -1334,3 +1334,22 @@ input {
 .toast.error {
     background: #e53935;
 }
+
+.toast-center {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+    padding: 14px 22px;
+    color: white;
+    border-radius: 8px;
+    z-index: 99999;
+}
+
+.toast-success {
+    background-color: #16a34a; /* green */
+}
+
+.toast-error {
+    background-color: #dc2626; /* red */
+}
