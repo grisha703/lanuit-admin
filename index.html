@@ -323,7 +323,8 @@
         </div>
 
         <div x-show="showToast" x-transition :class="toastType === 'success' ? 'toast-success' : 'toast-error'"
-            class="toast-center">
+            class="toast-center"
+            style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 999999999;">
             <span x-text="message"></span>
         </div>
 
