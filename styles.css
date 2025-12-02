@@ -1312,44 +1312,33 @@ input {
    ======================================================================= */
 
 .toast-container {
-    /* 1. Fix the element to the viewport and make it full screen (inset: 0) */
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    /* FORCED FULL-SCREEN POSITIONING */
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
     
-    /* 2. Use Flexbox to center the content */
-    display: flex;
-    /* Center horizontally */
-    justify-content: center;
-    /* Center vertically */
-    align-items: center; 
+    /* FORCED CENTERING */
+    display: flex !important;
+    justify-content: center !important; /* Centers horizontally */
+    align-items: center !important;   /* Centers vertically */
     
-    /* 3. Ensure it's above other content */
-    z-index: 99999; 
+    /* Z-INDEX AND INTERACTION */
+    z-index: 99999 !important; 
+    pointer-events: none !important;
     
-    /* 4. Crucial: Allow clicks to pass through the full-screen container */
-    pointer-events: none;
-    
-    /* Optional: Small padding around the container */
-    padding: 1rem; 
+    /* Ensure no background interference, though typically transparent */
+    background: transparent !important;
 }
 
 .toast-message {
-    /* Styles for the actual toast content block */
-    padding: 0.75rem 1.5rem; 
-    border-radius: 0.5rem; 
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-    
-    /* Crucial: Allow the toast message itself to be clickable */
-    pointer-events: auto;
-    
-    /* Remove any margins that forced it to the bottom */
-    margin: 0; 
+    /* Ensure the toast message can receive clicks */
+    pointer-events: auto !important;
+    margin: 0 !important;
 }
 
-/* Make sure your color classes are still defined as we did previously */
+/* Ensure your color classes are still defined */
 .bg-green-600 { background-color: #059669; }
 .bg-red-600 { background-color: #dc2626; }
 .text-white { color: white; }
