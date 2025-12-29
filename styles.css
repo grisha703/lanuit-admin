@@ -1330,32 +1330,19 @@ input {
    ======================================================================= */
 
 .toast-container {
-  /* FORCED FULL-SCREEN POSITIONING */
-  position: fixed !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
-  bottom: 0 !important;
-
-  /* FORCED CENTERING */
-  display: flex !important;
-  justify-content: center !important;
-  /* Centers horizontally */
-  align-items: center !important;
-  /* Centers vertically */
-
-  /* Z-INDEX AND INTERACTION */
-  z-index: 99999 !important;
-  pointer-events: none !important;
-
-  /* Ensure no background interference, though typically transparent */
-  background: transparent !important;
+    position: fixed;
+    top: 50%; /* vertical center */
+    left: 50%; /* horizontal center */
+    transform: translate(-50%, -50%); /* center exactly */
+    z-index: 9999; /* make sure it's on top */
+    pointer-events: none; /* so clicks go through */
 }
 
 .toast-message {
-  /* Ensure the toast message can receive clicks */
-  pointer-events: auto !important;
-  margin: 0 !important;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 500;
+    pointer-events: auto; /* allow interaction with toast itself if needed */
 }
 
 /* Ensure your color classes are still defined */
