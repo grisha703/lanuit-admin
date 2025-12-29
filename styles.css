@@ -1330,20 +1330,31 @@ input {
    ======================================================================= */
 
 .toast-container {
+    /* Position it relative to the viewport */
     position: fixed;
-    top: 20px;    /* distance from top */
-    right: 20px;  /* distance from right */
-    z-index: 1000;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    
+    /* Move to the exact center */
+    top: 50%;
+    left: 50%;
+    
+    /* Offset the container by half its own width/height to be perfectly centered */
+    transform: translate(-50%, -50%);
+    
+    /* Ensure it sits on top of all other elements (modals, sidebars, etc.) */
+    z-index: 9999;
+    
+    /* Optional: prevent clicks through to elements behind if needed */
+    pointer-events: none; 
 }
 
 .toast-message {
-    padding: 10px 20px;
-    border-radius: 5px;
-    color: white;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    /* Ensure the message itself allows clicks if it has buttons, 
+       otherwise keep pointer-events: auto */
+    pointer-events: auto;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
     min-width: 200px;
 }
 
