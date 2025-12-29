@@ -322,7 +322,14 @@
             </div>
         </div>
 
-        <div x-show="showToast" x-transition class="toast-container">
+        <div x-show="showToast" 
+        x-transition:enter="transition ease-out duration-300"
+     x-transition:enter-start="opacity-0 scale-90"
+     x-transition:enter-end="opacity-100 scale-100"
+     x-transition:leave="transition ease-in duration-300"
+     x-transition:leave-start="opacity-100 scale-100"
+     x-transition:leave-end="opacity-0 scale-90"
+        class="toast-container">
             <div :class="toastType === 'success' ? 'bg-green-600' : 'bg-red-600'" class="toast-message text-white">
                 <span x-text="message"></span>
             </div>
