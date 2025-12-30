@@ -322,17 +322,11 @@
             </div>
         </div>
 
-        <div x-show="showToast" 
-     x-transition 
-     class="toast-container" 
-     style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); bottom: auto !important; z-index: 9999;">
-    
-    <div :class="toastType === 'success' ? 'bg-green-600' : 'bg-red-600'" 
-         class="toast-message text-white"
-         style="padding: 15px 30px; border-radius: 8px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); text-align: center;">
-        <span x-text="message"></span>
-    </div>
-</div>
+        <div x-show="showToast" x-transition class="toast-container">
+            <div :class="toastType === 'success' ? 'bg-green-600' : 'bg-red-600'" class="toast-message text-white">
+                <span x-text="message"></span>
+            </div>
+        </div>
 
 </body>
 
