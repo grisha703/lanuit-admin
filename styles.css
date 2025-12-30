@@ -1330,31 +1330,32 @@ input {
    ======================================================================= */
 
 .toast-container {
-    /* This makes the container cover the entire screen area */
-    position: fixed !important;
-    inset: 0 !important; /* Shorthand for top:0, left:0, right:0, bottom:0 */
+    /* Position it relative to the viewport */
+    position: fixed;
     
-    /* This centers the content (the message) inside that screen area */
-    display: flex !important;
-    align-items: center;   /* Vertical center */
-    justify-content: center; /* Horizontal center */
+    /* Move to the exact center */
+    top: 50%;
+    left: 50%;
     
-    /* Ensure it sits on top of everything else */
-    z-index: 99999 !important;
+    /* Offset the container by half its own width/height to be perfectly centered */
+    transform: translate(-50%, -50%);
     
-    /* This allows you to click buttons behind the empty space of the toast */
+    /* Ensure it sits on top of all other elements (modals, sidebars, etc.) */
+    z-index: 9999;
+    
+    /* Optional: prevent clicks through to elements behind if needed */
     pointer-events: none; 
 }
 
 .toast-message {
-    /* This allows the user to interact with the toast itself */
+    /* Ensure the message itself allows clicks if it has buttons, 
+       otherwise keep pointer-events: auto */
     pointer-events: auto;
-    
-    padding: 16px 32px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    font-weight: 600;
-    font-size: 1.1rem;
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    min-width: 200px;
 }
 
 /* Ensure your color classes are still defined */
